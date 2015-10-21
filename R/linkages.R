@@ -8,7 +8,7 @@
 ##' @param dry         data.frame of observations with columns: mean, sd
 ##' @param bgs         data.frame of observations with columns: mean, sd
 ##' @param egs         data.frame of observations with columns: mean, sd
-##' @param max.ind         data.frame of observations with columns: mean, sd
+##' @param max.ind    data.frame of observations with columns: mean, sd
 ##' @param plat         data.frame of observations with columns: mean, sd
 ##'
 ##' @description Main function for running all LINKAGES subroutines
