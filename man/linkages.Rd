@@ -4,29 +4,47 @@
 \alias{linkages}
 \title{LINKAGES main function}
 \usage{
-linkages(iplot, nyear, nspec, fc, dry, bgs, egs, max.ind, plat)
+linkages(iplot, nyear, nspec, fc, dry, bgs, egs, max.ind, plat, temp.mat,
+  precip.mat, spp.params, switch.mat, fdat, clat, basesc = 74,
+  basesn = 1.64)
 }
 \arguments{
 \item{iplot}{PEcAn settings object}
 
-\item{nyear}{data.frame of initial condition sample (nens X nstate)}
+\item{nyear}{number of years}
 
-\item{nspec}{data.frame of model parameter sample (nense X nstate)}
+\item{nspec}{number of species}
 
-\item{fc}{data.frame of observations with columns: mean, sd}
+\item{fc}{field capacity}
 
-\item{dry}{data.frame of observations with columns: mean, sd}
+\item{dry}{wilting point}
 
-\item{bgs}{data.frame of observations with columns: mean, sd}
+\item{bgs}{beginning of growing season}
 
-\item{egs}{data.frame of observations with columns: mean, sd}
+\item{egs}{end of growing season}
 
-\item{max.ind}{data.frame of observations with columns: mean, sd}
+\item{max.ind}{maximum number of indiviuals allowed to grow in a plot}
 
-\item{plat}{data.frame of observations with columns: mean, sd}
+\item{plat}{latitude}
+
+\item{temp.mat}{monthly temperature matrix (nyear x 12)}
+
+\item{precip.mat}{monthly precipitation matrix (nyear x 12)}
+
+\item{spp.params}{species parameter matrix}
+
+\item{switch.mat}{species switches matrix}
+
+\item{fdat}{underground parameter matrix}
+
+\item{clat}{climate correction factor matrix}
+
+\item{basesc}{initial humus weight}
+
+\item{basesn}{initial N in soil}
 }
 \value{
-several things ---> should this be different
+several things
 }
 \description{
 Main function for running all LINKAGES subroutines

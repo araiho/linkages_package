@@ -83,7 +83,7 @@ decomp <- function(fdat,aet,ncohrt,fc,dry,tyl,C.mat){
       #calculate % wt loss based on aet and lignin:N ratio
       pwtlos = (.9804+.09352*aet)-((-.4956+.00193*aet)*(C.mat[i,7]/C.mat[i,11]))
       pwtlos = (decmlt*pwtlos)/100
-      if(pwtlos>.99) pwtlos = .99
+      if(pwtlos > .99) pwtlos = .99
 
       lt = C.mat[i,5]
       if(lt==14) pwtlos = .1
