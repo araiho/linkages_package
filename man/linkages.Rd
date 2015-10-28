@@ -44,7 +44,57 @@ linkages(iplot, nyear, nspec, fc, dry, bgs, egs, max.ind, plat, temp.mat,
 \item{basesn}{initial N in soil}
 }
 \value{
-several things
+year vector of years
+
+ag.biomass above ground biomass in kgC/m2
+
+total.soil.carbon soil organic matter + leaf litter in kgC/m2
+
+leaf.litter leaf litter in kgC/m2
+
+ag.npp above ground net primary production in kgC/m2/second
+
+hetero.resp heterotrophic respiration in kgC/m2/second
+
+nee net ecosystem exchange in kgC/m2/second
+
+et annual evapotransipiration kgC/m2/s
+
+agb.pft = agb.pft above ground biomass by plant functional type (species in LINKAGES)
+
+f.comp = f.comp fractional composition (sums to 1 each year)
+
+ntrees.birth=ntrees.birth number of trees born of each species each year
+
+ntrees.kill = ntrees.kill number of trees killed of each species each year
+
+tstem=tstem stem density
+
+tab=tab total aboveground biomass without unit conversion
+
+fl=fl total leaf litter without unit conversion
+
+totl=totl leaf litter nitrogen
+
+tnap=tnap total net above ground production without unit conversion
+
+avln=avln available nitrogen
+
+cn=cn carbon to nitrogen ratio
+
+sco2c=sco2c soil repiration without unit conversion
+
+som=som soil organic matter
+
+bar=bar biomass by species without unit conversion
+
+aet.save=aet.save annual evapotranspiration without unit conversion
+
+nogro.save=nogro.save matrix of trees not growing each year
+
+dbh.save=dbh.save matrix of dbh increment of trees each year
+
+iage.save=iage.save matrix of age of each tree each year
 }
 \description{
 Main function for running all LINKAGES subroutines

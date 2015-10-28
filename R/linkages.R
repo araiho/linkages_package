@@ -21,7 +21,32 @@
 ##'
 ##' @description Main function for running all LINKAGES subroutines
 ##'
-##' @return several things
+##' @return year vector of years
+##' @return ag.biomass above ground biomass in kgC/m2
+##' @return total.soil.carbon soil organic matter + leaf litter in kgC/m2
+##' @return leaf.litter leaf litter in kgC/m2
+##' @return ag.npp above ground net primary production in kgC/m2/second
+##' @return hetero.resp heterotrophic respiration in kgC/m2/second
+##' @return nee net ecosystem exchange in kgC/m2/second
+##' @return et annual evapotransipiration kgC/m2/s
+##' @return agb.pft = agb.pft above ground biomass by plant functional type (species in LINKAGES)
+##' @return f.comp = f.comp fractional composition (sums to 1 each year)
+##' @return ntrees.birth=ntrees.birth number of trees born of each species each year
+##' @return ntrees.kill = ntrees.kill number of trees killed of each species each year
+##' @return tstem=tstem stem density
+##' @return tab=tab total aboveground biomass without unit conversion
+##' @return fl=fl total leaf litter without unit conversion
+##' @return totl=totl leaf litter nitrogen
+##' @return tnap=tnap total net above ground production without unit conversion
+##' @return avln=avln available nitrogen
+##' @return cn=cn carbon to nitrogen ratio
+##' @return sco2c=sco2c soil repiration without unit conversion
+##' @return som=som soil organic matter
+##' @return bar=bar biomass by species without unit conversion
+##' @return aet.save=aet.save annual evapotranspiration without unit conversion
+##' @return nogro.save=nogro.save matrix of trees not growing each year
+##' @return dbh.save=dbh.save matrix of dbh increment of trees each year
+##' @return iage.save=iage.save matrix of age of each tree each year
 ##'
 linkages <- function(iplot, nyear, nspec, fc, dry, bgs, egs, max.ind,
                      plat, temp.mat, precip.mat, spp.params, switch.mat,
@@ -181,19 +206,20 @@ linkages <- function(iplot, nyear, nspec, fc, dry, bgs, egs, max.ind,
   yearSecs <- (3.15569 * 10^7)
   Tconst <- .012
 
-  #unit conversions for variables of interest
+  #unit conversions for variables of interest #need to recheck more carefully later
   year <- seq(1,nyear,1)
   ag.biomass <- ((tab  / PLOT.AREA) / Tconst * DEFAULT.C) # Above Ground Biomass in kgC/m2 #total aboveground biomass
   total.soil.carbon <- (som + fl) / PLOT.AREA * DEFAULT.C # TotSoilCarb in kgC/m2
-  carbon.pools <- cbind(tab, som, fl) / PLOT.AREA / c(Tconst,1) * DEFAULT.C
+  leaf.litter <- fl / PLOT.AREA * DEFAULT.C # leaf litter in kgC/m2
   ag.npp <- (tnap / PLOT.AREA / yearSecs * DEFAULT.C * toKG) # GWBI = NPP in linkages
   hetero.resp <- (sco2c / PLOT.AREA / yearSecs * toKG) # HeteroResp in kgC/m^2/s
   nee <- ((ag.npp - hetero.resp) / PLOT.AREA / yearSecs * DEFAULT.C * toKG) # NEE #possibly questionable
   et <- aet.save / yearSecs # Evap in kg/m^2/s
   agb.pft <- (bar / PLOT.AREA * DEFAULT.C * toKG) #biomass by PFT
-  f.comp <- (bar / PLOT.AREA * DEFAULT.C * toKG) / rowSums(bar)
+  f.comp <- (bar / PLOT.AREA * DEFAULT.C * toKG) / rowSums(bar) #f composition
 
   #NOT USED IN CURRENT PECAN OUTPUT #Add? SoilMoisture? LAI? StemDensity?
+  #What about MIP stuff?
   #Can we get root biomass from C.mat?
   #tstem[i,k] <- unlist(output.out$atot) #number of stems
   #totl[i,k] = unlist(output.out$tyln) #leaf litter N
@@ -201,7 +227,7 @@ linkages <- function(iplot, nyear, nspec, fc, dry, bgs, egs, max.ind,
   #cn[i,k] = unlist(decomp.out$hcn) #humus C:N ratio
 
   return(list(year = year, ag.biomass = ag.biomass, total.soil.carbon =total.soil.carbon,
-              carbon.pools = carbon.pools, ag.npp = ag.npp, hetero.resp = hetero.resp,
+              leaf.litter = leaf.litter, ag.npp = ag.npp, hetero.resp = hetero.resp,
               nee = nee, et = et, agb.pft = agb.pft, f.comp = f.comp,
               ntrees.birth=ntrees.birth, ntrees.kill = ntrees.kill, tstem=tstem,
               tab=tab,fl=fl,totl=totl,tnap=tnap,avln=avln,cn=cn,sco2c=sco2c,
