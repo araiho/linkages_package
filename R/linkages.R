@@ -48,10 +48,10 @@
 ##' @return dbh.save=dbh.save matrix of dbh increment of trees each year
 ##' @return iage.save=iage.save matrix of age of each tree each year
 ##'
-linkages <- function(iplot, nyear, nspec, fc, dry, bgs, egs, max.ind,
-                     plat, temp.mat, precip.mat, spp.params, switch.mat,
-                     fdat, clat, basesc = 74, basesn = 1.64){
+linkages <- function(linkages.input, outdir){
 
+  load(linkages.input)
+  
   #Storage
   tstem = matrix(0,nyear,iplot) #number of stems
   tab = matrix(0,nyear,iplot) #total aboveground biomass
@@ -226,11 +226,28 @@ linkages <- function(iplot, nyear, nspec, fc, dry, bgs, egs, max.ind,
   #avln[i,k] = unlist(gmult.out$availn) #available nitrogen
   #cn[i,k] = unlist(decomp.out$hcn) #humus C:N ratio
 
-  return(list(year = year, ag.biomass = ag.biomass, total.soil.carbon =total.soil.carbon,
-              leaf.litter = leaf.litter, ag.npp = ag.npp, hetero.resp = hetero.resp,
-              nee = nee, et = et, agb.pft = agb.pft, f.comp = f.comp,
-              ntrees.birth=ntrees.birth, ntrees.kill = ntrees.kill, tstem=tstem,
-              tab=tab,fl=fl,totl=totl,tnap=tnap,avln=avln,cn=cn,sco2c=sco2c,
-              som=som,bar=bar,aet.save=aet.save,nogro.save=nogro.save,
-              dbh.save=dbh.save,iage.save=iage.save))
+#   return(list(year = year, ag.biomass = ag.biomass, total.soil.carbon =total.soil.carbon,
+#               leaf.litter = leaf.litter, ag.npp = ag.npp, hetero.resp = hetero.resp,
+#               nee = nee, et = et, agb.pft = agb.pft, f.comp = f.comp,
+#               ntrees.birth=ntrees.birth, ntrees.kill = ntrees.kill, tstem=tstem,
+#               tab=tab,fl=fl,totl=totl,tnap=tnap,avln=avln,cn=cn,sco2c=sco2c,
+#               som=som,bar=bar,aet.save=aet.save,nogro.save=nogro.save,
+#               dbh.save=dbh.save,iage.save=iage.save))
+  
+  # Is the output an Rdata file? Experimenting by making one - Betsy
+  
+  output.file <- file.path(outdir,"linkages.out.Rdata")
+  sprintf("%s",output.file)
+  
+  save(year = year, ag.biomass = ag.biomass, total.soil.carbon =total.soil.carbon,
+       leaf.litter = leaf.litter, ag.npp = ag.npp, hetero.resp = hetero.resp,
+       nee = nee, et = et, agb.pft = agb.pft, f.comp = f.comp,
+       ntrees.birth=ntrees.birth, ntrees.kill = ntrees.kill, tstem=tstem,
+       tab=tab,fl=fl,totl=totl,tnap=tnap,avln=avln,cn=cn,sco2c=sco2c,
+       som=som,bar=bar,aet.save=aet.save,nogro.save=nogro.save,
+       dbh.save=dbh.save,iage.save=iage.save,
+       file = output.file)
+  
+  file.exists(output.file)
+  
 }
