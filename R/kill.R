@@ -57,7 +57,7 @@ kill <- function(nspec, ntrees,slta,sltb,dbh,agemx,ksprt,sprtmn,sprtmx,iage,
       ba = ba + .0314 * (dbh[k]*.5) ^ 2
 
       #kill trees based on probability that only 1% reach max age
-      yfl = .5#runif(1,0,1) #this changes everything... pexp(agemx[i],1/(agemx[i]/2)) 4.605/agemx[i]
+      yfl = runif(1,0,1) #this changes everything... pexp(agemx[i],1/(agemx[i]/2)) 4.605/agemx[i]
       if(yfl <= 4.605/agemx[i]) {
         ntrees[i] = ntrees[i] - 1
 
@@ -74,7 +74,7 @@ kill <- function(nspec, ntrees,slta,sltb,dbh,agemx,ksprt,sprtmn,sprtmx,iage,
        } else {
 
           if(nogro[k]<=-2){
-            yfl = .5#runif(1,0,1)
+            yfl = runif(1,0,1)
             if(yfl <= .368){
             ntrees[i] = ntrees[i] - 1
 

@@ -88,7 +88,7 @@ birth <- function(nspec,ntrees,frt,iage,slta,sltb,dbh,fwt,switch.mat,
   if(fola<=2) swtch[2] = FALSE
 
   #browse - a random number simulating the occurence of browsing
-  yfl = .5#runif(1,0,1)
+  yfl = runif(1,0,1)
   browse = yfl
   if(browse > .5) swtch[4] = FALSE
   if(fola <= .05) swtch[5] = FALSE
@@ -139,12 +139,12 @@ birth <- function(nspec,ntrees,frt,iage,slta,sltb,dbh,fwt,switch.mat,
       if(itol[nsp] < 2) slite = 1 - exp(-4.64*(al-.05))
       if(slite <= 0) slite = 0
       #reduce max number of seedlings to the extent that light, soil moisture, and degree days are less than optimum for growth of each species
-      yfl = .5 #runif(1,0,1)
+      yfl = runif(1,0,1)
       nplant = mplant[nsp] * slite * smgf[nsp] * degdgf[nsp] * yfl
       if(nplant>500) nplant=500 #HACK
       #see if any stumps of this spp are available for sprouting
       if(ksprt[nsp] > 0 & sprtnd[nsp] > 0){
-        yfl = .5 #runif(1,0,1)
+        yfl = runif(1,0,1)
         #if available light is greater than 50% of full sunlight determine number of stump sprouts and add to nplant
         if(al >= .5) nplant = nplant + (sprtnd[nsp]*slite*smgf[nsp]*degdgf[nsp]*ksprt[nsp]*yfl)
         if(nplant>500) nplant=500 #HACK
@@ -166,7 +166,7 @@ birth <- function(nspec,ntrees,frt,iage,slta,sltb,dbh,fwt,switch.mat,
           itemp[nsum] = 0
           #calculate dbh for new trees
           size = 1.27
-          yfl = .5 #runif(1,0,1)
+          yfl = runif(1,0,1)
           dtemp[nsum] = size + .3 * (1 - yfl)^3
           ntemp[nsum] = 0
         }
