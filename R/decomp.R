@@ -72,7 +72,6 @@ decomp <- function(fdat,aet,ncohrt,fc,dry,tyl,C.mat){
   for(i in 1:16){
     if(tyl[i]==0) next
       ncohrt = ncohrt + 1
-      print(paste("nchort = ",ncohrt))
       if(ncohrt>100) print("ncohrt error")
       C.mat[ncohrt,1] = tyl[i] * fdat[i,10]
       C.mat[ncohrt,2] = tyl[i] * fdat[i,2]
@@ -172,7 +171,6 @@ decomp <- function(fdat,aet,ncohrt,fc,dry,tyl,C.mat){
   #create new well decayed wood cohort
   if(ffw != 0 ){
     ncohrt = ncohrt + 1
-    print(paste("nchort = ",ncohrt))
     if(ncohrt>100) print("too many ncohrt")
     C.mat[ncohrt,1] = ffw
     C.mat[ncohrt,2] = ffw * fdat[17,2]
