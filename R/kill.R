@@ -36,7 +36,7 @@
 ##' @return ksprt flags stumps that could sprout
 ##'
 kill <- function(nspec, ntrees,slta,sltb,dbh,agemx,ksprt,sprtmn,sprtmx,iage,
-                 nogro,tl,rtst,fwt,max.ind,frt,ncohrt){
+                 nogro,tl,rtst,fwt,max.ind,frt){
   knt = 0
   #initialize litter
   tyl = matrix(0,1,20)
@@ -57,7 +57,7 @@ kill <- function(nspec, ntrees,slta,sltb,dbh,agemx,ksprt,sprtmn,sprtmx,iage,
       ba = ba + .0314 * (dbh[k]*.5) ^ 2
 
       #kill trees based on probability that only 1% reach max age
-      yfl = runif(1,0,1) #this changes everything... pexp(agemx[i],1/(agemx[i]/2)) 4.605/agemx[i]
+      yfl = .5#runif(1,0,1) #this changes everything... pexp(agemx[i],1/(agemx[i]/2)) 4.605/agemx[i]
       if(yfl <= 4.605/agemx[i]) {
         ntrees[i] = ntrees[i] - 1
 
@@ -74,7 +74,7 @@ kill <- function(nspec, ntrees,slta,sltb,dbh,agemx,ksprt,sprtmn,sprtmx,iage,
        } else {
 
           if(nogro[k]<=-2){
-            yfl = runif(1,0,1)
+            yfl = .5#runif(1,0,1)
             if(yfl <= .368){
             ntrees[i] = ntrees[i] - 1
 
@@ -140,7 +140,7 @@ kill <- function(nspec, ntrees,slta,sltb,dbh,agemx,ksprt,sprtmn,sprtmx,iage,
     nogro[i] = 0
   }
 
-  return(list(ntrees = ntrees, dbh = dbh, iage = iage, nogro = nogro, ncohrt = ncohrt,
+  return(list(ntrees = ntrees, dbh = dbh, iage = iage, nogro = nogro, 
               tyl = tyl, ksprt = ksprt))
 
 }

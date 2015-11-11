@@ -54,9 +54,25 @@ decomp <- function(fdat,aet,ncohrt,fc,dry,tyl,C.mat){
   aetm = (-1 * xaet) / (-1200 + xaet)
 
   #Create new cohorts
+  #the first row of the c array holds data on  humus
+  #row 2 through ncohrt hold data on litter cohrts
+  #C.mat[,1] weight in (t/ha)
+  #C.mat[,2] N content (t/ha)
+  #C.mat[,3:4] n change parameters
+  #C.mat[,5] litter type, 1-12 are leaves, 13 is root, 14 and 15 are wood, 16 is twigs
+  #17 is well-decayed wood, and 18 is humus
+  #C.mat[,6] destination when transferred, 1=humus, 2=well-decayed wood
+  #C.mat[,7] current %lignin
+  #C.mat[,8:9] lignin decay parameters
+  #C.mat[,10] original weight
+  #C.mat[,11] current %N
+  #C.mat[,12] fraction of original weight which will become humus or well decayed wood. 
+  #when this fraction is reached the cohort is transferred to the destination specified
+  #by C.mat[,6]. This fraction is based on the lignin content of leaves.
   for(i in 1:16){
     if(tyl[i]==0) next
       ncohrt = ncohrt + 1
+      print(paste("nchort = ",ncohrt))
       if(ncohrt>100) print("ncohrt error")
       C.mat[ncohrt,1] = tyl[i] * fdat[i,10]
       C.mat[ncohrt,2] = tyl[i] * fdat[i,2]
@@ -156,6 +172,7 @@ decomp <- function(fdat,aet,ncohrt,fc,dry,tyl,C.mat){
   #create new well decayed wood cohort
   if(ffw != 0 ){
     ncohrt = ncohrt + 1
+    print(paste("nchort = ",ncohrt))
     if(ncohrt>100) print("too many ncohrt")
     C.mat[ncohrt,1] = ffw
     C.mat[ncohrt,2] = ffw * fdat[17,2]

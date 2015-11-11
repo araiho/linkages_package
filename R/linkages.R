@@ -48,7 +48,7 @@
 ##' @return dbh.save=dbh.save matrix of dbh increment of trees each year
 ##' @return iage.save=iage.save matrix of age of each tree each year
 ##'
-linkages <- function(linkages.input, outdir){
+linkages <- function(linkages.input, outdir, restart){
 
   load(linkages.input)
   
@@ -75,6 +75,8 @@ linkages <- function(linkages.input, outdir){
 
   for(k in 1:iplot){ #loop over plots
 
+    if(restart = FALSE){
+      
     plotin.out <- plotin(iplot = k, basesc = basesc, basesn = basesn, max.ind = max.ind,
                          nspec = nspec) # initializes storage matrices with zeros for each plot
 
@@ -87,6 +89,10 @@ linkages <- function(linkages.input, outdir){
     ksprt <- unlist(plotin.out$ksprt)
     iage <- unlist(plotin.out$iage)
 
+    } else {
+      load(linkages.out)
+    }
+    
     for(i in 1:nyear){
 
       #calculates degree days for the year
@@ -159,7 +165,7 @@ linkages <- function(linkages.input, outdir){
            dbh = dbh, agemx = spp.params$AGEMX, ksprt = ksprt,
            sprtmn = spp.params$SPRTMN, sprtmx = spp.params$SPRTMX, iage  = iage,
            nogro  = nogro,tl = spp.params$TL,rtst = spp.params$RTST, fwt = spp.params$FWT,
-           max.ind = max.ind, frt = spp.params$FRT,ncohrt = ncohrt)
+           max.ind = max.ind, frt = spp.params$FRT)
 
       ntrees <- unlist(kill.out$ntrees)
       ntrees.kill[,i,k] <- unlist(kill.out$ntrees)
@@ -167,7 +173,6 @@ linkages <- function(linkages.input, outdir){
       nogro <- unlist(kill.out$nogro)
       ksprt <- unlist(kill.out$ksprt)
       iage <- unlist(kill.out$iage)
-      ncohrt <- unlist(kill.out$ncohrt)
       tyl <- unlist(kill.out$tyl)
       tyl.save[,i,k] <- unlist(kill.out$tyl)
 
@@ -192,6 +197,7 @@ linkages <- function(linkages.input, outdir){
       nogro.save[,i,k] = unlist(kill.out$nogro)
       dbh.save[,i,k] = unlist(kill.out$dbh)
       iage.save[,i,k] = unlist(kill.out$iage)
+      ncohrt.save[i,k] = ncohrt
 
     print(paste("year = ",i))
     }
@@ -216,7 +222,7 @@ linkages <- function(linkages.input, outdir){
   nee <- ((ag.npp - hetero.resp) / PLOT.AREA / yearSecs * DEFAULT.C * toKG) # NEE #possibly questionable
   et <- aet.save / yearSecs # Evap in kg/m^2/s
   agb.pft <- (bar / PLOT.AREA * DEFAULT.C * toKG) #biomass by PFT
-  f.comp <- (bar / PLOT.AREA * DEFAULT.C * toKG) / rowSums(bar) #f composition
+  f.comp <- (bar / PLOT.AREA * DEFAULT.C * toKG) / colSums(bar) #f composition
 
   #NOT USED IN CURRENT PECAN OUTPUT #Add? SoilMoisture? LAI? StemDensity?
   #What about MIP stuff?
@@ -225,16 +231,6 @@ linkages <- function(linkages.input, outdir){
   #totl[i,k] = unlist(output.out$tyln) #leaf litter N
   #avln[i,k] = unlist(gmult.out$availn) #available nitrogen
   #cn[i,k] = unlist(decomp.out$hcn) #humus C:N ratio
-
-#   return(list(year = year, ag.biomass = ag.biomass, total.soil.carbon =total.soil.carbon,
-#               leaf.litter = leaf.litter, ag.npp = ag.npp, hetero.resp = hetero.resp,
-#               nee = nee, et = et, agb.pft = agb.pft, f.comp = f.comp,
-#               ntrees.birth=ntrees.birth, ntrees.kill = ntrees.kill, tstem=tstem,
-#               tab=tab,fl=fl,totl=totl,tnap=tnap,avln=avln,cn=cn,sco2c=sco2c,
-#               som=som,bar=bar,aet.save=aet.save,nogro.save=nogro.save,
-#               dbh.save=dbh.save,iage.save=iage.save))
-  
-  # Is the output an Rdata file? Experimenting by making one - Betsy
   
   output.file <- file.path(outdir,"linkages.out.Rdata")
   sprintf("%s",output.file)
@@ -245,7 +241,7 @@ linkages <- function(linkages.input, outdir){
        ntrees.birth=ntrees.birth, ntrees.kill = ntrees.kill, tstem=tstem,
        tab=tab,fl=fl,totl=totl,tnap=tnap,avln=avln,cn=cn,sco2c=sco2c,
        som=som,bar=bar,aet.save=aet.save,nogro.save=nogro.save,
-       dbh.save=dbh.save,iage.save=iage.save,
+       dbh.save=dbh.save,iage.save=iage.save, C.mat = C.mat, tyl = tyl, ncohrt,
        file = output.file)
   
   file.exists(output.file)
