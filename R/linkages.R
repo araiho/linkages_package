@@ -48,8 +48,10 @@
 ##' @return dbh.save=dbh.save matrix of dbh increment of trees each year
 ##' @return iage.save=iage.save matrix of age of each tree each year
 ##'
-linkages <- function(linkages.input, outdir, restart){
+linkages <- function(linkages.input, outdir, restart = NULL){
 
+  if(is.null(restart)) restart = FALSE
+  
   load(linkages.input)
   
   #Storage
@@ -75,7 +77,7 @@ linkages <- function(linkages.input, outdir, restart){
 
   for(k in 1:iplot){ #loop over plots
 
-    if(restart = FALSE){
+    if(restart == FALSE){
       
     plotin.out <- plotin(iplot = k, basesc = basesc, basesn = basesn, max.ind = max.ind,
                          nspec = nspec) # initializes storage matrices with zeros for each plot
