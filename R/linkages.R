@@ -48,11 +48,17 @@
 ##' @return dbh.save=dbh.save matrix of dbh increment of trees each year
 ##' @return iage.save=iage.save matrix of age of each tree each year
 ##'
-linkages <- function(linkages.input, outdir, restart = NULL){
+linkages <- function(linkages.input, outdir, restart = NULL, linkages.restart){
 
   if(is.null(restart)) restart = FALSE
   
   load(linkages.input)
+  
+  if(restart == TRUE){
+    #load last stopping point
+    load(linkages.restart)
+  }
+  
   
   #Storage
   tstem = matrix(0,nyear,iplot) #number of stems
@@ -91,9 +97,7 @@ linkages <- function(linkages.input, outdir, restart = NULL){
     ksprt <- unlist(plotin.out$ksprt)
     iage <- unlist(plotin.out$iage)
 
-    } else {
-      load(linkages.out)
-    }
+    } 
     
     for(i in 1:nyear){
 
@@ -226,6 +230,7 @@ linkages <- function(linkages.input, outdir, restart = NULL){
   agb.pft <- (bar / PLOT.AREA * DEFAULT.C * toKG) #biomass by PFT
   f.comp <- t(t(bar[,,1] / PLOT.AREA * DEFAULT.C * toKG) / colSums((bar[,,1] / PLOT.AREA * DEFAULT.C * toKG))) #f composition
   f.comp[is.na(f.comp)]<-0
+  
   #NOT USED IN CURRENT PECAN OUTPUT #Add? SoilMoisture? LAI? StemDensity?
   #What about MIP stuff?
   #Can we get root biomass from C.mat?
@@ -243,7 +248,7 @@ linkages <- function(linkages.input, outdir, restart = NULL){
        ntrees.birth=ntrees.birth, ntrees.kill = ntrees.kill, tstem=tstem,
        tab=tab,fl=fl,totl=totl,tnap=tnap,avln=avln,cn=cn,sco2c=sco2c,
        som=som,bar=bar,aet.save=aet.save,nogro.save=nogro.save,
-       dbh.save=dbh.save,iage.save=iage.save, C.mat = C.mat, tyl = tyl, ncohrt,
+       dbh.save=dbh.save, iage.save=iage.save, C.mat = C.mat, tyl = tyl, ncohrt,
        file = output.file)
   
   file.exists(output.file)
