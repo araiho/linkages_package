@@ -54,12 +54,6 @@ linkages <- function(linkages.input, outdir, restart = NULL, linkages.restart){
   
   load(linkages.input)
   
-  if(restart == TRUE){
-    #load last stopping point
-    load(linkages.restart)
-  }
-  
-  
   #Storage
   tstem = matrix(0,nyear,iplot) #number of stems
   tab = matrix(0,nyear,iplot) #total aboveground biomass
@@ -97,7 +91,30 @@ linkages <- function(linkages.input, outdir, restart = NULL, linkages.restart){
     ksprt <- unlist(plotin.out$ksprt)
     iage <- unlist(plotin.out$iage)
 
-    } 
+    } else {
+      #load last stopping point
+      load(linkages.restart)
+      #redo storage
+      tstem = matrix(0,nyear,iplot) #number of stems
+      tab = matrix(0,nyear,iplot) #total aboveground biomass
+      fl = matrix(0,nyear,iplot) #leaf litter
+      totl = matrix(0,nyear,iplot) #leaf litter N
+      tnap = matrix(0,nyear,iplot) #net aboveground production
+      avln = matrix(0,nyear,iplot) #available nitrogen
+      cn = matrix(0,nyear,iplot) #humus C:N ratio
+      sco2c = matrix(0,nyear,iplot) #soil co2 evolution
+      som = matrix(0,nyear,iplot) #soil organic matter
+      aet.save = matrix(0,nyear,iplot)
+      ncohrt.save = matrix(0,nyear,iplot)
+      tyl.save = array(0,dim=c(20,nyear,iplot))
+      ntrees.birth <- array(0,dim=c(nspec,nyear,iplot))
+      ntrees.grow <- array(0,dim=c(nspec,nyear,iplot))
+      ntrees.kill <- array(0,dim=c(nspec,nyear,iplot))
+      bar <- array(0,dim=c(nspec,nyear,iplot))
+      nogro.save <- array(0,dim=c(max.ind,nyear,iplot))
+      dbh.save <- array(0,dim=c(max.ind,nyear,iplot))
+      iage.save <- array(0,dim=c(max.ind,nyear,iplot))
+    }
     
     for(i in 1:nyear){
 
@@ -146,8 +163,14 @@ linkages <- function(linkages.input, outdir, restart = NULL, linkages.restart){
             ksprt = ksprt, sprtnd = spp.params$SPRTND, max.ind = max.ind, smgf=smgf,
             degdgf = degdgf)
 
-      ntrees <- unlist(birth.out$ntrees)
-      ntrees.birth[,i,k] <- unlist(birth.out$ntrees)
+      
+      if(is.null(unlist(birth.out$ntrees))){
+        ntrees[,i,k] <- rep(0,nspec)
+        ntrees.birth[,i,k] <- rep(0,nspec)
+      } else {
+        ntrees.birth[,i,k] <- unlist(birth.out$ntrees)
+        ntrees <- unlist(birth.out$ntrees)
+      }
       dbh <- unlist(birth.out$dbh)
       nogro <- unlist(birth.out$nogro)
       ksprt <- unlist(birth.out$ksprt)
@@ -160,8 +183,13 @@ linkages <- function(linkages.input, outdir, restart = NULL, linkages.restart){
            smgf = smgf, sngf= sngf,frost = spp.params$FROST, rt = temp.mat[i,], iage = iage,
            nogro=nogro)
 
-      ntrees <- unlist(grow.out$ntrees)
-      ntrees.grow[,i,k] <- unlist(grow.out$ntrees)
+      if(is.null(unlist(birth.out$ntrees))){
+        ntrees[,i,k] <- rep(0,nspec)
+        ntrees.grow[,i,k] <- rep(0,nspec)
+      } else {
+        ntrees.grow[,i,k] <- unlist(grow.out$ntrees)
+        ntrees <- unlist(grow.out$ntrees)
+      }
       dbh <- unlist(grow.out$dbh)
       awp <- unlist(grow.out$awp)
       nogro <- unlist(grow.out$nogro)
