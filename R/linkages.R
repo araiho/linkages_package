@@ -48,7 +48,7 @@
 ##' @return dbh.save=dbh.save matrix of dbh increment of trees each year
 ##' @return iage.save=iage.save matrix of age of each tree each year
 ##'
-linkages <- function(linkages.input, outdir, restart = NULL, linkages.restart){
+linkages <- function(linkages.input, outdir, restart = NULL, linkages.restart = NULL){
 
   if(is.null(restart)) restart = FALSE
   
