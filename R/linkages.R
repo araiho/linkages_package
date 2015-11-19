@@ -51,6 +51,7 @@
 linkages <- function(linkages.input, outdir, restart = NULL, linkages.restart = NULL){
 
   if(is.null(restart)) restart = FALSE
+  if(is.null(restart)) linkages.restart = NA
   
   load(linkages.input)
   
