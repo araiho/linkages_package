@@ -183,8 +183,8 @@ linkages <- function(linkages.input, outdir, restart = NULL, linkages.restart){
            smgf = smgf, sngf= sngf,frost = spp.params$FROST, rt = temp.mat[i,], iage = iage,
            nogro=nogro)
 
-      if(is.null(unlist(birth.out$ntrees))){
-        ntrees[,i,k] <- rep(0,nspec)
+      if(is.null(unlist(grow.out$ntrees))){
+        ntrees <- rep(0,nspec)
         ntrees.grow[,i,k] <- rep(0,nspec)
       } else {
         ntrees.grow[,i,k] <- unlist(grow.out$ntrees)

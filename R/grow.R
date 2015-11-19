@@ -106,6 +106,6 @@ grow <- function(max.ind,nspec,ntrees,frt,slta,sltb,dbh,fwt, b2,b3, itol,g,
     }
     nl = nl + ntrees[i]
   }
-  return(list(ntrees = ntrees, dbh = dbh, awp = awp, nogro = nogro))
   }
+  return(list(ntrees = ntrees, dbh = dbh, awp = awp, nogro = nogro))
 }

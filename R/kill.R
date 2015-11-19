@@ -38,6 +38,7 @@
 kill <- function(nspec, ntrees,slta,sltb,dbh,agemx,ksprt,sprtmn,sprtmx,iage,
                  nogro,tl,rtst,fwt,max.ind,frt){
   knt = 0
+  nu = 0
   #initialize litter
   tyl = matrix(0,1,20)
 
