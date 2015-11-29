@@ -60,6 +60,8 @@ linkages <- function(linkages.input, outdir, restart = NULL, linkages.restart = 
   
   #Storage
   tstem = matrix(0,nyear,iplot) #number of stems
+  area = matrix(0,nyear,iplot)
+  water = matrix(0,nyear,iplot)
   tab = matrix(0,nyear,iplot) #total aboveground biomass
   fl = matrix(0,nyear,iplot) #leaf litter
   totl = matrix(0,nyear,iplot) #leaf litter N
