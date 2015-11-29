@@ -64,7 +64,7 @@ moist <- function(kyr,temp.vec,precip.vec,fc,dry,bgs,egs,plat,clat){
       #calculate water retained in soil given so much accumulated potential water loss (pastor and post 1984 Candian Journal for Forest Restoration 14:466-467)
       water = fc*(exp((.000461-1.10559/xfc)*(-1*xacpwl)))
       if(water<0) water = 0
-      #CSM - change in soil moisture during this  mont
+      #CSM - change in soil moisture during this  month
       csm = water - owater
       #calculate actual evapotranspiration (aet) if soil water is drawn down this month
       aet = aet + (rain - csm)
@@ -106,5 +106,5 @@ moist <- function(kyr,temp.vec,precip.vec,fc,dry,bgs,egs,plat,clat){
     #conver aet from cm to mm
     aet <<- aet * 10
   }
-  return(list(aet=aet,fj=dd))
+  return(list(aet=aet,fj=dd, water=water))
 }

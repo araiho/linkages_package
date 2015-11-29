@@ -115,6 +115,9 @@ linkages <- function(linkages.input, outdir, restart = NULL, linkages.restart = 
       nogro.save <- array(0,dim=c(max.ind,nyear,iplot))
       dbh.save <- array(0,dim=c(max.ind,nyear,iplot))
       iage.save <- array(0,dim=c(max.ind,nyear,iplot))
+      
+      temp.mat <- matrix(temp.mat,nyear,12)
+      precip.mat <- matrix(precip.mat,nyear,12)
     }
     
     for(i in 1:nyear){
@@ -164,7 +167,6 @@ linkages <- function(linkages.input, outdir, restart = NULL, linkages.restart = 
             ksprt = ksprt, sprtnd = spp.params$SPRTND, max.ind = max.ind, smgf=smgf,
             degdgf = degdgf)
 
-      
       if(is.null(unlist(birth.out$ntrees))){
         ntrees[,i,k] <- rep(0,nspec)
         ntrees.birth[,i,k] <- rep(0,nspec)
@@ -172,6 +174,7 @@ linkages <- function(linkages.input, outdir, restart = NULL, linkages.restart = 
         ntrees.birth[,i,k] <- unlist(birth.out$ntrees)
         ntrees <- unlist(birth.out$ntrees)
       }
+
       dbh <- unlist(birth.out$dbh)
       nogro <- unlist(birth.out$nogro)
       ksprt <- unlist(birth.out$ksprt)
@@ -220,6 +223,8 @@ linkages <- function(linkages.input, outdir, restart = NULL, linkages.restart = 
       #save variables
       tstem[i,k] = unlist(output.out$atot) #number of stems
       tab[i,k] = unlist(output.out$tbar) #total aboveground biomass
+      area[i,k] = unlist(output.out$area) #LAI
+      water[i,k] = unlist(moist.out$water) #soil moisture
       fl[i,k] = unlist(kill.out$tyl)[17] #leaf litter
       totl[i,k] = unlist(output.out$tyln) #leaf litter N
       tnap[i,k] = unlist(output.out$tynap) #net aboveground production
@@ -256,8 +261,12 @@ linkages <- function(linkages.input, outdir, restart = NULL, linkages.restart = 
   hetero.resp <- (sco2c / PLOT.AREA / yearSecs * toKG) # HeteroResp in kgC/m^2/s
   nee <- ((ag.npp - hetero.resp) / PLOT.AREA / yearSecs * DEFAULT.C * toKG) # NEE #possibly questionable
   et <- aet.save / yearSecs # Evap in kg/m^2/s
-  agb.pft <- (bar / PLOT.AREA * DEFAULT.C * toKG) #biomass by PFT
-  f.comp <- t(t(bar[,,1] / PLOT.AREA * DEFAULT.C * toKG) / colSums((bar[,,1] / PLOT.AREA * DEFAULT.C * toKG))) #f composition
+  agb.pft <- ((bar  / PLOT.AREA) / Tconst * DEFAULT.C) #biomass by PFT
+  if(iplot>1){
+    f.comp <- t(t(bar[,,1] / PLOT.AREA * DEFAULT.C * toKG) / colSums((bar[,,1] / PLOT.AREA * DEFAULT.C * toKG))) #f composition
+  } else {
+    f.comp <- t(t(bar[,,1] / PLOT.AREA * DEFAULT.C * toKG) / sum((bar[,,1] / PLOT.AREA * DEFAULT.C * toKG))) #f composition  
+  }
   f.comp[is.na(f.comp)]<-0
   
   #NOT USED IN CURRENT PECAN OUTPUT #Add? SoilMoisture? LAI? StemDensity?
@@ -271,14 +280,14 @@ linkages <- function(linkages.input, outdir, restart = NULL, linkages.restart = 
   output.file <- file.path(outdir,"linkages.out.Rdata")
   sprintf("%s",output.file)
   
-  save(year = year, ag.biomass = ag.biomass, total.soil.carbon =total.soil.carbon,
+  save(year = year, ag.biomass = ag.biomass, total.soil.carbon = total.soil.carbon,
        leaf.litter = leaf.litter, ag.npp = ag.npp, hetero.resp = hetero.resp,
        nee = nee, et = et, agb.pft = agb.pft, f.comp = f.comp,
-       ntrees.birth=ntrees.birth, ntrees.kill = ntrees.kill, tstem=tstem,
-       tab=tab,fl=fl,totl=totl,tnap=tnap,avln=avln,cn=cn,sco2c=sco2c,
-       som=som,bar=bar,aet.save=aet.save,nogro.save=nogro.save,
-       dbh.save=dbh.save, iage.save=iage.save, C.mat = C.mat, tyl = tyl, ncohrt,
-       file = output.file)
+       ntrees.birth = ntrees.birth, ntrees.kill = ntrees.kill, tstem = tstem,
+       tab = tab,fl = fl,totl = totl,tnap = tnap,avln = avln,cn = cn,sco2c = sco2c,
+       som = som,bar = bar,aet.save = aet.save,nogro.save = nogro.save,
+       dbh.save = dbh.save, iage.save = iage.save, C.mat = C.mat, tyl = tyl,
+       ncohrt = ncohrt, area = area, water = water, file = output.file)
   
   file.exists(output.file)
   

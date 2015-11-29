@@ -48,7 +48,7 @@ output <- function(availn,tyln,nspec,frt,iage,slta,sltb,dbh,fwt,tyl,max.ind,ntre
       #calculate species biomass (kg/plot)
       bar[i] = bar[i] + .1193 * dbh[j]^2.393 + folw
       #calculate leaf area index
-      area = area +1.9283295 * 10^-4 * dbh[j]^2.129
+      area = area + 1.9283295 * 10^-4 * dbh[j]^2.129
       #calculate woody production (kg/plot)
       tawp = tawp + awp[j]
     }
@@ -73,6 +73,6 @@ output <- function(availn,tyln,nspec,frt,iage,slta,sltb,dbh,fwt,tyl,max.ind,ntre
   }
 
   return(list(atot=atot,tbar=tbar,tyln=tyln,tynap=tynap,availn=availn,
-              bar=bar))
+              bar=bar,area=area))
 
 }
