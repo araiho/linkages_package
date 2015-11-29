@@ -55,6 +55,9 @@ linkages <- function(linkages.input, outdir, restart = NULL, linkages.restart = 
   
   load(linkages.input)
   
+  temp.mat <- matrix(temp.mat,nyear,12)
+  precip.mat <- matrix(precip.mat,nyear,12)
+  
   #Storage
   tstem = matrix(0,nyear,iplot) #number of stems
   tab = matrix(0,nyear,iplot) #total aboveground biomass
