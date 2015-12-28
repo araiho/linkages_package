@@ -68,9 +68,7 @@ output <- function(availn,tyln,nspec,frt,iage,slta,sltb,dbh,fwt,tyl,max.ind,ntre
   #calculate total aboveground production
   tynap = tawp + tyl[17]
   #convert spp biomass to t/ha
-  for(j in 1:nspec){
-    bar[j] = bar[j] * .012
-  }
+  bar = bar * .012
 
   return(list(atot=atot,tbar=tbar,tyln=tyln,tynap=tynap,availn=availn,
               bar=bar,area=area))
