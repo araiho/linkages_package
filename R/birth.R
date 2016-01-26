@@ -141,13 +141,13 @@ birth <- function(nspec,ntrees,frt,iage,slta,sltb,dbh,fwt,switch.mat,
       #reduce max number of seedlings to the extent that light, soil moisture, and degree days are less than optimum for growth of each species
       yfl = runif(1,0,1)
       nplant = mplant[nsp] * slite * smgf[nsp] * degdgf[nsp] * yfl
-      if(nplant>500) nplant=500 #HACK
+      if(nplant>100) nplant=100 #HACK
       #see if any stumps of this spp are available for sprouting
       if(ksprt[nsp] > 0 & sprtnd[nsp] > 0){
         yfl = runif(1,0,1)
         #if available light is greater than 50% of full sunlight determine number of stump sprouts and add to nplant
         if(al >= .5) nplant = nplant + (sprtnd[nsp]*slite*smgf[nsp]*degdgf[nsp]*ksprt[nsp]*yfl)
-        if(nplant>500) nplant=500 #HACK
+        if(nplant>100) nplant=100 #HACK
       }
       nsum = 0
       for(i in 1:nsp){

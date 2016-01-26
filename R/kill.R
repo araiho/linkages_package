@@ -59,7 +59,7 @@ kill <- function(nspec, ntrees,slta,sltb,dbh,agemx,ksprt,sprtmn,sprtmx,iage,
 
       #kill trees based on probability that only 1% reach max age
       yfl = runif(1,0,1) #this changes everything... pexp(agemx[i],1/(agemx[i]/2)) 4.605/agemx[i]
-      if(yfl <= 4.605/agemx[i]) {
+      if(yfl < 4.605/agemx[i]) {
         ntrees[i] = ntrees[i] - 1
 
         #check to see if dead tree can stump sprout increment skprt if tree can sprout
@@ -84,8 +84,8 @@ kill <- function(nspec, ntrees,slta,sltb,dbh,agemx,ksprt,sprtmn,sprtmx,iage,
 
             #calculate woody litter in t/ha
             bd = .60
-            if(dbh[k]<=.1) tyl[14] = tyl[14] + bd * (.00143 * dbh[k] ^ 2.393)
-            if(dbh[k]>.1) tyl[15] = tyl[15] + bd * (.00143 * dbh[k] ^ 2.393)
+            if(dbh[k]<=10) tyl[14] = tyl[14] + bd * (.00143 * dbh[k] ^ 2.393)
+            if(dbh[k]>10) tyl[15] = tyl[15] + bd * (.00143 * dbh[k] ^ 2.393)
 
             #flag dead trees
             dbh[k] = -1
@@ -118,7 +118,7 @@ kill <- function(nspec, ntrees,slta,sltb,dbh,agemx,ksprt,sprtmn,sprtmx,iage,
   for(i in 1:max.ind){
     if(dbh[i]==0) {
       ntot = k
-      next
+      break
     }
     if(dbh[i]<0){
       next
@@ -130,7 +130,7 @@ kill <- function(nspec, ntrees,slta,sltb,dbh,agemx,ksprt,sprtmn,sprtmx,iage,
     ntot = k
   }
 
-  if(ntot==0) print("here")
+  if(ntot!=0){
   ntot1 = k+1
   if(ntot1 > max.ind) print("too many trees -- kill")
 
@@ -140,8 +140,8 @@ kill <- function(nspec, ntrees,slta,sltb,dbh,agemx,ksprt,sprtmn,sprtmx,iage,
     iage[i] = 0
     nogro[i] = 0
   }
-
-  return(list(ntrees = ntrees, dbh = dbh, iage = iage, nogro = nogro, 
+  }
+  return(list(ntrees = ntrees, dbh = dbh, iage = iage, nogro = nogro,
               tyl = tyl, ksprt = ksprt))
 
 }

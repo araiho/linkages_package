@@ -4,9 +4,7 @@
 \alias{linkages}
 \title{LINKAGES main function}
 \usage{
-linkages(iplot, nyear, nspec, fc, dry, bgs, egs, max.ind, plat, temp.mat,
-  precip.mat, spp.params, switch.mat, fdat, clat, basesc = 74,
-  basesn = 1.64)
+linkages(linkages.input, outdir, restart = NULL, linkages.restart = NULL)
 }
 \arguments{
 \item{iplot}{PEcAn settings object}

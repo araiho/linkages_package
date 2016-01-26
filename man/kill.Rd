@@ -5,7 +5,7 @@
 \title{LINKAGES kill function}
 \usage{
 kill(nspec, ntrees, slta, sltb, dbh, agemx, ksprt, sprtmn, sprtmx, iage, nogro,
-  tl, rtst, fwt, max.ind, frt, ncohrt)
+  tl, rtst, fwt, max.ind, frt)
 }
 \arguments{
 \item{nspec}{number of species}

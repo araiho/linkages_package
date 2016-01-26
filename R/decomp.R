@@ -66,7 +66,7 @@ decomp <- function(fdat,aet,ncohrt,fc,dry,tyl,C.mat){
   #C.mat[,8:9] lignin decay parameters
   #C.mat[,10] original weight
   #C.mat[,11] current %N
-  #C.mat[,12] fraction of original weight which will become humus or well decayed wood. 
+  #C.mat[,12] fraction of original weight which will become humus or well decayed wood.
   #when this fraction is reached the cohort is transferred to the destination specified
   #by C.mat[,6]. This fraction is based on the lignin content of leaves.
   for(i in 1:16){
@@ -113,14 +113,14 @@ decomp <- function(fdat,aet,ncohrt,fc,dry,tyl,C.mat){
       #find new N concentration in cohort
       C.mat[i,11] = C.mat[i,3] - C.mat[i,4] * pomr
       #retain cohort for another year of decay if fraction remaining is greater than fraction which wil become humus of well decayed wood
-      if(pomr<C.mat[i,12]){
+      if(pomr<=C.mat[i,12]){
         #if cohrt is to be transferred to humus, recalculate wtloss and N concentration so that the transfer occurs at the fraction specified by the initial lignin concentration
         wtloss = C.mat[i,1] - C.mat[i,12]*C.mat[i,10]
         C.mat[i,11] = C.mat[i,3] - C.mat[i,4]*C.mat[i,12]
         #calculate absolute change in N content
         deltan = C.mat[i,2] - C.mat[i,11] * (C.mat[i,1] - wtloss)
         if(deltan<0) tnimob = tnimob - deltan
-        if(deltan>0) fnmin = fnmin + deltan
+        if(deltan>=0) fnmin = fnmin + deltan
         #transfer cohorts
         if(C.mat[i,6]==1){
           C.mat[1,1] = C.mat[1,1] + C.mat[i,1] - wtloss

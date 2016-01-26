@@ -43,12 +43,16 @@ output <- function(availn,tyln,nspec,frt,iage,slta,sltb,dbh,fwt,tyl,max.ind,ntre
     ret = frt[i]
     for(j in nl:nu){
       age = iage[j]
+
       #calculate leaf biomass (kg/tree)
       folw = ((slta[i]+sltb[i]*dbh[j])/2)^2 * 3.14 * fwt[i] * ret * .001
+
       #calculate species biomass (kg/plot)
       bar[i] = bar[i] + .1193 * dbh[j]^2.393 + folw
+
       #calculate leaf area index
       area = area + 1.9283295 * 10^-4 * dbh[j]^2.129
+
       #calculate woody production (kg/plot)
       tawp = tawp + awp[j]
     }
@@ -59,16 +63,20 @@ output <- function(availn,tyln,nspec,frt,iage,slta,sltb,dbh,fwt,tyl,max.ind,ntre
     ntot = ntot + ntrees[i]
     if(ntot > max.ind) print("too many trees -- output")
   }
+
   #convert number of treees per plot to number per ha
   atot = ntot
   atot = atot*12
+
   #convert total aboveground biomass and woody production to t/ha
-  tbar = tbar * .012
-  tawp = tawp * .012
+  #tbar = tbar * .012
+  #tawp = tawp * .012
+
   #calculate total aboveground production
   tynap = tawp + tyl[17]
+
   #convert spp biomass to t/ha
-  bar = bar * .012
+  #bar = bar * .012
 
   return(list(atot=atot,tbar=tbar,tyln=tyln,tynap=tynap,availn=availn,
               bar=bar,area=area))
