@@ -55,8 +55,10 @@ linkages <- function(linkages.input, outdir, restart = NULL, linkages.restart = 
 
   load(linkages.input)
 
-  temp.mat <- matrix(temp.mat,nyear,12)
-  precip.mat <- matrix(precip.mat,nyear,12)
+  #temp.mat <- matrix(temp.mat,nyear,12)
+  #precip.mat <- matrix(precip.mat,nyear,12)
+
+  nyear <- nrow(temp.mat)
 
   #Storage
   tstem = matrix(0,nyear,iplot) #number of stems
