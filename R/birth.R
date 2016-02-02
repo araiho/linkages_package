@@ -46,7 +46,7 @@ birth <- function(nspec,ntrees,frt,iage,slta,sltb,dbh,fwt,switch.mat,
                   degd,dmin,dmax,frost,rt,itol,mplant,nogro,ksprt,sprtnd,
                   max.ind,smgf,degdgf){
 
-  switch.mat1 = matrix(as.logical(switch.mat),72,5)
+  switch.mat1 = matrix(as.logical(switch.mat),nspec,5)
 
   #initialize foliage biomass (folw) and foliage area (fola)
   folw = 0
