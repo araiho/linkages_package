@@ -58,7 +58,12 @@ linkages <- function(linkages.input, outdir, restart = NULL, linkages.restart = 
   #temp.mat <- matrix(temp.mat,nyear,12)
   #precip.mat <- matrix(precip.mat,nyear,12)
 
-  nyear <- nrow(temp.mat)
+  if(is.matrix(temp.mat)){
+    nyear <- nrow(temp.mat)
+  } else {
+    nyear <- 1
+  }
+  
 
   #Storage
   tstem = matrix(0,nyear,iplot) #number of stems
