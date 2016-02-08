@@ -51,6 +51,10 @@ kill <- function(nspec, ntrees,slta,sltb,dbh,agemx,ksprt,sprtmn,sprtmx,iage,
     nl = knt + 1
     nu = ntrees[i] + knt
     for(k in nl:nu){
+      if(dbh[k]==0) {
+        ntrees[i] = ntrees[i] - 1
+        next
+      }
       #calculate leaf production (tree/ha)
       folw = ((slta[i] + sltb[i] * dbh[k]) / 2) ^ 2 * 3.14 * fwt[i] * .000012
 
@@ -59,7 +63,7 @@ kill <- function(nspec, ntrees,slta,sltb,dbh,agemx,ksprt,sprtmn,sprtmx,iage,
 
       #kill trees based on probability that only 1% reach max age
       yfl = runif(1,0,1) #this changes everything... pexp(agemx[i],1/(agemx[i]/2)) 4.605/agemx[i]
-      if(yfl < 4.605/agemx[i]) {
+      if(yfl <= 4.605/agemx[i]) {
         ntrees[i] = ntrees[i] - 1
 
         #check to see if dead tree can stump sprout increment skprt if tree can sprout
