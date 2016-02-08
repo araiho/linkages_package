@@ -51,7 +51,8 @@ kill <- function(nspec, ntrees,slta,sltb,dbh,agemx,ksprt,sprtmn,sprtmx,iage,
     nl = knt + 1
     nu = ntrees[i] + knt
     for(k in nl:nu){
-      if(dbh[k]==0) {
+      if(dbh[k]<2) {
+        dbh[k] = -1
         ntrees[i] = ntrees[i] - 1
         next
       }
