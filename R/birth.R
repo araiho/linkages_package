@@ -69,6 +69,7 @@ birth <- function(nspec,ntrees,frt,iage,slta,sltb,dbh,fwt,switch.mat,
       nl = nl + ntrees[i]
   }
 
+  is.na(fola) <- 0
   #calculate amount of light at forest floor
   al = 1 * exp(-folw/93750)
   #calculate number of trees in stand
