@@ -89,6 +89,11 @@ grow <- function(max.ind,nspec,ntrees,frt,slta,sltb,dbh,fwt, b2,b3, itol,g,
       } else {
         algf = 1 - exp(-4.64 * (al - .05))
       }
+      
+      if(length(algf)>1){
+        print(algf)
+        algf = algf[1]
+      }
       if(algf < 0) algf = 0
 
       #calculate maximum tree volume
