@@ -142,8 +142,6 @@ kill <- function(nspec, ntrees,slta,sltb,dbh,agemx,ksprt,sprtmn,sprtmx,iage,
   }
   }
   
-  is.na(tyl) <- 0
-  
   return(list(ntrees = ntrees, dbh = dbh, iage = iage, nogro = nogro,
               tyl = tyl, ksprt = ksprt))
 
