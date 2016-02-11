@@ -51,6 +51,7 @@ kill <- function(nspec, ntrees,slta,sltb,dbh,agemx,ksprt,sprtmn,sprtmx,iage,
     nl = knt + 1
     nu = ntrees[i] + knt
     for(k in nl:nu){
+      if(dbh[k]==0) ntrees[i] = ntrees[i] - 1
       #calculate leaf production (tree/ha)
       folw = ((slta[i] + sltb[i] * dbh[k]) / 2) ^ 2 * 3.14 * fwt[i] * .000012
 
