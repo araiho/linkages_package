@@ -49,6 +49,7 @@ output <- function(availn,tyln,nspec,frt,iage,slta,sltb,dbh,fwt,tyl,max.ind,ntre
 
       #calculate species biomass (kg/plot)
       bar[i] = bar[i] + .1193 * dbh[j]^2.393 + folw
+      if(is.na(bar[i])) bar[i] <- 0 
 
       #calculate leaf area index
       area = area + 1.9283295 * 10^-4 * dbh[j]^2.129
