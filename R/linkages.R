@@ -229,9 +229,10 @@ linkages <- function(linkages.input, outdir, restart = NULL, linkages.restart = 
       iage <- unlist(kill.out$iage)
       tyl <- unlist(kill.out$tyl)
       tyl.save[,i,k] <- unlist(kill.out$tyl)
+      is.na(tyl) <- 0
 
       #if(dbh[sum(ntrees)]==0) browser()
-      
+      browser()
       #output subroutine
       output.out <- output(availn = availn, tyln = tyln, nspec = nspec, frt=spp.params$FRT,
                          iage = iage,slta = spp.params$SLTA, max.ind = max.ind,
