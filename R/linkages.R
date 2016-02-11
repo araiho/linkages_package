@@ -229,10 +229,8 @@ linkages <- function(linkages.input, outdir, restart = NULL, linkages.restart = 
       iage <- unlist(kill.out$iage)
       tyl <- unlist(kill.out$tyl)
       tyl.save[,i,k] <- unlist(kill.out$tyl)
-      is.na(tyl) <- 0
+      tyl[is.na(tyl)] <- 0
 
-      #if(dbh[sum(ntrees)]==0) browser()
-      browser()
       #output subroutine
       output.out <- output(availn = availn, tyln = tyln, nspec = nspec, frt=spp.params$FRT,
                          iage = iage,slta = spp.params$SLTA, max.ind = max.ind,
@@ -302,7 +300,7 @@ linkages <- function(linkages.input, outdir, restart = NULL, linkages.restart = 
        tab = tab,fl = fl,totl = totl,tnap = tnap,avln = avln,cn = cn,sco2c = sco2c,
        som = som,bar = bar,aet.save = aet.save,nogro.save = nogro.save,
        dbh.save = dbh.save, iage.save = iage.save, C.mat = C.mat, tyl = tyl,
-       ncohrt = ncohrt, area = area, water = water, ksprt = ksprt, file = output.file)
+       ncohrt = ncohrt, area = area, water = water, ksprt = ksprt, tyl.save = tyl.save, file = output.file)
 
   file.exists(output.file)
 
