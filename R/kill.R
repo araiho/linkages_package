@@ -100,6 +100,7 @@ kill <- function(nspec, ntrees,slta,sltb,dbh,agemx,ksprt,sprtmn,sprtmx,iage,
       tyl[L] = tyl[L] + folw
       #calculate root litter (t/ha)
       tyl[13] = tyl[13] + 1.3 * folw * rtst[i]
+      if(round(dbh[k])==0) ntrees[i] = ntrees[i] - 1 
     }
     knt = nu
   }
@@ -140,8 +141,14 @@ kill <- function(nspec, ntrees,slta,sltb,dbh,agemx,ksprt,sprtmn,sprtmx,iage,
     iage[i] = 0
     nogro[i] = 0
   }
-  ntrees[4] <- length(ntrees[3]:ntot1)
   }
+  
+  if(length(which(dbh>0)) < sum(ntrees)){
+    ntrees[4] <- ntrees[4] - length(ntot1:nu) + 1
+    
+  } 
+  if(ntrees[4]<0) ntrees[4]=0
+  if(length(which(dbh>0)) != sum(ntrees)) browser()
   
   return(list(ntrees = ntrees, dbh = dbh, iage = iage, nogro = nogro,
               tyl = tyl, ksprt = ksprt))
