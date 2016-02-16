@@ -129,26 +129,27 @@ kill <- function(nspec, ntrees,slta,sltb,dbh,agemx,ksprt,sprtmn,sprtmx,iage,
     nogro[k] = nogro[i]
     ntot = k
   }
-
-  if(ntot!=0){
-  ntot1 = k+1
-  if(ntot1 > max.ind) print("too many trees -- kill")
-
-  #eliminate dead trees
-  for(i in ntot1:nu){
-    dbh[i] = 0
-    iage[i] = 0
-    nogro[i] = 0
-  }
-  ntrees <- ntrees[1:ntot1]
-  }
   
+  if(ntot==0) break
+  
+  if(k!=nu){
+    ntot1 = k+1
+    if(ntot1 > max.ind) print("too many trees -- kill")
+    
+    #eliminate dead trees
+    for(i in ntot1:nu){
+      dbh[i] = 0
+      iage[i] = 0
+      nogro[i] = 0
+    }
+  }
+
 #   if(length(which(dbh>0)) < sum(ntrees)){
 #     ntrees[4] <- ntrees[4] - length(ntot1:nu) + 1
 #     
 #   } 
-  if(ntrees[4]<0) ntrees[4]=0
-  if(length(which(dbh>0)) != sum(ntrees)) browser()
+#  if(ntrees[4]<0) ntrees[4]=0cd 
+if(length(which(dbh>0)) != sum(ntrees)) browser()
   
   return(list(ntrees = ntrees, dbh = dbh, iage = iage, nogro = nogro,
               tyl = tyl, ksprt = ksprt))
