@@ -140,6 +140,7 @@ kill <- function(nspec, ntrees,slta,sltb,dbh,agemx,ksprt,sprtmn,sprtmx,iage,
     iage[i] = 0
     nogro[i] = 0
   }
+  ntrees <- ntrees[1:ntot1]
   }
   
 #   if(length(which(dbh>0)) < sum(ntrees)){
