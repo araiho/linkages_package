@@ -130,8 +130,6 @@ kill <- function(nspec, ntrees,slta,sltb,dbh,agemx,ksprt,sprtmn,sprtmx,iage,
     ntot = k
   }
   
-  if(ntot==0) break
-  
   if(k!=nu){
     ntot1 = k+1
     if(ntot1 > max.ind) print("too many trees -- kill")
