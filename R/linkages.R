@@ -279,8 +279,13 @@ linkages <- function(linkages.input, outdir, restart = NULL, linkages.restart = 
   nee <- ((ag.npp - hetero.resp) / PLOT.AREA / yearSecs * DEFAULT.C * toKG) # NEE #possibly questionable
   et <- aet.save / yearSecs # Evap in kg/m^2/s
   agb.pft <- ((bar  / PLOT.AREA) / DEFAULT.C) #biomass by PFT
-  f.comp <- t(t(bar[,,1] / PLOT.AREA * DEFAULT.C * toKG) / colSums((as.matrix(bar[,,1]) / PLOT.AREA * DEFAULT.C * toKG))) #f composition
-  f.comp[is.na(f.comp)]<-0
+  if(nspec>1){
+    f.comp <- t(t(bar[,,1] / PLOT.AREA * DEFAULT.C * toKG) / colSums((as.matrix(bar[,,1]) / PLOT.AREA * DEFAULT.C * toKG))) #f composition
+    f.comp[is.na(f.comp)]<-0
+  }else{
+    f.comp <- matrix(1,dim(bar))
+  }
+
 
   #NOT USED IN CURRENT PECAN OUTPUT #Add? SoilMoisture? LAI? StemDensity?
   #What about MIP stuff?
