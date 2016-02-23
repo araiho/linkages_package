@@ -281,9 +281,9 @@ linkages <- function(linkages.input, outdir, restart = NULL, linkages.restart = 
   agb.pft <- ((bar  / PLOT.AREA) / DEFAULT.C) #biomass by PFT
   if(nspec>1){
     f.comp <- t(t(bar[,,1] / PLOT.AREA * DEFAULT.C * toKG) / colSums((as.matrix(bar[,,1]) / PLOT.AREA * DEFAULT.C * toKG))) #f composition
-    f.comp[is.na(f.comp)]<-0
+    f.comp[is.na(f.comp)]<-0 #look into prop.table()
   }else{
-    f.comp <- matrix(1,dim(bar))
+    f.comp <- array(1,dim(bar))
   }
 
 
