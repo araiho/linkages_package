@@ -283,7 +283,7 @@ linkages <- function(linkages.input, outdir, restart = NULL, linkages.restart = 
     f.comp <- t(t(bar[,,1] / PLOT.AREA * DEFAULT.C * toKG) / colSums((as.matrix(bar[,,1]) / PLOT.AREA * DEFAULT.C * toKG))) #f composition
     f.comp[is.na(f.comp)]<-0 #look into prop.table()
   }else{
-    f.comp <- array(1,dim(bar))
+    f.comp <- matrix(1,nspec,nyear)
   }
 
 
