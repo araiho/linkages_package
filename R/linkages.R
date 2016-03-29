@@ -240,7 +240,7 @@ linkages <- function(linkages.input, outdir, restart = NULL, linkages.restart = 
       #save variables
       tstem[i,k] = unlist(output.out$atot) #number of stems
       tab[i,k] = unlist(output.out$tbar) #total aboveground biomass
-      area[i,k] = unlist(output.out$area) #LAI
+      area[i,k] = unlist(output.out$area)/10 #LAI
       water[i,k] = unlist(moist.out$water) #soil moisture
       fl[i,k] = unlist(kill.out$tyl)[17] #leaf litter
       totl[i,k] = unlist(output.out$tyln) #leaf litter N
@@ -265,22 +265,22 @@ linkages <- function(linkages.input, outdir, restart = NULL, linkages.restart = 
   #conversion factors
   DEFAULT.C <- 0.48  ## mass percent C of biomass
   PLOT.AREA <- 833 ## m^2
-  toKG <- 1000 ## Kg in Mg
+  toKG <- 100 ## g in Kg
   yearSecs <- (3.15569 * 10^7)
   Tconst <- .012
 
   #unit conversions for variables of interest #need to recheck more carefully later
   year <- seq(1,nyear,1)
-  ag.biomass <- ((tab  / PLOT.AREA) / DEFAULT.C) # Above Ground Biomass in kgC/m2 #total aboveground biomass
-  total.soil.carbon <- (som + fl) / PLOT.AREA * DEFAULT.C # TotSoilCarb in kgC/m2
-  leaf.litter <- fl / PLOT.AREA * DEFAULT.C # leaf litter in kgC/m2
-  ag.npp <- (tnap / PLOT.AREA / yearSecs * DEFAULT.C * toKG) # GWBI = NPP in linkages
-  hetero.resp <- (sco2c / PLOT.AREA / yearSecs * toKG) # HeteroResp in kgC/m^2/s
-  nee <- ((ag.npp - hetero.resp) / PLOT.AREA / yearSecs * DEFAULT.C * toKG) # NEE #possibly questionable
-  et <- aet.save / yearSecs # Evap in kg/m^2/s
-  agb.pft <- ((bar  / PLOT.AREA) / DEFAULT.C) #biomass by PFT
+  ag.biomass <- (tab  * (1 / PLOT.AREA) * DEFAULT.C) # Above Ground Biomass in kgC/m2 #total aboveground biomass
+  total.soil.carbon <- (som + fl)  * DEFAULT.C # TotSoilCarb in kgC/m2
+  leaf.litter <- fl * DEFAULT.C # leaf litter in kgC/m2
+  ag.npp <- (tnap * (1 / PLOT.AREA) * (1 / yearSecs) * DEFAULT.C) # GWBI = NPP in linkages
+  hetero.resp <- (sco2c *(1 / PLOT.AREA) * (1 / yearSecs) * toKG) # HeteroResp in kgC/m^2/s
+  nee <- ((ag.npp - hetero.resp))# NEE #possibly questionable
+  et <- aet.save * (1 / yearSecs) # Evap in kg/m^2/s
+  agb.pft <- (bar  * (1 / PLOT.AREA) * DEFAULT.C) #biomass by PFT
   if(nspec>1){
-    f.comp <- t(t(bar[,,1] / PLOT.AREA * DEFAULT.C * toKG) / colSums((as.matrix(bar[,,1]) / PLOT.AREA * DEFAULT.C * toKG))) #f composition
+    f.comp <- t(t(bar[,,1]  * (1 / PLOT.AREA) * DEFAULT.C) / colSums((as.matrix(bar[,,1]) * (1 / PLOT.AREA) * DEFAULT.C))) #f composition
     f.comp[is.na(f.comp)]<-0 #look into prop.table()
   }else{
     f.comp <- matrix(1,nspec,nyear)
