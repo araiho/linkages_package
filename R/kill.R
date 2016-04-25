@@ -58,7 +58,7 @@ kill <- function(nspec, ntrees,slta,sltb,dbh,agemx,ksprt,sprtmn,sprtmx,iage,
       ba = ba + .0314 * (dbh[k]*.5) ^ 2
 
       #kill trees based on probability that only 1% reach max age
-      yfl = runif(1,0,1) #this changes everything... pexp(agemx[i],1/(agemx[i]/2)) 4.605/agemx[i]
+      yfl = runif(1,0,1) # pexp(agemx[i],1/(agemx[i]/2)) 4.605/agemx[i] iage[k] > runif(1,(agemx[i]-100),agemx[i])
       if(yfl <= 4.605/agemx[i]) {
         ntrees[i] = ntrees[i] - 1
 
@@ -129,11 +129,11 @@ kill <- function(nspec, ntrees,slta,sltb,dbh,agemx,ksprt,sprtmn,sprtmx,iage,
     nogro[k] = nogro[i]
     ntot = k
   }
-  
+
   if(k!=nu){
     ntot1 = k+1
     if(ntot1 > max.ind) print("too many trees -- kill")
-    
+
     #eliminate dead trees
     for(i in ntot1:nu){
       dbh[i] = 0
@@ -144,11 +144,11 @@ kill <- function(nspec, ntrees,slta,sltb,dbh,agemx,ksprt,sprtmn,sprtmx,iage,
 
 #   if(length(which(dbh>0)) < sum(ntrees)){
 #     ntrees[4] <- ntrees[4] - length(ntot1:nu) + 1
-#     
-#   } 
-#  if(ntrees[4]<0) ntrees[4]=0cd 
+#
+#   }
+#  if(ntrees[4]<0) ntrees[4]=0cd
 if(length(which(dbh>0)) != sum(ntrees)) browser()
-  
+
   return(list(ntrees = ntrees, dbh = dbh, iage = iage, nogro = nogro,
               tyl = tyl, ksprt = ksprt))
 

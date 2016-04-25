@@ -36,12 +36,14 @@ grow <- function(max.ind,nspec,ntrees,frt,slta,sltb,dbh,fwt, b2,b3, itol,g,
 
   #calculate total number of trees
   ntot = 0
+  gf.vec <- numeric(4)
   for(i in 1:nspec) ntot = ntot + ntrees[i]
   if(ntot != 0){
   if(ntot > max.ind) print("too many trees -- grow")
 
   #initialize canopy leaf biomass profile
   sumla = matrix(0,1,max.ind)
+
 
   #loop for calculating canopy profile
   nl = 1
@@ -89,7 +91,7 @@ grow <- function(max.ind,nspec,ntrees,frt,slta,sltb,dbh,fwt, b2,b3, itol,g,
       } else {
         algf = 1 - exp(-4.64 * (al - .05))
       }
-      
+
       if(length(algf)>1){
         #print(algf)
         algf = algf[1]
@@ -101,11 +103,11 @@ grow <- function(max.ind,nspec,ntrees,frt,slta,sltb,dbh,fwt, b2,b3, itol,g,
 
       #calculate diameter increment under optimal conditions
       dncmax = g[i] * dbh[j] * (1 - (137 * dbh[j] + b2[i] * dbh[j]^2 - b3[i] * (dbh[j]^3)) / gr) / (274 + 3 * b2[i] * dbh[j] - 4 * b3[i] * dbh[j]^2)
-      
+
       #choose smallest growth multiplier for this tree
       gf = min(algf, smgf[i], sngf[i], degdgf[i])
-      
-      #gf.vec = data.frame(algf, smgf[i], sngf[i], degdgf[i])
+
+      gf.vec = c(algf, smgf[i], sngf[i], degdgf[i])
       #print(gf==gf.vec)
       #print(gf.vec)
 
@@ -134,5 +136,5 @@ grow <- function(max.ind,nspec,ntrees,frt,slta,sltb,dbh,fwt, b2,b3, itol,g,
     nl = nl + ntrees[i]
   }
   }
-  return(list(ntrees = ntrees, dbh = dbh, awp = awp, nogro = nogro))
+  return(list(ntrees = ntrees, dbh = dbh, awp = awp, nogro = nogro, gf.vec = gf.vec))
 }

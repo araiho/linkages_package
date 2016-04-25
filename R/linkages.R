@@ -63,7 +63,7 @@ linkages <- function(linkages.input, outdir, restart = NULL, linkages.restart = 
   } else {
     nyear <- 1
   }
-  
+
 
   #Storage
   tstem = matrix(0,nyear,iplot) #number of stems
@@ -83,6 +83,7 @@ linkages <- function(linkages.input, outdir, restart = NULL, linkages.restart = 
   ntrees.birth <- array(0,dim=c(nspec,nyear,iplot))
   ntrees.grow <- array(0,dim=c(nspec,nyear,iplot))
   ntrees.kill <- array(0,dim=c(nspec,nyear,iplot))
+  gf.vec.save <- array(0,dim=c(4,nyear,iplot))
   bar <- array(0,dim=c(nspec,nyear,iplot))
   nogro.save <- array(0,dim=c(max.ind,nyear,iplot))
   dbh.save <- array(0,dim=c(max.ind,nyear,iplot))
@@ -191,9 +192,9 @@ linkages <- function(linkages.input, outdir, restart = NULL, linkages.restart = 
       nogro <- unlist(birth.out$nogro)
       ksprt <- unlist(birth.out$ksprt)
       iage <- unlist(birth.out$iage)
- 
+
       #if(dbh[sum(ntrees)]==0) browser()
-      
+
       #growth subroutine - increments dbh
       grow.out <- grow(max.ind = max.ind, nspec = nspec, ntrees = ntrees, frt = spp.params$FRT, slta = spp.params$SLTA,
            sltb = spp.params$SLTB, dbh = dbh, fwt = spp.params$FWT, b2 = spp.params$B2,
@@ -212,15 +213,18 @@ linkages <- function(linkages.input, outdir, restart = NULL, linkages.restart = 
       awp <- unlist(grow.out$awp)
       nogro <- unlist(grow.out$nogro)
 
+      gf.vec <- unlist(grow.out$gf.vec)
+      gf.vec.save[,i,k] <- gf.vec
+
       #if(dbh[sum(ntrees)]==0) browser()
-      
+
       #kill subroutine
       kill.out<- kill(nspec = nspec, ntrees= ntrees,slta = spp.params$SLTA, sltb = spp.params$SLTB,
            dbh = dbh, agemx = spp.params$AGEMX, ksprt = ksprt,
            sprtmn = spp.params$SPRTMN, sprtmx = spp.params$SPRTMX, iage  = iage,
            nogro  = nogro,tl = spp.params$TL,rtst = spp.params$RTST, fwt = spp.params$FWT,
            max.ind = max.ind, frt = spp.params$FRT)
-      
+
       ntrees <- unlist(kill.out$ntrees)
       ntrees.kill[,i,k] <- unlist(kill.out$ntrees)
       dbh <- unlist(kill.out$dbh)
@@ -305,7 +309,8 @@ linkages <- function(linkages.input, outdir, restart = NULL, linkages.restart = 
        tab = tab,fl = fl,totl = totl,tnap = tnap,avln = avln,cn = cn,sco2c = sco2c,
        som = som,bar = bar,aet.save = aet.save,nogro.save = nogro.save,
        dbh.save = dbh.save, iage.save = iage.save, C.mat = C.mat, tyl = tyl,
-       ncohrt = ncohrt, area = area, water = water, ksprt = ksprt, tyl.save = tyl.save, file = output.file)
+       ncohrt = ncohrt, area = area, water = water, ksprt = ksprt, tyl.save = tyl.save,
+       gf.vec.save = gf.vec.save, file = output.file)
 
   file.exists(output.file)
 

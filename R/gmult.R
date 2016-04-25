@@ -47,11 +47,12 @@ gmult <- function(egs,bgs,availn,degd,dmin,dmax,d3,fj,cm1,cm3,cm2,cm4,cm5,nspec)
       smgf[i] = sqrt((drout - fj)/drout)
       #print(paste0("smgf =",smgf))
       if(smgf[i] != 0){
-        conn = cm1[i] * (1 - 10^((-1*cm3[i])*(avlmc+cm2[i])))
+        conn = cm1[i] * (1 - 10 ^ ((-1 * cm3[i]) * (avlmc + cm2[i])))
         sngf[i] = cm4[i] + cm5[i] * conn
         #browser()
         if(sngf[i] < 0) sngf[i] = 0
-        
+        #if(sngf[i] > 10) sngf[i] = 10
+
       }
     }
   }
