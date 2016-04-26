@@ -310,7 +310,7 @@ linkages <- function(linkages.input, outdir, restart = NULL, linkages.restart = 
        som = som,bar = bar,aet.save = aet.save,nogro.save = nogro.save,
        dbh.save = dbh.save, iage.save = iage.save, C.mat = C.mat, tyl = tyl,
        ncohrt = ncohrt, area = area, water = water, ksprt = ksprt, tyl.save = tyl.save,
-       gf.vec.save = gf.vec.save, file = output.file)
+       gf.vec.save = gf.vec.save, ff=ff, file = output.file)
 
   file.exists(output.file)
 
