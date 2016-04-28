@@ -6,16 +6,16 @@
 ##' @param ncohrt average precipitation by month for current year
 ##' @param fc field capacity
 ##' @param dry wilting point
-##' @param tyl beginning growing season day of year
-##' @param C.mat end growing season day of year
+##' @param tyl total yearly litter
+##' @param C.mat carbon matrix
 ##'
 ##' @description DECOMP CALCULATES CARBON AND NITROGEN FLOWS THROUGH
 ##'    SOIL. AVAILABLE N (AVAILN) IS USED IN GMULT TO CALCULATE
-##'   SOIL NITROGEN GROWTH MULTIPLIERS. AET IS FED IN FROM MOIST.
+##'    SOIL NITROGEN GROWTH MULTIPLIERS. AET IS FED IN FROM MOIST.
 ##'    THIS YEAR'S LEAF, TWIG, ROOT, AND WOOD LITTER IS FED IN FROM KILL
-##'   (ARRAY TYL). THE SIMULATION STARTS ON BARE GROUND (ONLY HUMUS
-##'   PRESENT. BASESC AND BASESN ARE STARTING HUMUS WEIGHT AND N
-##'   CONTENTS READ IN INPUT). THREE TYPES OF SOIL ORGANIC MATTER ARE
+##'    (ARRAY TYL). THE SIMULATION STARTS ON BARE GROUND (ONLY HUMUS
+##'    PRESENT. BASESC AND BASESN ARE STARTING HUMUS WEIGHT AND N
+##'    CONTENTS READ IN INPUT). THREE TYPES OF SOIL ORGANIC MATTER ARE
 ##'    RECOGNIZED: COHORTS EITHER IMMOBILIZING OR RAPIDLY MINERALIZING
 ##'    NITROGEN AND A HOMOGENOUS HUMUS POOL SLOWLY MINERALIZING N.
 ##'
@@ -112,10 +112,13 @@ decomp <- function(fdat,aet,ncohrt,fc,dry,tyl,C.mat){
       pomr = (C.mat[i,1]-wtloss)/C.mat[i,10]
       #find new N concentration in cohort
       C.mat[i,11] = C.mat[i,3] - C.mat[i,4] * pomr
-      #retain cohort for another year of decay if fraction remaining is greater than fraction which wil become humus of well decayed wood
+      #retain cohort for another year of decay if fraction remaining is greater
+      #than fraction which will become humus of well decayed wood
       if(pomr<=C.mat[i,12]){
-        #if cohrt is to be transferred to humus, recalculate wtloss and N concentration so that the transfer occurs at the fraction specified by the initial lignin concentration
+        #if cohrt is to be transferred to humus, recalculate wtloss and N concentration
+        #so that the transfer occurs at the fraction specified by the initial lignin concentration
         wtloss = C.mat[i,1] - C.mat[i,12]*C.mat[i,10]
+        if(wtloss<0) wtloss = 0
         C.mat[i,11] = C.mat[i,3] - C.mat[i,4]*C.mat[i,12]
         #calculate absolute change in N content
         deltan = C.mat[i,2] - C.mat[i,11] * (C.mat[i,1] - wtloss)
@@ -126,22 +129,24 @@ decomp <- function(fdat,aet,ncohrt,fc,dry,tyl,C.mat){
           C.mat[1,1] = C.mat[1,1] + C.mat[i,1] - wtloss
           C.mat[1,2] = C.mat[1,2] + C.mat[i,11] * (C.mat[i,1]-wtloss)
           C.mat[i,1] = 0
-        }
+        }else{
         #FFW - temporary variable assigned to well decayed wood cohort
         ffw = ffw + C.mat[i,1] - wtloss
         C.mat[i,1] = 0
+        }
       }
       #update cohorts
       if(C.mat[i,1]!=0){
         C.mat[i,1] = C.mat[i,1] - wtloss
         C.mat[i,2] = C.mat[i,1] * C.mat[i,11]
         C.mat[i,7] = C.mat[i,8] - C.mat[i,9] * (C.mat[i,1]/C.mat[i,10])
+      }else{
+        #calculate litter cohort co2 evolution
+        fco2 = fco2 + (wtloss*.48)
       }
-      #calculate litter cohort co2 evolution
-      fco2 = fco2 + (wtloss*.48)
-      #throughfall is 16% of leaf litter N
-      tnimob = tnimob - .16 * tyln
     }
+    #throughfall is 16% of leaf litter N
+    tnimob = tnimob - .16 * tyln
   }
   #calculate humus N mineralization
   hnmin = C.mat[1,2] * .035 * decmlt * aetm
@@ -159,6 +164,7 @@ decomp <- function(fdat,aet,ncohrt,fc,dry,tyl,C.mat){
   availn = tnmin - tnimob
   #calculate total soil respiration
   sco2 = fco2+hco2
+  if(sco2<0) browser()
   #remove transferred cohorts
   ix = 0
   for(i in 1:ncohrt){

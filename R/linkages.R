@@ -63,7 +63,7 @@ linkages <- function(linkages.input, outdir, restart = NULL, linkages.restart = 
   } else {
     nyear <- 1
   }
-  
+
 
   #Storage
   tstem = matrix(0,nyear,iplot) #number of stems
@@ -83,6 +83,7 @@ linkages <- function(linkages.input, outdir, restart = NULL, linkages.restart = 
   ntrees.birth <- array(0,dim=c(nspec,nyear,iplot))
   ntrees.grow <- array(0,dim=c(nspec,nyear,iplot))
   ntrees.kill <- array(0,dim=c(nspec,nyear,iplot))
+  gf.vec.save <- array(0,dim=c(4,nyear,iplot))
   bar <- array(0,dim=c(nspec,nyear,iplot))
   nogro.save <- array(0,dim=c(max.ind,nyear,iplot))
   dbh.save <- array(0,dim=c(max.ind,nyear,iplot))
@@ -191,9 +192,9 @@ linkages <- function(linkages.input, outdir, restart = NULL, linkages.restart = 
       nogro <- unlist(birth.out$nogro)
       ksprt <- unlist(birth.out$ksprt)
       iage <- unlist(birth.out$iage)
- 
+
       #if(dbh[sum(ntrees)]==0) browser()
-      
+
       #growth subroutine - increments dbh
       grow.out <- grow(max.ind = max.ind, nspec = nspec, ntrees = ntrees, frt = spp.params$FRT, slta = spp.params$SLTA,
            sltb = spp.params$SLTB, dbh = dbh, fwt = spp.params$FWT, b2 = spp.params$B2,
@@ -212,15 +213,18 @@ linkages <- function(linkages.input, outdir, restart = NULL, linkages.restart = 
       awp <- unlist(grow.out$awp)
       nogro <- unlist(grow.out$nogro)
 
+      gf.vec <- unlist(grow.out$gf.vec)
+      gf.vec.save[,i,k] <- gf.vec
+
       #if(dbh[sum(ntrees)]==0) browser()
-      
+
       #kill subroutine
       kill.out<- kill(nspec = nspec, ntrees= ntrees,slta = spp.params$SLTA, sltb = spp.params$SLTB,
            dbh = dbh, agemx = spp.params$AGEMX, ksprt = ksprt,
            sprtmn = spp.params$SPRTMN, sprtmx = spp.params$SPRTMX, iage  = iage,
            nogro  = nogro,tl = spp.params$TL,rtst = spp.params$RTST, fwt = spp.params$FWT,
            max.ind = max.ind, frt = spp.params$FRT)
-      
+
       ntrees <- unlist(kill.out$ntrees)
       ntrees.kill[,i,k] <- unlist(kill.out$ntrees)
       dbh <- unlist(kill.out$dbh)
@@ -240,7 +244,7 @@ linkages <- function(linkages.input, outdir, restart = NULL, linkages.restart = 
       #save variables
       tstem[i,k] = unlist(output.out$atot) #number of stems
       tab[i,k] = unlist(output.out$tbar) #total aboveground biomass
-      area[i,k] = unlist(output.out$area) #LAI
+      area[i,k] = unlist(output.out$area)/10 #LAI
       water[i,k] = unlist(moist.out$water) #soil moisture
       fl[i,k] = unlist(kill.out$tyl)[17] #leaf litter
       totl[i,k] = unlist(output.out$tyln) #leaf litter N
@@ -265,22 +269,27 @@ linkages <- function(linkages.input, outdir, restart = NULL, linkages.restart = 
   #conversion factors
   DEFAULT.C <- 0.48  ## mass percent C of biomass
   PLOT.AREA <- 833 ## m^2
-  toKG <- 1000 ## Kg in Mg
+  toKG <- 100 ## g in Kg
   yearSecs <- (3.15569 * 10^7)
   Tconst <- .012
 
   #unit conversions for variables of interest #need to recheck more carefully later
   year <- seq(1,nyear,1)
-  ag.biomass <- ((tab  / PLOT.AREA) / DEFAULT.C) # Above Ground Biomass in kgC/m2 #total aboveground biomass
-  total.soil.carbon <- (som + fl) / PLOT.AREA * DEFAULT.C # TotSoilCarb in kgC/m2
-  leaf.litter <- fl / PLOT.AREA * DEFAULT.C # leaf litter in kgC/m2
-  ag.npp <- (tnap / PLOT.AREA / yearSecs * DEFAULT.C * toKG) # GWBI = NPP in linkages
-  hetero.resp <- (sco2c / PLOT.AREA / yearSecs * toKG) # HeteroResp in kgC/m^2/s
-  nee <- ((ag.npp - hetero.resp) / PLOT.AREA / yearSecs * DEFAULT.C * toKG) # NEE #possibly questionable
-  et <- aet.save / yearSecs # Evap in kg/m^2/s
-  agb.pft <- ((bar  / PLOT.AREA) / DEFAULT.C) #biomass by PFT
-  f.comp <- t(t(bar[,,1] / PLOT.AREA * DEFAULT.C * toKG) / colSums((as.matrix(bar[,,1]) / PLOT.AREA * DEFAULT.C * toKG))) #f composition
-  f.comp[is.na(f.comp)]<-0
+  ag.biomass <- (tab  * (1 / PLOT.AREA) * DEFAULT.C) # Above Ground Biomass in kgC/m2 #total aboveground biomass
+  total.soil.carbon <- (som + fl)  * DEFAULT.C # TotSoilCarb in kgC/m2
+  leaf.litter <- fl * DEFAULT.C # leaf litter in kgC/m2
+  ag.npp <- (tnap * (1 / PLOT.AREA) * (1 / yearSecs) * DEFAULT.C) # GWBI = NPP in linkages
+  hetero.resp <- (sco2c *(1 / PLOT.AREA) * (1 / yearSecs) * toKG) # HeteroResp in kgC/m^2/s
+  nee <- ((ag.npp - hetero.resp))# NEE #possibly questionable
+  et <- aet.save * (1 / yearSecs) # Evap in kg/m^2/s
+  agb.pft <- (bar  * (1 / PLOT.AREA) * DEFAULT.C) #biomass by PFT
+  if(nspec>1){
+    f.comp <- t(t(bar[,,1]  * (1 / PLOT.AREA) * DEFAULT.C) / colSums((as.matrix(bar[,,1]) * (1 / PLOT.AREA) * DEFAULT.C))) #f composition
+    f.comp[is.na(f.comp)]<-0 #look into prop.table()
+  }else{
+    f.comp <- matrix(1,nspec,nyear)
+  }
+
 
   #NOT USED IN CURRENT PECAN OUTPUT #Add? SoilMoisture? LAI? StemDensity?
   #What about MIP stuff?
@@ -300,7 +309,8 @@ linkages <- function(linkages.input, outdir, restart = NULL, linkages.restart = 
        tab = tab,fl = fl,totl = totl,tnap = tnap,avln = avln,cn = cn,sco2c = sco2c,
        som = som,bar = bar,aet.save = aet.save,nogro.save = nogro.save,
        dbh.save = dbh.save, iage.save = iage.save, C.mat = C.mat, tyl = tyl,
-       ncohrt = ncohrt, area = area, water = water, ksprt = ksprt, tyl.save = tyl.save, file = output.file)
+       ncohrt = ncohrt, area = area, water = water, ksprt = ksprt, tyl.save = tyl.save,
+       gf.vec.save = gf.vec.save, ff=ff, file = output.file)
 
   file.exists(output.file)
 
