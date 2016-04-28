@@ -1,0 +1,26 @@
+code,description,PHA,PHO,PUN,PBL,PDL,PMB
+site,site name,Harvard Forest,Howland Forest,UNDERC,Billy's Lake,Deming Lake,Minden Bog
+lon,"longitude, degrees",-72.18,-68.73,-89.53,-94.58,-95.17,-82.83
+lat,"latitude, degrees",42.54,45.25,46.22,46.28,47.17,43.61
+vegtype,Ramankutty and Foley biome classification,5,8,8,8,8,4
+vegtype_long,Ramankutty and Foley biome classification,Temperate deciduous forest/woodland,Evergreen/deciduous mixed forest/woodland,Evergreen/deciduous mixed forest/woodland,Evergreen/deciduous mixed forest/woodland,Evergreen/deciduous mixed forest/woodland,Temperate needleleaf evergreen forest/woodland
+il,Impermeable layer,0,0,0,0,0,0
+issoil,Soil or non-soil unit,1,1,1,1,1,1
+ref_depth,Reference soil depth,100,100,100,100,100,100
+roots,Obstacles to roots,0,0,0,0,0,0
+s_cec,maximum soil depth,165,165,152,152,152,152
+s_clay,subsoil CEC,0,3.25999999,1.289999962,3.029999971,14.27999973,10
+s_gravel,subsoil gravel fraction,27,24,33.63000107,27.70999908,11.46000004,14
+s_oc,subsoil organic carbon,0,1.304999948,0.180350006,0.435000002,0.541509986,1.159999967
+s_ph_h2o,subsoil pH,5.429999828,5.425700188,5.67140007,6.039999962,6.809999943,7.460000038
+s_ref_bulk,subsoil bulk density,1.526000023,1.289800048,1.488299966,1.438199997,1.418300033,1.312399983
+s_sand,subsoil sand fraction,66,71,34,94,65,48
+s_silt,subsoil silt fraction,30,23,64,1,17,28
+t_cec,topsoil CEC,0,0,2.420000076,4.579999924,9.229999542,10
+t_clay,topsoil clay fraction,4,6,2,7,10,19
+t_gravel,topsoil gravel fraction,25,24.10000038,28,16.27000046,11.82999992,14
+t_oc,topsoil organic carbon,0,1.226400018,0.645829976,0.435000002,0.79430002,1.159999967
+t_ph_h2o,topsoil pH,5.099999905,5.099999905,5.366700172,5.800000191,5.800000191,7.199999809
+t_ref_bulk,topsoil bulk density,1.526000023,1.302000046,1.399199963,1.438199997,1.373000026,1.312399983
+t_sand,topsoil sand fraction,65,71,80,88,79,42
+t_silt,topsoil silt fraction,31,23,18,5,11,39
