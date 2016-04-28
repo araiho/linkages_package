@@ -1,0 +1,3 @@
+These files correspond to the subroutines in the original fortran code
+
+linkages.R calls subroutine and stores output
