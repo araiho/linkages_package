@@ -3,3 +3,5 @@
 .RData
 **/a.out
 *~
+**/OUT.FIL
+**/OUT.csv
