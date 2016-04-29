@@ -71,12 +71,11 @@ decomp <- function(fdat,aet,ncohrt,fc,dry,tyl,C.mat){
     if(tyl[i]==0) next
       ncohrt = ncohrt + 1
       if(ncohrt>100) print("ncohrt error")
-      browser()
       C.mat[ncohrt,1] = tyl[i] * fdat[i,10]
       C.mat[ncohrt,2] = tyl[i] * fdat[i,2]
 
-      C.mat[ncohrt,3:9] = fdat[i,3:9]
-      C.mat[ncohrt,10] = tyl[i] * fdat[i,10]
+      C.mat[ncohrt,3:9] = as.matrix(fdat[i,3:9])
+      C.mat[ncohrt,10] = as.matrix(tyl[i] * fdat[i,10])
       C.mat[ncohrt,11] = fdat[i,2]
       C.mat[ncohrt,12] = fdat[i,7] * 1.7039 + .0955
       if(C.mat[ncohrt,5]==14) C.mat[ncohrt,12]=.3
