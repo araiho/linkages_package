@@ -44,9 +44,8 @@ decomp <- function(fdat,aet,ncohrt,fc,dry,tyl,C.mat){
   ff = matrix(0,20,3) #weights and n content of forest floor by litter type
 
   #Calculate Litter N
-  for(i in 1:12){
-    tyln = tyln + tyl[i]*fdat[i,2]
-  }
+  tyln = sum(tyl[i]*fdat[i,2])
+
 
   #Calculate AET Multiplier
   xaet = aet
@@ -75,9 +74,9 @@ decomp <- function(fdat,aet,ncohrt,fc,dry,tyl,C.mat){
       if(ncohrt>100) print("ncohrt error")
       C.mat[ncohrt,1] = tyl[i] * fdat[i,10]
       C.mat[ncohrt,2] = tyl[i] * fdat[i,2]
-      for(j in 3:9){
-        C.mat[ncohrt,j] = fdat[i,j]
-      }
+
+      C.mat[ncohrt,3:9] = fdat[i,3:9]
+
       C.mat[ncohrt,10] = tyl[i] * fdat[i,10]
       C.mat[ncohrt,11] = fdat[i,2]
       C.mat[ncohrt,12] = fdat[i,7] * 1.7039 + .0955
@@ -169,9 +168,7 @@ decomp <- function(fdat,aet,ncohrt,fc,dry,tyl,C.mat){
   ix = 0
   for(i in 1:ncohrt){
     if(C.mat[i,1]==0) ix = ix + 1
-      for(j in 1:12){
-        C.mat[(i-ix),j] = C.mat[i,j]
-      }
+    C.mat[(i-ix),1:12] = C.mat[i,1:12]
   }
   ncohrt = ncohrt - ix
   #create new well decayed wood cohort
@@ -180,9 +177,9 @@ decomp <- function(fdat,aet,ncohrt,fc,dry,tyl,C.mat){
     if(ncohrt>100) print("too many ncohrt")
     C.mat[ncohrt,1] = ffw
     C.mat[ncohrt,2] = ffw * fdat[17,2]
-    for(j in 3:9){
-      C.mat[ncohrt,j] = fdat[17,j]
-    }
+
+    C.mat[ncohrt,3:9] = fdat[17,3:9]
+
     C.mat[ncohrt,10] = ffw
     C.mat[ncohrt,11] = fdat[17,2]
     C.mat[ncohrt,12] = .5

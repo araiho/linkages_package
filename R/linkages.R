@@ -96,14 +96,14 @@ linkages <- function(linkages.input, outdir, restart = NULL, linkages.restart = 
     plotin.out <- plotin(iplot = k, basesc = basesc, basesn = basesn, max.ind = max.ind,
                          nspec = nspec) # initializes storage matrices with zeros for each plot
 
-    ncohrt <- unlist(plotin.out$ncohrt)
-    tyl <- unlist(plotin.out$tyl)
-    C.mat <- unlist(plotin.out$C.mat)
-    ntrees <- unlist(plotin.out$ntrees)
-    dbh <- unlist(plotin.out$dbh)
-    nogro <- unlist(plotin.out$nogro)
-    ksprt <- unlist(plotin.out$ksprt)
-    iage <- unlist(plotin.out$iage)
+    ncohrt <- unlist(plotin.out$ncohrt, use.names = FALSE)
+    tyl <- unlist(plotin.out$tyl, use.names = FALSE)
+    C.mat <- unlist(plotin.out$C.mat, use.names = FALSE)
+    ntrees <- unlist(plotin.out$ntrees, use.names = FALSE)
+    dbh <- unlist(plotin.out$dbh, use.names = FALSE)
+    nogro <- unlist(plotin.out$nogro, use.names = FALSE)
+    ksprt <- unlist(plotin.out$ksprt, use.names = FALSE)
+    iage <- unlist(plotin.out$iage, use.names = FALSE)
 
     } else {
       #load last stopping point
@@ -137,26 +137,26 @@ linkages <- function(linkages.input, outdir, restart = NULL, linkages.restart = 
 
       #calculates degree days for the year
       tempe.out <- tempe(temp.vec = temp.mat[i,])
-      degd = unlist(tempe.out$degd)
+      degd = unlist(tempe.out$degd, use.names = FALSE)
 
       #calculates aet
       moist.out <- moist(kyr = i, temp.vec = temp.mat[i,], precip.vec = precip.mat[i,],
             fc = fc, dry = dry, bgs = bgs, egs = egs, plat = plat, clat = clat)
-      aet <- unlist(moist.out$aet)
-      fj <- unlist(moist.out$fj)
+      aet <- unlist(moist.out$aet, use.names = FALSE)
+      fj <- unlist(moist.out$fj, use.names = FALSE)
 
       #decomposition subroutine
       decomp.out <- decomp(fdat = fdat, aet = aet,
                            ncohrt = ncohrt, fc = fc, dry = dry,
                            tyl = tyl, C.mat = C.mat)
 
-      ff <- unlist(decomp.out$ff)
-      availn <- unlist(decomp.out$availn)
-      tyln <- unlist(decomp.out$tyln)
-      hcn <- unlist(decomp.out$hcn)
-      sco2 <- unlist(decomp.out$sco2)
-      ncohrt <- unlist(decomp.out$ncohrt)
-      C.mat <- unlist(decomp.out$C.mat)
+      ff <- unlist(decomp.out$ff, use.names = FALSE)
+      availn <- unlist(decomp.out$availn, use.names = FALSE)
+      tyln <- unlist(decomp.out$tyln, use.names = FALSE)
+      hcn <- unlist(decomp.out$hcn, use.names = FALSE)
+      sco2 <- unlist(decomp.out$sco2, use.names = FALSE)
+      ncohrt <- unlist(decomp.out$ncohrt, use.names = FALSE)
+      C.mat <- unlist(decomp.out$C.mat, use.names = FALSE)
 
       #calculates "growth multipliers"
       gmult.out <- gmult(bgs = bgs, egs = egs, availn = availn,
@@ -165,10 +165,10 @@ linkages <- function(linkages.input, outdir, restart = NULL, linkages.restart = 
                         cm1 = spp.params$CM1, cm3 = spp.params$CM3, cm2 = spp.params$CM2,
                         cm4 = spp.params$CM4, cm5 = spp.params$CM5, nspec = nspec)
 
-      smgf <- unlist(gmult.out$smgf) #soil moisture growth factor
-      sngf <- unlist(gmult.out$sngf) #soil nitrogen growth factor
-      degdgf <- unlist(gmult.out$degdgf) #degree day growth factor
-      availn <- unlist(gmult.out$availn) #available nitrogen
+      smgf <- unlist(gmult.out$smgf, use.names = FALSE) #soil moisture growth factor
+      sngf <- unlist(gmult.out$sngf, use.names = FALSE) #soil nitrogen growth factor
+      degdgf <- unlist(gmult.out$degdgf, use.names = FALSE) #degree day growth factor
+      availn <- unlist(gmult.out$availn, use.names = FALSE) #available nitrogen
 
       #birth subroutine
       birth.out <- birth(nspec = nspec, ntrees = ntrees, frt = spp.params$FRT, iage = iage,
@@ -180,18 +180,18 @@ linkages <- function(linkages.input, outdir, restart = NULL, linkages.restart = 
             ksprt = ksprt, sprtnd = spp.params$SPRTND, max.ind = max.ind, smgf=smgf,
             degdgf = degdgf)
 
-      if(is.null(unlist(birth.out$ntrees))){
+      if(is.null(unlist(birth.out$ntrees, use.names = FALSE))){
         ntrees[,i,k] <- rep(0,nspec)
         ntrees.birth[,i,k] <- rep(0,nspec)
       } else {
-        ntrees.birth[,i,k] <- unlist(birth.out$ntrees)
-        ntrees <- unlist(birth.out$ntrees)
+        ntrees.birth[,i,k] <- unlist(birth.out$ntrees, use.names = FALSE)
+        ntrees <- unlist(birth.out$ntrees, use.names = FALSE)
       }
 
-      dbh <- unlist(birth.out$dbh)
-      nogro <- unlist(birth.out$nogro)
-      ksprt <- unlist(birth.out$ksprt)
-      iage <- unlist(birth.out$iage)
+      dbh <- unlist(birth.out$dbh, use.names = FALSE)
+      nogro <- unlist(birth.out$nogro, use.names = FALSE)
+      ksprt <- unlist(birth.out$ksprt, use.names = FALSE)
+      iage <- unlist(birth.out$iage, use.names = FALSE)
 
       #if(dbh[sum(ntrees)]==0) browser()
 
@@ -202,18 +202,18 @@ linkages <- function(linkages.input, outdir, restart = NULL, linkages.restart = 
            smgf = smgf, sngf= sngf,frost = spp.params$FROST, rt = temp.mat[i,], iage = iage,
            nogro=nogro)
 
-      if(is.null(unlist(grow.out$ntrees))){
+      if(is.null(unlist(grow.out$ntrees, use.names = FALSE))){
         ntrees <- rep(0,nspec)
         ntrees.grow[,i,k] <- rep(0,nspec)
       } else {
-        ntrees.grow[,i,k] <- unlist(grow.out$ntrees)
-        ntrees <- unlist(grow.out$ntrees)
+        ntrees.grow[,i,k] <- unlist(grow.out$ntrees, use.names = FALSE)
+        ntrees <- unlist(grow.out$ntrees, use.names = FALSE)
       }
-      dbh <- unlist(grow.out$dbh)
-      awp <- unlist(grow.out$awp)
-      nogro <- unlist(grow.out$nogro)
+      dbh <- unlist(grow.out$dbh, use.names = FALSE)
+      awp <- unlist(grow.out$awp, use.names = FALSE)
+      nogro <- unlist(grow.out$nogro, use.names = FALSE)
 
-      gf.vec <- unlist(grow.out$gf.vec)
+      gf.vec <- unlist(grow.out$gf.vec, use.names = FALSE)
       gf.vec.save[,i,k] <- gf.vec
 
       #if(dbh[sum(ntrees)]==0) browser()
@@ -225,14 +225,14 @@ linkages <- function(linkages.input, outdir, restart = NULL, linkages.restart = 
            nogro  = nogro,tl = spp.params$TL,rtst = spp.params$RTST, fwt = spp.params$FWT,
            max.ind = max.ind, frt = spp.params$FRT)
 
-      ntrees <- unlist(kill.out$ntrees)
-      ntrees.kill[,i,k] <- unlist(kill.out$ntrees)
-      dbh <- unlist(kill.out$dbh)
-      nogro <- unlist(kill.out$nogro)
-      ksprt <- unlist(kill.out$ksprt)
-      iage <- unlist(kill.out$iage)
-      tyl <- unlist(kill.out$tyl)
-      tyl.save[,i,k] <- unlist(kill.out$tyl)
+      ntrees <- unlist(kill.out$ntrees, use.names = FALSE)
+      ntrees.kill[,i,k] <- unlist(kill.out$ntrees, use.names = FALSE)
+      dbh <- unlist(kill.out$dbh, use.names = FALSE)
+      nogro <- unlist(kill.out$nogro, use.names = FALSE)
+      ksprt <- unlist(kill.out$ksprt, use.names = FALSE)
+      iage <- unlist(kill.out$iage, use.names = FALSE)
+      tyl <- unlist(kill.out$tyl, use.names = FALSE)
+      tyl.save[,i,k] <- unlist(kill.out$tyl, use.names = FALSE)
       tyl[is.na(tyl)] <- 0
 
       #output subroutine
@@ -242,22 +242,22 @@ linkages <- function(linkages.input, outdir, restart = NULL, linkages.restart = 
                          ntrees=ntrees,awp=awp)
 
       #save variables
-      tstem[i,k] = unlist(output.out$atot) #number of stems
-      tab[i,k] = unlist(output.out$tbar) #total aboveground biomass
-      area[i,k] = unlist(output.out$area)/10 #LAI
-      water[i,k] = unlist(moist.out$water) #soil moisture
-      fl[i,k] = unlist(kill.out$tyl)[17] #leaf litter
-      totl[i,k] = unlist(output.out$tyln) #leaf litter N
-      tnap[i,k] = unlist(output.out$tynap) #net aboveground production
-      avln[i,k] = unlist(gmult.out$availn) #available nitrogen
-      cn[i,k] = unlist(decomp.out$hcn) #humus C:N ratio
-      sco2c[i,k] = unlist(decomp.out$sco2) #soil co2 evolution
-      som[i,k] = unlist(decomp.out$ff[19,2]) #soil organic matter
-      bar[,i,k] = unlist(output.out$bar) #species biomass
+      tstem[i,k] = unlist(output.out$atot, use.names = FALSE) #number of stems
+      tab[i,k] = unlist(output.out$tbar, use.names = FALSE) #total aboveground biomass
+      area[i,k] = unlist(output.out$area, use.names = FALSE)/10 #LAI
+      water[i,k] = unlist(moist.out$water, use.names = FALSE) #soil moisture
+      fl[i,k] = unlist(kill.out$tyl, use.names = FALSE)[17] #leaf litter
+      totl[i,k] = unlist(output.out$tyln, use.names = FALSE) #leaf litter N
+      tnap[i,k] = unlist(output.out$tynap, use.names = FALSE) #net aboveground production
+      avln[i,k] = unlist(gmult.out$availn, use.names = FALSE) #available nitrogen
+      cn[i,k] = unlist(decomp.out$hcn, use.names = FALSE) #humus C:N ratio
+      sco2c[i,k] = unlist(decomp.out$sco2, use.names = FALSE) #soil co2 evolution
+      som[i,k] = unlist(decomp.out$ff[19,2], use.names = FALSE) #soil organic matter
+      bar[,i,k] = unlist(output.out$bar, use.names = FALSE) #species biomass
       aet.save[i,k] = aet #annual evapotranspiration
-      nogro.save[,i,k] = unlist(kill.out$nogro)
-      dbh.save[,i,k] = unlist(kill.out$dbh)
-      iage.save[,i,k] = unlist(kill.out$iage)
+      nogro.save[,i,k] = unlist(kill.out$nogro, use.names = FALSE)
+      dbh.save[,i,k] = unlist(kill.out$dbh, use.names = FALSE)
+      iage.save[,i,k] = unlist(kill.out$iage, use.names = FALSE)
       ncohrt.save[i,k] = ncohrt
 
     print(paste("year = ",i))
@@ -294,10 +294,10 @@ linkages <- function(linkages.input, outdir, restart = NULL, linkages.restart = 
   #NOT USED IN CURRENT PECAN OUTPUT #Add? SoilMoisture? LAI? StemDensity?
   #What about MIP stuff?
   #Can we get root biomass from C.mat?
-  #tstem[i,k] <- unlist(output.out$atot) #number of stems
-  #totl[i,k] = unlist(output.out$tyln) #leaf litter N
-  #avln[i,k] = unlist(gmult.out$availn) #available nitrogen
-  #cn[i,k] = unlist(decomp.out$hcn) #humus C:N ratio
+  #tstem[i,k] <- unlist(output.out$atot, use.names = FALSE) #number of stems
+  #totl[i,k] = unlist(output.out$tyln, use.names = FALSE) #leaf litter N
+  #avln[i,k] = unlist(gmult.out$availn, use.names = FALSE) #available nitrogen
+  #cn[i,k] = unlist(decomp.out$hcn, use.names = FALSE) #humus C:N ratio
 
   output.file <- file.path(outdir,"linkages.out.Rdata")
   sprintf("%s",output.file)

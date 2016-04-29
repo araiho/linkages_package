@@ -135,11 +135,9 @@ kill <- function(nspec, ntrees,slta,sltb,dbh,agemx,ksprt,sprtmn,sprtmx,iage,
     if(ntot1 > max.ind) print("too many trees -- kill")
 
     #eliminate dead trees
-    for(i in ntot1:nu){
-      dbh[i] = 0
-      iage[i] = 0
-      nogro[i] = 0
-    }
+      dbh[ntot1:nu] = 0
+      iage[ntot1:nu] = 0
+      nogro[ntot1:nu] = 0
   }
 
 #   if(length(which(dbh>0)) < sum(ntrees)){

@@ -37,7 +37,7 @@ grow <- function(max.ind,nspec,ntrees,frt,slta,sltb,dbh,fwt, b2,b3, itol,g,
   #calculate total number of trees
   ntot = 0
   gf.vec <- numeric(4)
-  for(i in 1:nspec) ntot = ntot + ntrees[i]
+  ntot = sum(ntrees[1:nspec])
   if(ntot != 0){
   if(ntot > max.ind) print("too many trees -- grow")
 
@@ -66,10 +66,10 @@ grow <- function(max.ind,nspec,ntrees,frt,slta,sltb,dbh,fwt, b2,b3, itol,g,
   }
 
   #calculate cumulative leaf biomass down through the canopy
-  for(j in 1:699){
-    j1 = 700-j
+  #for(j in 1:699){
+    j1 = 700-1:699
     sumla[j1] = sumla[j1] + sumla[j1 + 1]
-  }
+  #}
 
   #main loop for calculating diameter increment
   nl = 1

@@ -151,10 +151,9 @@ birth <- function(nspec,ntrees,frt,iage,slta,sltb,dbh,fwt,switch.mat,
         if(al >= .5) nplant = nplant + (sprtnd[nsp]*slite*smgf[nsp]*degdgf[nsp]*ksprt[nsp]*yfl)
         if(nplant>100) nplant=100 #HACK
       }
-      nsum = 0
-      for(i in 1:nsp){
-        nsum = nsum + ntrees[i]
-      }
+
+      nsum = sum(ntrees[1:nsp])
+
       #print(paste(nplant,nsp))
       #plant seedlings and sprouts
         nl = nsum + 1
@@ -182,21 +181,18 @@ birth <- function(nspec,ntrees,frt,iage,slta,sltb,dbh,fwt,switch.mat,
           }
         }
         #reinitialize original dbh and age arrays - including new trees
-        for(i in 1:ntot){
-          iage[i] = itemp[i]
-          dbh[i] = dtemp[i]
-          nogro[i] = ntemp[i]
-        }
+        iage[1:ntot] = itemp[1:ntot]
+        dbh[1:ntot] = dtemp[1:ntot]
+        nogro[1:ntot] = ntemp[1:ntot]
+
     }
   }
   #increment ages by one year
-  for(i in 1:ntot){
-    iage[i] = iage[i] + 1
-  }
+  iage[1:ntot] = iage[1:ntot] + 1
+
   #reinitialize array ksprt
-  for(i in 1:nspec){
-    ksprt[i] = 0
-  }
+  ksprt[1:nspec] = 0
+
   return(list(iage=iage, dbh=dbh, nogro=nogro, ntrees=ntrees, newtr = newtr,ksprt=ksprt))
 }
 
