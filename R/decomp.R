@@ -28,7 +28,6 @@
 ##' @return C.mat matrix for data on litter cohorts
 ##'
 decomp <- function(fdat,aet,ncohrt,fc,dry,tyl,C.mat){
-
   #Initialization
 
   fco2 = 0 #co2-c from litter immobilizing N
@@ -44,7 +43,7 @@ decomp <- function(fdat,aet,ncohrt,fc,dry,tyl,C.mat){
   ff = matrix(0,20,3) #weights and n content of forest floor by litter type
 
   #Calculate Litter N
-  tyln = sum(tyl[i]*fdat[i,2])
+  tyln = sum(tyl[1:12]*fdat[1:12,2])
 
 
   #Calculate AET Multiplier
@@ -72,11 +71,11 @@ decomp <- function(fdat,aet,ncohrt,fc,dry,tyl,C.mat){
     if(tyl[i]==0) next
       ncohrt = ncohrt + 1
       if(ncohrt>100) print("ncohrt error")
+      browser()
       C.mat[ncohrt,1] = tyl[i] * fdat[i,10]
       C.mat[ncohrt,2] = tyl[i] * fdat[i,2]
 
       C.mat[ncohrt,3:9] = fdat[i,3:9]
-
       C.mat[ncohrt,10] = tyl[i] * fdat[i,10]
       C.mat[ncohrt,11] = fdat[i,2]
       C.mat[ncohrt,12] = fdat[i,7] * 1.7039 + .0955
