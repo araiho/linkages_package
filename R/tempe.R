@@ -9,7 +9,7 @@
 ##'
 
 
-
+#Katia: why are we returning a list here ???
 
 tempe <- function(temp.vec){
 
