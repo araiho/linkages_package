@@ -1035,7 +1035,11 @@ C      OPEN(UNIT=9,FILE='OUT.FIL',ACCESS='SEQUENTIAL',STATUS='UNKNOWN')
  1005 FORMAT(i3,i3,i5)
 C ann have to change numbers above if you are going to change input
       IF(KLAST.GT.100) CALL ERR1
-      NMAX=NYEAR/KPRNT + 1
+      IF (KPRNT .EQ. 1) THEN
+          NMAX = NYEAR
+      ELSE
+          NMAX=NYEAR/KPRNT + 1
+      END IF
 C      IF(NMAX.GT.70) CALL ERR2
       NWRITE=NMAX*KLAST
       KWRITE=0
@@ -1736,7 +1740,11 @@ C.....TAWP - TOTAL ABOVEGROUND WOODY PRODUCTION
 C.....NTOT - NUMBER OF TREES
 C.....
       KWRITE = KWRITE + 1
-      KYR1 = KYR/KPRNT+1
+      IF (KPRNT .EQ. 1) THEN
+          KYR1 = KYR
+      ELSE
+          KYR1 = KYR/KPRNT+1
+      END IF
       AREA=0.0
       FOLW=0.0
       AVAILN=AVAILN*1000.
