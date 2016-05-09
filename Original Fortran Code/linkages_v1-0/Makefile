@@ -10,11 +10,16 @@ FFLAGS_RELEASE = -O2
 .PHONY: help clean
 
 help:
+	@ echo ""
 	@ echo "Instructions for compiling linkages version 1.0:"
+	@ echo ""
 	@ echo "	make release: compiles a 'fast' executable for production runs"
 	@ echo "	make debug: compiles an executable suitable for debugging"
 	@ echo "	make clean: removes all build files"
 	@ echo "	make help: displays this message (default)"
+	@ echo ""
+	@ echo "A successful build will create the executable: $(EXE)"
+	@ echo ""
 
 debug: FFLAGS = $(FFLAGS_DEBUG)
 debug: $(EXE) ;
