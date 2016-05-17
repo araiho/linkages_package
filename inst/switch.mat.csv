@@ -1,0 +1,73 @@
+V1,V2,V3,V4,V5
+Maple(Saccharinum),FALSE,TRUE,TRUE,FALSE,TRUE
+Yellow Birch(Betula Alleghaniensis),FALSE,FALSE,TRUE,TRUE,FALSE
+Hickory(Tomentosa),TRUE,FALSE,TRUE,FALSE,FALSE
+Chestnut(Dentana),TRUE,FALSE,FALSE,FALSE,FALSE
+Beech(Grandifolia),FALSE,FALSE,TRUE,FALSE,FALSE
+Spruce(Picea Glauca),FALSE,FALSE,FALSE,FALSE,FALSE
+White Pine(Pinus Strobus),TRUE,TRUE,TRUE,FALSE,FALSE
+hemlock(Tsuga Canadensis),FALSE,FALSE,TRUE,TRUE,FALSE
+Champion Oak(Quercus Rubra),TRUE,FALSE,FALSE,FALSE,FALSE
+elm(Ulmus Americana),FALSE,FALSE,TRUE,FALSE,FALSE
+tamarack(Larix Laricina),FALSE,TRUE,TRUE,TRUE,TRUE
+Green Ash(Fraxinus Pennsylvanica),FALSE,TRUE,FALSE,FALSE,FALSE
+Poplar(Populus Tremuloides),FALSE,FALSE,FALSE,FALSE,FALSE
+basswood(Tilia Americana),FALSE,FALSE,FALSE,TRUE,FALSE
+Fir (Abies Balsamea),FALSE,FALSE,TRUE,FALSE,FALSE
+Fir(ABIES FRASERI),FALSE,FALSE,TRUE,FALSE,FALSE
+Maple(Rubrum),FALSE,TRUE,TRUE,TRUE,FALSE
+Maple(Saccharum),FALSE,FALSE,TRUE,FALSE,FALSE
+Birch(Lenta,FALSE,TRUE,TRUE,TRUE,FALSE
+Hickory(Cordiformis),TRUE,FALSE,TRUE,FALSE,FALSE
+Hickory(Glabra),TRUE,FALSE,TRUE,FALSE,FALSE
+Hickory(Laciniosa),TRUE,FALSE,TRUE,FALSE,FALSE
+Hickory(OVATA),TRUE,FALSE,TRUE,FALSE,FALSE
+Hickory(TEXANA),TRUE,FALSE,TRUE,FALSE,FALSE
+Celtis Laevigata,TRUE,FALSE,FALSE,FALSE,FALSE
+Flowering Dogwood(Cornus Florida),FALSE,FALSE,TRUE,FALSE,FALSE
+White Ash(Fraxinus Americana),FALSE,TRUE,TRUE,TRUE,FALSE
+Black Ash(Fraxinus Nigra),FALSE,FALSE,FALSE,TRUE,TRUE
+Cherry(Prunus Pensylvanica),FALSE,FALSE,FALSE,FALSE,FALSE
+White Walnut(Juglans Cinerea),FALSE,TRUE,TRUE,FALSE,FALSE
+Black Walnut(Juglans Nigra),TRUE,FALSE,TRUE,FALSE,TRUE
+Red Cedar(Juniperus Virginiana),FALSE,TRUE,FALSE,FALSE,TRUE
+Sweetgum(Liquidambar Styraciflua),FALSE,FALSE,FALSE,TRUE,FALSE
+Tulip Tree(Liriodendron Tulipifera),FALSE,TRUE,FALSE,FALSE,TRUE
+Hornbean(Carpinus Caroliniana),FALSE,FALSE,FALSE,FALSE,FALSE
+Black Spruce(Picea Mariana),FALSE,FALSE,TRUE,FALSE,FALSE
+Red Spruce(Picea Rubens),FALSE,TRUE,TRUE,FALSE,FALSE
+Jack Pine(Pinus Banksiana),FALSE,FALSE,TRUE,TRUE,FALSE
+Shortleaf Pine(Pinus Echinata),FALSE,TRUE,FALSE,FALSE,FALSE
+Red Pine(Pinus Resinosa),FALSE,TRUE,TRUE,FALSE,FALSE
+Loblolly Pine(Pinus Teada),FALSE,TRUE,FALSE,FALSE,FALSE
+Virginia Pine(Pinus Virginiana),FALSE,TRUE,FALSE,FALSE,TRUE
+American Sycamore(Platanus Occidentalis),FALSE,TRUE,TRUE,FALSE,TRUE
+White Oak(Quercus Alba),TRUE,FALSE,FALSE,FALSE,FALSE
+Scarlet Oak(Quercus Coccinea),TRUE,FALSE,FALSE,FALSE,FALSE
+Spanish Oak(Quercus Falcata),TRUE,FALSE,FALSE,FALSE,FALSE
+Overcup Oak(Quercus Lyrata),TRUE,TRUE,TRUE,TRUE,FALSE
+Blackjack Oak(Quercus Marilandica),FALSE,FALSE,FALSE,FALSE,FALSE
+Red oak(Quercus Nuttallii),TRUE,FALSE,TRUE,FALSE,TRUE
+Chestnut Oak(Quercus Prinus),TRUE,FALSE,FALSE,FALSE,FALSE
+Spotted Oak(Quercus Shumardii),FALSE,TRUE,FALSE,FALSE,FALSE
+Post Oak(Quercus Stellata),TRUE,FALSE,FALSE,FALSE,FALSE
+Black Oak(Quercus Velutina),FALSE,TRUE,FALSE,FALSE,FALSE
+White Basswood(Tilia Heterophylla),FALSE,TRUE,TRUE,FALSE,FALSE
+Winged Elm(Ulmus Alata),FALSE,FALSE,FALSE,FALSE,FALSE
+Yellow Buckeye(Aesculus Octandra,TRUE,FALSE,TRUE,FALSE,FALSE
+Gray Birch(Betula Populifolia),FALSE,TRUE,FALSE,TRUE,FALSE
+Paper Birch(Betula Papyrifera),FALSE,TRUE,TRUE,TRUE,FALSE
+Blue Ash(Fraxinus Quadrangulata),FALSE,TRUE,FALSE,TRUE,FALSE
+Balsam Poplar(Populus Balsamifera),FALSE,FALSE,TRUE,FALSE,FALSE
+American Aspen(Populus Grandidentata),FALSE,FALSE,FALSE,TRUE,TRUE
+Bur Oak(Quercus Macrocarpa),TRUE,TRUE,FALSE,FALSE,FALSE
+Chinkapin Oak(Quercus Muehlenbergii),TRUE,TRUE,FALSE,FALSE,FALSE
+Swamp Oak(Quercus Palustris),TRUE,TRUE,TRUE,FALSE,TRUE
+Southern Live Oak(Quercus Virginiana),TRUE,TRUE,TRUE,FALSE,FALSE
+Northern White-Cedar(Thuja Occidentalis),TRUE,TRUE,TRUE,TRUE,FALSE
+Black Tupelo(Nyssa Sylvatica),FALSE,TRUE,FALSE,FALSE,FALSE
+Eastern Hophornbeam(Ostrya Virginiana),FALSE,TRUE,FALSE,FALSE,FALSE
+Black Cherry(Prunus Serotina),FALSE,FALSE,FALSE,TRUE,FALSE
+Pitch Pine(Pinus Rigida),FALSE,TRUE,FALSE,FALSE,FALSE
+Hill's Oak(Quercus ellipsoidalis),FALSE,TRUE,FALSE,TRUE,FALSE
+Northern Red Oak(Quercus Borealis),TRUE,FALSE,FALSE,FALSE,FALSE

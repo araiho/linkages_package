@@ -168,3 +168,22 @@ write.table(dirt_params,sep=",",col.names=FALSE,row.names=FALSE)
 cat("\n")
 cat(basesc,basesn,sep=" ")
 sink()
+
+Rinput <- file.path(getwd(),"linkages.input1.Rdata")
+
+iplot <- klast
+max.ind <- 15000
+temp.mat <- temp_means
+precip.mat <- precip_means
+spp.params <- spp_params
+switch.mat <- read.csv("~/linkages_package/inst/switch.mat.csv")
+switch.mat <- switch.mat[1:9,]
+fdat <- read.csv("~/linkages_package/inst/fdat.csv")
+clat <- read.csv("~/linkages_package/inst/clat.csv")
+start.year <- 1991
+end.year <- 2000
+
+save(iplot, nyear, nspec, fc, dry, bgs, egs, max.ind,
+     plat, temp.mat, precip.mat, spp.params, switch.mat,
+     fdat, clat, basesc, basesn, start.year, end.year, file = Rinput)
+
