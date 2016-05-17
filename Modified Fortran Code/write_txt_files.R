@@ -43,6 +43,7 @@ ipolat = length(ipolat_nums)-1 #number of years for climate interpolation
 ###### Read climate data created from MIP drivers #####
 #climate_dat = read.csv(paste0(working_directory,"/Harvard Forest/climate.txt"),stringsAsFactors=FALSE)
 
+set.seed(1)
 temp_vec = c(-6.3,-4.7,-0.3,6.6,12.7,17.7,20.5,19.5,14.7,8.0,2.9,-3.0)
 temp_means = matrix(round(rnorm(12*ipolat,temp_vec,1),1),ipolat,12,byrow=TRUE)# monthly mean temperature
 temp_sd = matrix(1,ipolat,12) #monthly temperature standard deviation
