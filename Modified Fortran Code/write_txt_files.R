@@ -173,11 +173,12 @@ Rinput <- file.path(getwd(),"linkages.input1.Rdata")
 
 iplot <- klast
 max.ind <- 15000
-temp.mat <- temp_means
-precip.mat <- precip_means
+temp.mat <- matrix((rep(t(temp_means),nyear)),ncol=12,byrow = TRUE)
+precip.mat <- matrix((rep(t(precip_means),nyear)),ncol=12,byrow = TRUE)
 spp.params <- spp_params
 switch.mat <- read.csv("~/linkages_package/inst/switch.mat.csv")
-switch.mat <- switch.mat[1:9,]
+switch.mat <- matrix(unlist(switch.mat),72,5)
+switch.mat <- switch.mat[1:9,] #change if you change spp
 fdat <- read.csv("~/linkages_package/inst/fdat.csv")
 clat <- read.csv("~/linkages_package/inst/clat.csv")
 start.year <- 1991
