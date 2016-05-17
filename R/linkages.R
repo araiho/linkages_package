@@ -58,6 +58,7 @@ linkages <- function(linkages.input, outdir, restart = NULL, linkages.restart = 
   #temp.mat <- matrix(temp.mat,nyear,12)
   #precip.mat <- matrix(precip.mat,nyear,12)
 
+  ##This might not be good to have ##HACK
   if(is.matrix(temp.mat)){
     nyear <- nrow(temp.mat)
   } else {
