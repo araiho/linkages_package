@@ -173,8 +173,8 @@ Rinput <- file.path(getwd(),"linkages.input1.Rdata")
 
 iplot <- klast
 max.ind <- 15000
-temp.mat <- matrix((rep(t(temp_means),nyear)),ncol=12,byrow = TRUE)
-precip.mat <- matrix((rep(t(precip_means),nyear)),ncol=12,byrow = TRUE)
+temp.mat <- matrix((rep(t(temp_means),nyear)),nrow=nyear,ncol=12,byrow = TRUE)
+precip.mat <- matrix((rep(t(precip_means),nyear)),nrow=nyear,ncol=12,byrow = TRUE)
 spp.params <- spp_params
 switch.mat <- read.csv("~/linkages_package/inst/switch.mat.csv")
 switch.mat <- matrix(unlist(switch.mat),72,5)
