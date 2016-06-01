@@ -137,8 +137,8 @@ linkages <- function(linkages.input, outdir, restart = NULL, linkages.restart = 
     for(i in 1:nyear){
 
       #calculates degree days for the year
-      tempe.out <- tempe(temp.vec = temp.mat[i,])
-      degd = unlist(tempe.out$degd, use.names = FALSE)
+      degd <- tempe(temp.vec = temp.mat[i,])
+      #degd = unlist(tempe.out$degd, use.names = FALSE)
 
       #calculates aet
       moist.out <- moist(kyr = i, temp.vec = temp.mat[i,], precip.vec = precip.mat[i,],
