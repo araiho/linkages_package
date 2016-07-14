@@ -58,6 +58,7 @@ linkages <- function(linkages.input, outdir, restart = NULL, linkages.restart = 
   #temp.mat <- matrix(temp.mat,nyear,12)
   #precip.mat <- matrix(precip.mat,nyear,12)
 
+  ##This might not be good to have ##HACK
   if(is.matrix(temp.mat)){
     nyear <- nrow(temp.mat)
   } else {
@@ -136,8 +137,8 @@ linkages <- function(linkages.input, outdir, restart = NULL, linkages.restart = 
     for(i in 1:nyear){
 
       #calculates degree days for the year
-      tempe.out <- tempe(temp.vec = temp.mat[i,])
-      degd = unlist(tempe.out$degd, use.names = FALSE)
+      degd <- tempe(temp.vec = temp.mat[i,])
+      #degd = unlist(tempe.out$degd, use.names = FALSE)
 
       #calculates aet
       moist.out <- moist(kyr = i, temp.vec = temp.mat[i,], precip.vec = precip.mat[i,],

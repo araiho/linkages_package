@@ -1,7 +1,9 @@
 .Rproj.user
 .Rhistory
 .RData
-**/a.out
+**/linkages
+**/linkages_v10
 *~
 **/OUT.FIL
 **/OUT.csv
+*.Rdata
