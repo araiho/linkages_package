@@ -1,73 +1,73 @@
 "V1","V2","V3","V4","V5"
-"Maple(Saccharinum)","FALSE","TRUE","TRUE","FALSE","TRUE"
-"Yellow Birch(Betula Alleghaniensis)","FALSE","FALSE","TRUE","TRUE","FALSE"
-"Hickory(Tomentosa)","TRUE","FALSE","TRUE","FALSE","FALSE"
-"Chestnut(Dentana)","TRUE","FALSE","FALSE","FALSE","FALSE"
-"Beech(Grandifolia)","FALSE","FALSE","TRUE","FALSE","FALSE"
-"Spruce(Picea Glauca)","FALSE","FALSE","FALSE","FALSE","FALSE"
-"White Pine(Pinus Strobus)","TRUE","TRUE","TRUE","FALSE","FALSE"
-"hemlock(Tsuga Canadensis)","FALSE","FALSE","TRUE","TRUE","FALSE"
-"Champion Oak(Quercus Rubra)","TRUE","FALSE","FALSE","FALSE","FALSE"
-"elm(Ulmus Americana)","FALSE","FALSE","TRUE","FALSE","FALSE"
-"tamarack(Larix Laricina)","FALSE","TRUE","TRUE","TRUE","TRUE"
-"Green Ash(Fraxinus Pennsylvanica)","FALSE","TRUE","FALSE","FALSE","FALSE"
-"Poplar(Populus Tremuloides)","FALSE","FALSE","FALSE","FALSE","FALSE"
-"basswood(Tilia Americana)","FALSE","FALSE","FALSE","TRUE","FALSE"
-"Fir (Abies Balsamea)","FALSE","FALSE","TRUE","FALSE","FALSE"
-"Fir(ABIES FRASERI)","FALSE","FALSE","TRUE","FALSE","FALSE"
-"Maple(Rubrum)","FALSE","TRUE","TRUE","TRUE","FALSE"
-"Maple(Saccharum)","FALSE","FALSE","TRUE","FALSE","FALSE"
-"Birch(Lenta","FALSE","TRUE","TRUE","TRUE","FALSE"
-"Hickory(Cordiformis)","TRUE","FALSE","TRUE","FALSE","FALSE"
-"Hickory(Glabra)","TRUE","FALSE","TRUE","FALSE","FALSE"
-"Hickory(Laciniosa)","TRUE","FALSE","TRUE","FALSE","FALSE"
-"Hickory(OVATA)","TRUE","FALSE","TRUE","FALSE","FALSE"
-"Hickory(TEXANA)","TRUE","FALSE","TRUE","FALSE","FALSE"
-"Celtis Laevigata","TRUE","FALSE","FALSE","FALSE","FALSE"
-"Flowering Dogwood(Cornus Florida)","FALSE","FALSE","TRUE","FALSE","FALSE"
-"White Ash(Fraxinus Americana)","FALSE","TRUE","TRUE","TRUE","FALSE"
-"Black Ash(Fraxinus Nigra)","FALSE","FALSE","FALSE","TRUE","TRUE"
-"Cherry(Prunus Pensylvanica)","FALSE","FALSE","FALSE","FALSE","FALSE"
-"White Walnut(Juglans Cinerea)","FALSE","TRUE","TRUE","FALSE","FALSE"
-"Black Walnut(Juglans Nigra)","TRUE","FALSE","TRUE","FALSE","TRUE"
-"Red Cedar(Juniperus Virginiana)","FALSE","TRUE","FALSE","FALSE","TRUE"
-"Sweetgum(Liquidambar Styraciflua)","FALSE","FALSE","FALSE","TRUE","FALSE"
-"Tulip Tree(Liriodendron Tulipifera)","FALSE","TRUE","FALSE","FALSE","TRUE"
-"Hornbean(Carpinus Caroliniana)","FALSE","FALSE","FALSE","FALSE","FALSE"
-"Black Spruce(Picea Mariana)","FALSE","FALSE","TRUE","FALSE","FALSE"
-"Red Spruce(Picea Rubens)","FALSE","TRUE","TRUE","FALSE","FALSE"
-"Jack Pine(Pinus Banksiana)","FALSE","FALSE","TRUE","TRUE","FALSE"
-"Shortleaf Pine(Pinus Echinata)","FALSE","TRUE","FALSE","FALSE","FALSE"
-"Red Pine(Pinus Resinosa)","FALSE","TRUE","TRUE","FALSE","FALSE"
-"Loblolly Pine(Pinus Teada)","FALSE","TRUE","FALSE","FALSE","FALSE"
-"Virginia Pine(Pinus Virginiana)","FALSE","TRUE","FALSE","FALSE","TRUE"
-"American Sycamore(Platanus Occidentalis)","FALSE","TRUE","TRUE","FALSE","TRUE"
-"White Oak(Quercus Alba)","TRUE","FALSE","FALSE","FALSE","FALSE"
-"Scarlet Oak(Quercus Coccinea)","TRUE","FALSE","FALSE","FALSE","FALSE"
-"Spanish Oak(Quercus Falcata)","TRUE","FALSE","FALSE","FALSE","FALSE"
-"Overcup Oak(Quercus Lyrata)","TRUE","TRUE","TRUE","TRUE","FALSE"
-"Blackjack Oak(Quercus Marilandica)","FALSE","FALSE","FALSE","FALSE","FALSE"
-"Red oak(Quercus Nuttallii)","TRUE","FALSE","TRUE","FALSE","TRUE"
-"Chestnut Oak(Quercus Prinus)","TRUE","FALSE","FALSE","FALSE","FALSE"
-"Spotted Oak(Quercus Shumardii)","FALSE","TRUE","FALSE","FALSE","FALSE"
-"Post Oak(Quercus Stellata)","TRUE","FALSE","FALSE","FALSE","FALSE"
-"Black Oak(Quercus Velutina)","FALSE","TRUE","FALSE","FALSE","FALSE"
-"White Basswood(Tilia Heterophylla)","FALSE","TRUE","TRUE","FALSE","FALSE"
-"Winged Elm(Ulmus Alata)","FALSE","FALSE","FALSE","FALSE","FALSE"
-"Yellow Buckeye(Aesculus Octandra","TRUE","FALSE","TRUE","FALSE","FALSE"
-"Gray Birch(Betula Populifolia)","FALSE","TRUE","FALSE","TRUE","FALSE"
-"Paper Birch(Betula Papyrifera)","FALSE","TRUE","TRUE","TRUE","FALSE"
-"Blue Ash(Fraxinus Quadrangulata)","FALSE","TRUE","FALSE","TRUE","FALSE"
-"Balsam Poplar(Populus Balsamifera)","FALSE","FALSE","TRUE","FALSE","FALSE"
-"American Aspen(Populus Grandidentata)","FALSE","FALSE","FALSE","TRUE","TRUE"
-"Bur Oak(Quercus Macrocarpa)","TRUE","TRUE","FALSE","FALSE","FALSE"
-"Chinkapin Oak(Quercus Muehlenbergii)","TRUE","TRUE","FALSE","FALSE","FALSE"
-"Swamp Oak(Quercus Palustris)","TRUE","TRUE","TRUE","FALSE","TRUE"
-"Southern Live Oak(Quercus Virginiana)","TRUE","TRUE","TRUE","FALSE","FALSE"
-"Northern White-Cedar(Thuja Occidentalis)","TRUE","TRUE","TRUE","TRUE","FALSE"
-"Black Tupelo(Nyssa Sylvatica)","FALSE","TRUE","FALSE","FALSE","FALSE"
-"Eastern Hophornbeam(Ostrya Virginiana)","FALSE","TRUE","FALSE","FALSE","FALSE"
-"Black Cherry(Prunus Serotina)","FALSE","FALSE","FALSE","TRUE","FALSE"
-"Pitch Pine(Pinus Rigida)","FALSE","TRUE","FALSE","FALSE","FALSE"
-"Hill's Oak(Quercus ellipsoidalis)","FALSE","TRUE","FALSE","TRUE","FALSE"
-"Northern Red Oak(Quercus Borealis)","TRUE","FALSE","FALSE","FALSE","FALSE"
+"Acer Saccharinum (Silver Maple)",FALSE,TRUE,TRUE,FALSE,TRUE
+"Betula Alleghaniensis (Yellow Birch)",FALSE,FALSE,TRUE,TRUE,FALSE
+"Carya Tomentosa (Mockernut Hickory)",TRUE,FALSE,TRUE,FALSE,FALSE
+"Castanea Dentata (American Chestnut)",TRUE,FALSE,FALSE,FALSE,FALSE
+"Fagus Grandifolia (American Beech)",FALSE,FALSE,TRUE,FALSE,FALSE
+"Picea Glauca (White Spruce)",FALSE,FALSE,FALSE,FALSE,FALSE
+"Pinus Strobus (White Pine)",TRUE,TRUE,TRUE,FALSE,FALSE
+"Tsuga Canadensis (Hemlock)",FALSE,FALSE,TRUE,TRUE,FALSE
+"Quercus Rubra (Northern Red Oak)",TRUE,FALSE,FALSE,FALSE,FALSE
+"Ulmus Americana (American Elm)",FALSE,FALSE,TRUE,FALSE,FALSE
+"Larix Laricina (Tamarack)",FALSE,TRUE,TRUE,TRUE,TRUE
+"Fraxinus Pennsylvanica (Green Ash)",FALSE,TRUE,FALSE,FALSE,FALSE
+"Populus Tremuloides (Quacking Aspen)",FALSE,FALSE,FALSE,FALSE,FALSE
+"Tilia Americana (American Basswood)",FALSE,FALSE,FALSE,TRUE,FALSE
+"Abies Balsamea (Balsam Fir)",FALSE,FALSE,TRUE,FALSE,FALSE
+"Abies Fraseri (Fraser Fir)",FALSE,FALSE,TRUE,FALSE,FALSE
+"Acer Rubrum (Red Maple)",FALSE,TRUE,TRUE,TRUE,FALSE
+"Acer Saccharum (Sugar Maple)",FALSE,FALSE,TRUE,FALSE,FALSE
+"Betula Lenta (Sweet Birch)",FALSE,TRUE,TRUE,TRUE,FALSE
+"Carya Cordiformis (Bitternut Hickory)",TRUE,FALSE,TRUE,FALSE,FALSE
+"Carya Glabra (Pignut Hickory)",TRUE,FALSE,TRUE,FALSE,FALSE
+"Carya Laciniosa (Shellbark Hickory)",TRUE,FALSE,TRUE,FALSE,FALSE
+"Carya Ovata (Shagbark Hickory)",TRUE,FALSE,TRUE,FALSE,FALSE
+"Carya Texana (Black Hickory)",TRUE,FALSE,TRUE,FALSE,FALSE
+"Celtis Laevigata (Sugarberry)",TRUE,FALSE,FALSE,FALSE,FALSE
+"Cornus Florida (Flowering Dogwood)",FALSE,FALSE,TRUE,FALSE,FALSE
+"Fraxinus Americana (White Ash)",FALSE,TRUE,TRUE,TRUE,FALSE
+"Fraxinus Nigra (Black Ash)",FALSE,FALSE,FALSE,TRUE,TRUE
+"Prunus Pensylvanica (Pin Cherry)",FALSE,FALSE,FALSE,FALSE,FALSE
+"Juglans Cinerea (Butternut)",FALSE,TRUE,TRUE,FALSE,FALSE
+"Juglans Nigra (Black Walnut)",TRUE,FALSE,TRUE,FALSE,TRUE
+"Juniperus Virginiana (Eastern Red Cedar)",FALSE,TRUE,FALSE,FALSE,TRUE
+"Liquidambar Styraciflua (Sweetgum)",FALSE,FALSE,FALSE,TRUE,FALSE
+"Liriodendron Tulipifera (Yellow or Tulip Poplar)",FALSE,TRUE,FALSE,FALSE,TRUE
+"Carpinus Caroliniana (American Hornbean)",FALSE,FALSE,FALSE,FALSE,FALSE
+"Picea Mariana (Black Spruce)",FALSE,FALSE,TRUE,FALSE,FALSE
+"Picea Rubens (Red Spruce)",FALSE,TRUE,TRUE,FALSE,FALSE
+"Pinus Banksiana (Jack Pine)",FALSE,FALSE,TRUE,TRUE,FALSE
+"Pinus Echinata (Shortleaf Pine)",FALSE,TRUE,FALSE,FALSE,FALSE
+"Pinus Resinosa (Red Pine)",FALSE,TRUE,TRUE,FALSE,FALSE
+"Pinus Taeda (Loblolly Pine)",FALSE,TRUE,FALSE,FALSE,FALSE
+"Pinus Virginiana (Virginia Pine)",FALSE,TRUE,FALSE,FALSE,TRUE
+"Platanus Occidentalis (American Sycamore)",FALSE,TRUE,TRUE,FALSE,TRUE
+"Quercus Alba (White Oak)",TRUE,FALSE,FALSE,FALSE,FALSE
+"Quercus Coccinea (Scarlet Oak)",TRUE,FALSE,FALSE,FALSE,FALSE
+"Quercus Falcata (Southern Red Oak)",TRUE,FALSE,FALSE,FALSE,FALSE
+"Quercus Lyrata (Overcup Oak)",TRUE,TRUE,TRUE,TRUE,FALSE
+"Quercus Marilandica (Blackjack Oak)",FALSE,FALSE,FALSE,FALSE,FALSE
+"Quercus Nuttallii (River Red Oak)",TRUE,FALSE,TRUE,FALSE,TRUE
+"Quercus Prinus (Chestnut Oak)",TRUE,FALSE,FALSE,FALSE,FALSE
+"Quercus Shumardii (Shumard's Oak)",FALSE,TRUE,FALSE,FALSE,FALSE
+"Quercus Stellata (Post Oak)",TRUE,FALSE,FALSE,FALSE,FALSE
+"Quercus Velutina (Black Oak)",FALSE,TRUE,FALSE,FALSE,FALSE
+"Tilia Heterophylla (White Basswood)",FALSE,TRUE,TRUE,FALSE,FALSE
+"Ulmus Alata (Winged Elm)",FALSE,FALSE,FALSE,FALSE,FALSE
+"Aesculus Octandra (Yellow Buckeye)",TRUE,FALSE,TRUE,FALSE,FALSE
+"Betula Populifolia (Gray Birch)",FALSE,TRUE,FALSE,TRUE,FALSE
+"Betula Papyrifera (Paper Birch)",FALSE,TRUE,TRUE,TRUE,FALSE
+"Fraxinus Quadrangulata (Blue Ash)",FALSE,TRUE,FALSE,TRUE,FALSE
+"Populus Balsamifera (Balsam Poplar)",FALSE,FALSE,TRUE,FALSE,FALSE
+"Populus Grandidentata (Bigtooth Aspen)",FALSE,FALSE,FALSE,TRUE,TRUE
+"Quercus Macrocarpa (Bur Oak)",TRUE,TRUE,FALSE,FALSE,FALSE
+"Quercus Muehlenbergii (Chinkapin Oak)",TRUE,TRUE,FALSE,FALSE,FALSE
+"Quercus Palustris (Pin Oak)",TRUE,TRUE,TRUE,FALSE,TRUE
+"Quercus Virginiana (Southern Live Oak)",TRUE,TRUE,TRUE,FALSE,FALSE
+"Thuja Occidentalis (Northern White-Cedar)",TRUE,TRUE,TRUE,TRUE,FALSE
+"Nyssa Sylvatica (Blackgum)",FALSE,TRUE,FALSE,FALSE,FALSE
+"Ostrya Virginiana (Eastern Hophornbeam)",FALSE,TRUE,FALSE,FALSE,FALSE
+"Prunus Serotina (Black Cherry)",FALSE,FALSE,FALSE,TRUE,FALSE
+"Pinus Rigida (Pitch Pine)",FALSE,TRUE,FALSE,FALSE,FALSE
+"Quercus ellipsoidalis (Northern Pin Oak)",FALSE,TRUE,FALSE,TRUE,FALSE
+"Quercus Borealis (Northern Red Oak)",TRUE,FALSE,FALSE,FALSE,FALSE
