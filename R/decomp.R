@@ -176,7 +176,7 @@ decomp <- function(fdat,aet,ncohrt,fc,dry,tyl,C.mat){
     C.mat[ncohrt,1] = ffw
     C.mat[ncohrt,2] = ffw * fdat[17,2]
 
-    C.mat[ncohrt,3:9] = fdat[17,3:9]
+    C.mat[ncohrt,3:9] = unlist(fdat[17,3:9])
 
     C.mat[ncohrt,10] = ffw
     C.mat[ncohrt,11] = fdat[17,2]
