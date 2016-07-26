@@ -80,6 +80,7 @@ grow <- function(max.ind,nspec,ntrees,frt,slta,sltb,dbh,fwt, b2,b3, itol,g,
       #calulate leaf biomass of all taller trees (slar)
       ht = b2[i]*dbh[j] - b3[i]*dbh[j]^2
       iht = ht/10 + 2
+      if(iht < 1) iht = 1 #added to avoid error with sumla 
       slar = sumla[iht]
 
       #calculate available light to this tree (% full sunlight)
@@ -96,6 +97,7 @@ grow <- function(max.ind,nspec,ntrees,frt,slta,sltb,dbh,fwt, b2,b3, itol,g,
         #print(algf)
         algf = algf[1]
       }
+      
       if(algf < 0) algf = 0
 
       #calculate maximum tree volume
