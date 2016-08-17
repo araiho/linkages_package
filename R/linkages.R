@@ -84,7 +84,7 @@ linkages <- function(linkages.input, outdir, restart = NULL, linkages.restart = 
   ntrees.birth <- array(0,dim=c(nspec,nyear,iplot))
   ntrees.grow <- array(0,dim=c(nspec,nyear,iplot))
   ntrees.kill <- array(0,dim=c(nspec,nyear,iplot))
-  gf.vec.save <- array(0,dim=c(4,nyear,iplot))
+ # gf.vec.save <- array(0,dim=c(4,nyear,iplot))
   bar <- array(0,dim=c(nspec,nyear,iplot))
   nogro.save <- array(0,dim=c(max.ind,nyear,iplot))
   dbh.save <- array(0,dim=c(max.ind,nyear,iplot))
@@ -133,7 +133,7 @@ linkages <- function(linkages.input, outdir, restart = NULL, linkages.restart = 
       temp.mat <- matrix(temp.mat,nyear,12)
       precip.mat <- matrix(precip.mat,nyear,12)
     }
-
+    Rprof(interval=.005)
     for(i in 1:nyear){
 
       #calculates degree days for the year
@@ -197,11 +197,13 @@ linkages <- function(linkages.input, outdir, restart = NULL, linkages.restart = 
       #if(dbh[sum(ntrees)]==0) browser()
 
       #growth subroutine - increments dbh
-      grow.out <- grow(max.ind = max.ind, nspec = nspec, ntrees = ntrees, frt = spp.params$FRT, slta = spp.params$SLTA,
+
+      grow<- grow.opt(max.ind = max.ind, nspec = nspec, ntrees = ntrees, frt = spp.params$FRT, slta = spp.params$SLTA,
            sltb = spp.params$SLTB, dbh = dbh, fwt = spp.params$FWT, b2 = spp.params$B2,
            b3 = spp.params$B3, itol =spp.params$ITOL, g = spp.params$G, degdgf = degdgf,
            smgf = smgf, sngf= sngf,frost = spp.params$FROST, rt = temp.mat[i,], iage = iage,
            nogro=nogro)
+
 
       if(is.null(unlist(grow.out$ntrees, use.names = FALSE))){
         ntrees <- rep(0,nspec)
@@ -214,8 +216,8 @@ linkages <- function(linkages.input, outdir, restart = NULL, linkages.restart = 
       awp <- unlist(grow.out$awp, use.names = FALSE)
       nogro <- unlist(grow.out$nogro, use.names = FALSE)
 
-      gf.vec <- unlist(grow.out$gf.vec, use.names = FALSE)
-      gf.vec.save[,i,k] <- gf.vec
+      #gf.vec <- unlist(grow.out$gf.vec, use.names = FALSE)
+     # gf.vec.save[,i,k] <- gf.vec
 
       #if(dbh[sum(ntrees)]==0) browser()
 
@@ -263,6 +265,9 @@ linkages <- function(linkages.input, outdir, restart = NULL, linkages.restart = 
 
     print(paste("year = ",i))
     }
+    Rprof(NULL)
+    summaryRprof()
+
 
   print(paste("PLOT = ",k))
   }
@@ -311,7 +316,7 @@ linkages <- function(linkages.input, outdir, restart = NULL, linkages.restart = 
        som = som,bar = bar,aet.save = aet.save,nogro.save = nogro.save,
        dbh.save = dbh.save, iage.save = iage.save, C.mat = C.mat, tyl = tyl,
        ncohrt = ncohrt, area = area, water = water, ksprt = ksprt, tyl.save = tyl.save,
-       gf.vec.save = gf.vec.save, ff=ff, file = output.file)
+      ff=ff, file = output.file)
 
   file.exists(output.file)
 
