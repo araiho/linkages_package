@@ -133,7 +133,7 @@ linkages <- function(linkages.input, outdir, restart = NULL, linkages.restart = 
       #degd = unlist(tempe.out$degd, use.names = FALSE)
 
       #calculates aet
-      moist.out <- moist(kyr = i, temp.vec = temp.mat[i,1:12], precip.vec = precip.mat[i,],
+      moist.out <- moist(kyr = i, temp.vec = temp.mat[i,1:12], precip.vec = precip.mat[i,1:12],
             fc = fc, dry = dry, bgs = bgs, egs = egs, plat = plat, clat = clat)
       aet <- unlist(moist.out$aet, use.names = FALSE)
       fj <- unlist(moist.out$fj, use.names = FALSE)
