@@ -190,7 +190,7 @@ linkages <- function(linkages.input, outdir, restart = NULL, linkages.restart = 
 
       #growth subroutine - increments dbh
 
-      grow<- grow.opt(max.ind = max.ind, nspec = nspec, ntrees = ntrees, frt = spp.params$FRT, slta = spp.params$SLTA,
+      grow.out <- grow.opt(max.ind = max.ind, nspec = nspec, ntrees = ntrees, frt = spp.params$FRT, slta = spp.params$SLTA,
            sltb = spp.params$SLTB, dbh = dbh, fwt = spp.params$FWT, b2 = spp.params$B2,
            b3 = spp.params$B3, itol =spp.params$ITOL, g = spp.params$G, degdgf = degdgf,
            smgf = smgf, sngf= sngf,frost = spp.params$FROST, rt = temp.mat[i,1:12], iage = iage,
