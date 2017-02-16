@@ -35,8 +35,8 @@ pick_site1 = which(colnames(spp_list_site)==site)
 #####
 
 kprnt = 1 #year interval for output
-klast = 2 #number of plots
-nyear = 10 #number of years to simulate 500 spin up + 1160 met data
+klast = 1 #number of plots
+nyear = 200 #number of years to simulate 500 spin up + 1160 met data
 ipolat_nums = seq(2,nyear,3) #years for climate interpolation
 ipolat = length(ipolat_nums)-1 #number of years for climate interpolation
 
@@ -172,7 +172,7 @@ sink()
 Rinput <- file.path(getwd(),"linkages.input1.Rdata")
 
 iplot <- klast
-max.ind <- 15000
+max.ind <- 150000
 temp.mat <- matrix((rep(t(temp_means),nyear)),nrow=nyear,ncol=12,byrow = TRUE)
 precip.mat <- matrix((rep(t(precip_means),nyear)),nrow=nyear,ncol=12,byrow = TRUE)
 spp.params <- spp_params

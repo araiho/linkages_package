@@ -36,8 +36,8 @@ grow <- function(max.ind,nspec,ntrees,frt,slta,sltb,dbh,fwt, b2,b3, itol,g,
 
   #calculate total number of trees
   ntot = 0
-  gf.vec <- numeric(4)
   ntot = sum(ntrees[1:nspec])
+  gf.vec <- array(NA,dim=c(ntot,nspec,4))
   if(ntot != 0){
   if(ntot > max.ind) print("too many trees -- grow")
 
@@ -108,8 +108,9 @@ grow <- function(max.ind,nspec,ntrees,frt,slta,sltb,dbh,fwt, b2,b3, itol,g,
 
       #choose smallest growth multiplier for this tree
       gf = min(algf, smgf[i], sngf[i], degdgf[i])
+      if(is.na(gf)) gf = 0
 
-      gf.vec = c(algf, smgf[i], sngf[i], degdgf[i])
+      gf.vec[j,i,1:4] = c(algf, smgf[i], sngf[i], degdgf[i])
       #print(gf==gf.vec)
       #print(gf.vec)
 
@@ -152,11 +153,12 @@ grow.opt <- function(max.ind,nspec,ntrees,frt,slta,sltb,dbh,fwt, b2,b3, itol,g,
                  degdgf,smgf,sngf,frost,rt,iage,nogro){
   #initialize wood production
   awp = matrix(0,1,max.ind)
+  algf.save <- matrix(NA,max.ind,nspec)
 
   #calculate total number of trees
   ntot = 0
-  gf.vec <- numeric(4)
   ntot = sum(ntrees[1:nspec])
+  gf.vec <- matrix(NA, nrow=nspec, ncol = 4)
   if(ntot != 0){
     if(ntot > max.ind) print("too many trees -- grow")
 
@@ -218,8 +220,13 @@ grow.opt <- function(max.ind,nspec,ntrees,frt,slta,sltb,dbh,fwt, b2,b3, itol,g,
 
         #choose smallest growth multiplier for this tree
         gf = apply(rbind(algf, smgf[i], sngf[i], degdgf[i]),2,min)
+        #browser()
+        algf.save[nl:nu,i] <- algf
+        gf.vec[i,1:4] <- c(mean(algf), smgf[i], sngf[i], degdgf[i])
 
-        gf.vec = rbind(algf, smgf[i], sngf[i], degdgf[i])
+          #c(algf, rep(smgf[i],length(nl:nu)),
+                        #        rep(sngf[i],length(nl:nu)),
+                        #        rep(degdgf[i],length(nl:nu)))
         #print(gf==gf.vec)
         #print(gf.vec)
 
@@ -246,6 +253,7 @@ grow.opt <- function(max.ind,nspec,ntrees,frt,slta,sltb,dbh,fwt, b2,b3, itol,g,
       nl = nl + ntrees[i]
     }
   }
-  return(list(ntrees = ntrees, dbh = dbh, awp = awp, nogro = nogro, gf.vec = gf.vec))
+  #browser()
+  return(list(ntrees = ntrees, dbh = dbh, awp = awp, nogro = nogro, gf.vec = gf.vec, algf.save = algf.save))
 }
 

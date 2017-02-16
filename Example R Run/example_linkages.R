@@ -12,8 +12,12 @@ library(linkages)
 source("/Users/paleolab/linkages_package/Modified Fortran Code/write_txt_files.R")
 
 #run model
+Rprof(interval=.005)
 linkages(linkages.input = "/Users/paleolab/linkages_package/linkages.input1.Rdata",
          outdir = "/Users/paleolab/linkages_package/Example R Run/")
+Rprof(NULL)
+summaryRprof()
+
 
 #load results
 load("/Users/paleolab/linkages_package/Example R Run/linkages.out.Rdata")

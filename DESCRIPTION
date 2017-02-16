@@ -8,4 +8,5 @@ Maintainer: Ann Raiho <ann.raiho@gmail.com>
 Description: LINKAGES is a forest gap model originally written in FORTRAN by Pastor and Post in 1985.
 License: MIT
 LazyData: TRUE
-Imports:reshape2,ggplot2,Matrix,microbenchmark
+Imports: reshape2,ggplot2,Matrix,microbenchmark
+RoxygenNote: 6.0.1
