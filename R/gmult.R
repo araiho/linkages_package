@@ -27,6 +27,9 @@
 ##' @return availn available nitrogen
 ##'
 gmult <- function(egs,bgs,availn,degd,dmin,dmax,d3,fj,cm1,cm3,cm2,cm4,cm5,nspec){
+
+  egs <- round(runif(1,min = (-15) + egs, max = 15 + egs))
+  bgs <- round(runif(1,min = (-15) + bgs, max = 15 + bgs))
   tgs = egs - bgs + 1
 
   availn = availn + .005
@@ -64,18 +67,18 @@ gmult <- function(egs,bgs,availn,degd,dmin,dmax,d3,fj,cm1,cm3,cm2,cm4,cm5,nspec)
 
 gmult <- function(egs,bgs,availn,degd,dmin,dmax,d3,fj,cm1,cm3,cm2,cm4,cm5,nspec){
   tgs = egs - bgs + 1
-  
+
   availn = availn + .005
   if(availn < .024) availn=.024
   avlmc = -170 + 4*(availn*1000)
-  
+
   degdgf = matrix(0,1,nspec)
   smgf = matrix(0,1,nspec)
   sngf = matrix(0,1,nspec)
-  
+
   for(i in 1:nspec){
     degdgf[i] =(4 * (degd - dmin[i]) * (dmax[i] - degd)) / ((dmax[i] - dmin[i]) ^ 2) #Botkin 1972 EQ#10
-    
+
     if(degdgf[i] < 0 ) degdgf[i] = 0
     if(degdgf[i] != 0){
       drout = d3[i] * tgs
@@ -88,32 +91,32 @@ gmult <- function(egs,bgs,availn,degd,dmin,dmax,d3,fj,cm1,cm3,cm2,cm4,cm5,nspec)
         #browser()
         if(sngf[i] < 0) sngf[i] = 0
         #if(sngf[i] > 10) sngf[i] = 10
-        
+
       }
     }
   }
-  
+
   return(list(smgf=smgf,sngf=sngf,degdgf=degdgf,availn=availn))
-  
+
 }
 
 gmult.opt <- function(egs,bgs,availn,degd,dmin,dmax,d3,fj,cm1,cm3,cm2,cm4,cm5,nspec){
   tgs = egs - bgs + 1
-  
+
   availn = availn + .005
   if(availn < .024) availn=.024
   avlmc = -170 + 4*(availn*1000)
-  
+
   degdgf = matrix(0,1,nspec)
   smgf = matrix(0,1,nspec)
   sngf = matrix(0,1,nspec)
-  
+
   degdgf[1:nspec] =(4 * (degd - dmin[1:nspec]) * (dmax[1:nspec] - degd)) / ((dmax[1:nspec] - dmin[1:nspec]) ^ 2) #Botkin 1972 EQ#10
   degdgf[degdgf < 0] <- 0
-  
+
   for(i in 1:nspec){
-    
-    
+
+
     if(degdgf[i] != 0){
       drout = d3[i] * tgs
       if(drout < fj) drout = fj
@@ -122,15 +125,15 @@ gmult.opt <- function(egs,bgs,availn,degd,dmin,dmax,d3,fj,cm1,cm3,cm2,cm4,cm5,ns
       if(smgf[i] != 0){
         conn = cm1[i] * (1 - 10 ^ ((-1 * cm3[i]) * (avlmc + cm2[i])))
         sngf[i] = cm4[i] + cm5[i] * conn
-      
+
         if(sngf[i] < 0) sngf[i] = 0
-    
-        
+
+
       }
     }
   }
-  
+
   return(list(smgf=smgf,sngf=sngf,degdgf=degdgf,availn=availn))
-  
+
 }
 

@@ -220,6 +220,7 @@ grow.opt <- function(max.ind,nspec,ntrees,frt,slta,sltb,dbh,fwt, b2,b3, itol,g,
 
         #choose smallest growth multiplier for this tree
         gf = apply(rbind(algf, smgf[i], sngf[i], degdgf[i]),2,min)
+        gf[is.na(gf)] <- 0
         #browser()
         algf.save[nl:nu,i] <- algf
         gf.vec[i,1:4] <- c(mean(algf), smgf[i], sngf[i], degdgf[i])
