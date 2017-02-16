@@ -58,14 +58,6 @@ linkages <- function(linkages.input, outdir, restart = NULL, linkages.restart = 
   #temp.mat <- matrix(temp.mat,nyear,12)
   #precip.mat <- matrix(precip.mat,nyear,12)
 
-  ##This might not be good to have ##HACK
-  if(is.matrix(temp.mat)){
-    nyear <- nrow(temp.mat)
-  } else {
-    nyear <- 1
-  }
-
-
   #Storage
   gf.vec.save <- array(NA,dim=c(9,4,nyear,iplot))
   tstem = matrix(0,nyear,iplot) #number of stems
@@ -139,11 +131,11 @@ linkages <- function(linkages.input, outdir, restart = NULL, linkages.restart = 
     for(i in 1:nyear){
 
       #calculates degree days for the year
-      degd <- tempe(temp.vec = temp.mat[i,])
+      degd <- tempe(temp.vec = temp.mat[i,1:12])
       #degd = unlist(tempe.out$degd, use.names = FALSE)
 
       #calculates aet
-      moist.out <- moist(kyr = i, temp.vec = temp.mat[i,], precip.vec = precip.mat[i,],
+      moist.out <- moist(kyr = i, temp.vec = temp.mat[i,1:12], precip.vec = precip.mat[i,1:12],
             fc = fc, dry = dry, bgs = bgs, egs = egs, plat = plat, clat = clat)
       aet <- unlist(moist.out$aet, use.names = FALSE)
       fj <- unlist(moist.out$fj, use.names = FALSE)
@@ -178,7 +170,7 @@ linkages <- function(linkages.input, outdir, restart = NULL, linkages.restart = 
             slta = spp.params$SLTA, sltb = spp.params$SLTB, dbh = dbh,
             fwt = spp.params$FWT, switch.mat = switch.mat,
             degd = degd, dmin = spp.params$DMIN, dmax = spp.params$DMAX,
-            frost = spp.params$FROST, rt = temp.mat[i,], itol = spp.params$ITOL,
+            frost = spp.params$FROST, rt = temp.mat[i,1:12], itol = spp.params$ITOL,
             mplant = spp.params$MPLANT, nogro = nogro,
             ksprt = ksprt, sprtnd = spp.params$SPRTND, max.ind = max.ind, smgf=smgf,
             degdgf = degdgf)
@@ -200,10 +192,14 @@ linkages <- function(linkages.input, outdir, restart = NULL, linkages.restart = 
 
       #growth subroutine - increments dbh
 
+<<<<<<< HEAD
       grow.out<- grow.opt(max.ind = max.ind, nspec = nspec, ntrees = ntrees, frt = spp.params$FRT, slta = spp.params$SLTA,
+=======
+      grow.out <- grow.opt(max.ind = max.ind, nspec = nspec, ntrees = ntrees, frt = spp.params$FRT, slta = spp.params$SLTA,
+>>>>>>> b5d9479dba3bca64cc4fef2b8401af44abc8beb0
            sltb = spp.params$SLTB, dbh = dbh, fwt = spp.params$FWT, b2 = spp.params$B2,
            b3 = spp.params$B3, itol =spp.params$ITOL, g = spp.params$G, degdgf = degdgf,
-           smgf = smgf, sngf= sngf,frost = spp.params$FROST, rt = temp.mat[i,], iage = iage,
+           smgf = smgf, sngf= sngf,frost = spp.params$FROST, rt = temp.mat[i,1:12], iage = iage,
            nogro=nogro)
 
 
