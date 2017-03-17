@@ -59,7 +59,7 @@ linkages <- function(linkages.input, outdir, restart = NULL, linkages.restart = 
   #precip.mat <- matrix(precip.mat,nyear,12)
 
   #Storage
-  gf.vec.save <- array(NA,dim=c(9,4,nyear,iplot))
+  gf.vec.save <- array(NA,dim=c(nspec,4,nyear,iplot))
   tstem = matrix(0,nyear,iplot) #number of stems
   area = matrix(0,nyear,iplot)
   water = matrix(0,nyear,iplot)
@@ -211,7 +211,7 @@ linkages <- function(linkages.input, outdir, restart = NULL, linkages.restart = 
       awp <- unlist(grow.out$awp, use.names = FALSE)
       nogro <- unlist(grow.out$nogro, use.names = FALSE)
 #browser()
-      gf.vec.save[1:9,1:4,i,k] <- grow.out$gf.vec
+      gf.vec.save[1:nspec,1:4,i,k] <- grow.out$gf.vec
       algf.save.keep[,,i,k] <- grow.out$algf.save
      # gf.vec.save[,i,k] <- gf.vec
 
