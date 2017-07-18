@@ -47,6 +47,9 @@ birth <- function(nspec,ntrees,frt,iage,slta,sltb,dbh,fwt,switch.mat,
                   degd,dmin,dmax,frost,rt,itol,mplant,nogro,ksprt,sprtnd,
                   max.ind,smgf,degdgf){
 
+  max.seeds <- 10
+  if(sum(ntrees) < max.ind-(nspec*max.seeds)){
+
   switch.mat1 = matrix(as.logical(switch.mat),nspec,5)
 
   #initialize foliage biomass (folw) and foliage area (fola)
@@ -143,13 +146,13 @@ birth <- function(nspec,ntrees,frt,iage,slta,sltb,dbh,fwt,switch.mat,
       #reduce max number of seedlings to the extent that light, soil moisture, and degree days are less than optimum for growth of each species
       yfl = runif(1,0,1)
       nplant = mplant[nsp] * slite * smgf[nsp] * degdgf[nsp] * yfl
-      if(nplant>100) nplant=100 #HACK
+      if(nplant>max.seeds) nplant=max.seeds #HACK
       #see if any stumps of this spp are available for sprouting
       if(ksprt[nsp] > 0 & sprtnd[nsp] > 0){
         yfl = runif(1,0,1)
         #if available light is greater than 50% of full sunlight determine number of stump sprouts and add to nplant
         if(al >= .5) nplant = nplant + (sprtnd[nsp]*slite*smgf[nsp]*degdgf[nsp]*ksprt[nsp]*yfl)
-        if(nplant>100) nplant=100 #HACK
+        if(nplant>max.seeds) nplant=max.seeds #HACK
       }
 
       nsum = sum(ntrees[1:nsp])
@@ -192,8 +195,8 @@ birth <- function(nspec,ntrees,frt,iage,slta,sltb,dbh,fwt,switch.mat,
 
   #reinitialize array ksprt
   ksprt[1:nspec] = 0
-
-  return(list(iage=iage, dbh=dbh, nogro=nogro, ntrees=ntrees, newtr = newtr,ksprt=ksprt))
+}
+  return(list(iage=iage, dbh=dbh, nogro=nogro, ntrees=ntrees, ksprt=ksprt))
 }
 
 birth.opt <- function(nspec,ntrees,frt,iage,slta,sltb,dbh,fwt,switch.mat,
