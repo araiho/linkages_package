@@ -65,6 +65,7 @@ linkages <- function(linkages.input, outdir, restart = NULL, linkages.restart = 
   area = matrix(0,nyear,iplot)
   water = matrix(0,nyear,iplot)
   tab = matrix(0,nyear,iplot) #total aboveground biomass
+  abvgrnwood = matrix(0,nyear,iplot) #total aboveground woody biomass
   fl = matrix(0,nyear,iplot) #leaf litter
   totl = matrix(0,nyear,iplot) #leaf litter N
   tnap = matrix(0,nyear,iplot) #net aboveground production
@@ -244,6 +245,7 @@ linkages <- function(linkages.input, outdir, restart = NULL, linkages.restart = 
       #save variables
       tstem[i,k] = unlist(output.out$atot, use.names = FALSE) #number of stems
       tab[i,k] = unlist(output.out$tbar, use.names = FALSE) #total aboveground biomass
+      abvgrnwood[i,k] = unlist(output.out$twbar, use.names = FALSE) #total aboveground biomass
       area[i,k] = unlist(output.out$area, use.names = FALSE)/10 #LAI
       water[i,k] = unlist(moist.out$water, use.names = FALSE) #soil moisture
       fl[i,k] = unlist(kill.out$tyl, use.names = FALSE)[17] #leaf litter
@@ -279,6 +281,7 @@ linkages <- function(linkages.input, outdir, restart = NULL, linkages.restart = 
   #unit conversions for variables of interest #need to recheck more carefully later
   year <- seq(1,nyear,1)
   ag.biomass <- (tab  * (1 / PLOT.AREA) * DEFAULT.C) # Above Ground Biomass in kgC/m2 #total aboveground biomass
+  abvgroundwood.biomass <- (abvgrnwood  * (1 / PLOT.AREA) * DEFAULT.C) # Above Ground Biomass in kgC/m2 #total aboveground biomass
   total.soil.carbon <- (som + fl)  * DEFAULT.C # TotSoilCarb in kgC/m2
   leaf.litter <- fl * DEFAULT.C # leaf litter in kgC/m2
   ag.npp <- (tnap * (1 / PLOT.AREA) * (1 / yearSecs) * DEFAULT.C) # GWBI = NPP in linkages
@@ -305,11 +308,11 @@ linkages <- function(linkages.input, outdir, restart = NULL, linkages.restart = 
   output.file <- file.path(outdir,"linkages.out.Rdata")
   sprintf("%s",output.file)
 
-  save(year = year, ag.biomass = ag.biomass, total.soil.carbon = total.soil.carbon,
+  save(year = year, ag.biomass = ag.biomass, abvgroundwood.biomass =  abvgroundwood.biomass, total.soil.carbon = total.soil.carbon,
        leaf.litter = leaf.litter, ag.npp = ag.npp, hetero.resp = hetero.resp,
        nee = nee, et = et, agb.pft = agb.pft, f.comp = f.comp,
        ntrees.birth = ntrees.birth, ntrees.kill = ntrees.kill, tstem = tstem,
-       tab = tab,fl = fl,totl = totl,tnap = tnap,avln = avln,cn = cn,sco2c = sco2c,
+       tab = tab, abvgrnwood=abvgrnwood,fl = fl,totl = totl,tnap = tnap,avln = avln,cn = cn,sco2c = sco2c,
        som = som,bar = bar,aet.save = aet.save,nogro.save = nogro.save,
        dbh.save = dbh.save, iage.save = iage.save, C.mat = C.mat, tyl = tyl,
        ncohrt = ncohrt, area = area, water = water, ksprt = ksprt, tyl.save = tyl.save,

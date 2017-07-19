@@ -28,16 +28,19 @@ output <- function(availn,tyln,nspec,frt,iage,slta,sltb,dbh,fwt,tyl,max.ind,ntre
   folw = 0 #leaf biomass
   availn = availn*1000 #available nitrogen from "gmult.r"
   tbar = 0 #total aboveground biomass
+  twbar = 0 #total aboveground wood biomass
   tawp = 0 #total aboveground woody production
   ntot = 0 #number of trees
   tyln = tyln*1000 #leaf litter N content from "decomp.r"
 
   bar = numeric(nspec)
+  abvgrnwood = numeric(nspec)
 
   #calculate spp biomass, total biomass, total number of stems, leaf area, and total woody production
   nl = 1
   for(i in 1:nspec){
     bar[i] = 0
+    abvgrnwood[i] = 0
     if(ntrees[i]==0) next
     nu = nl + ntrees[i] - 1
     ret = frt[i]
@@ -49,7 +52,8 @@ output <- function(availn,tyln,nspec,frt,iage,slta,sltb,dbh,fwt,tyl,max.ind,ntre
 
       #calculate species biomass (kg/plot)
       bar[i] = bar[i] + .1193 * dbh[j]^2.393 + folw
-      if(is.na(bar[i])) bar[i] <- 0 
+      abvgrnwood[i] = abvgrnwood[i] + .1193 * dbh[j]^2.393
+      if(is.na(bar[i])) bar[i] <- 0
 
       #calculate leaf area index
       area = area + 1.9283295 * 10^-4 * dbh[j]^2.129
@@ -59,6 +63,7 @@ output <- function(availn,tyln,nspec,frt,iage,slta,sltb,dbh,fwt,tyl,max.ind,ntre
     }
     #calculate total aboveground biomass (kg/plot)
     tbar = tbar + bar[i]
+    twbar = twbar + abvgrnwood[i]
     nl = nu+1
     #calculate total number of trees per plot
     ntot = ntot + ntrees[i]
@@ -79,7 +84,7 @@ output <- function(availn,tyln,nspec,frt,iage,slta,sltb,dbh,fwt,tyl,max.ind,ntre
   #convert spp biomass to t/ha
   #bar = bar * .012
 
-  return(list(atot=atot,tbar=tbar,tyln=tyln,tynap=tynap,availn=availn,
+  return(list(atot=atot,tbar=tbar,twbar=twbar,tyln=tyln,tynap=tynap,availn=availn,
               bar=bar,area=area))
 
 }
