@@ -328,6 +328,7 @@ birth.opt <- function(nspec,ntrees,frt,iage,slta,sltb,dbh,fwt,switch.mat,
         dtemp[nsum] = size + .3 * (1 - yfl)^3
         ntemp[nsum] = 0
       }
+
       if(nl <= nup){
         n1 = nsum + 1
         for(l in nl:nup){
@@ -337,10 +338,11 @@ birth.opt <- function(nspec,ntrees,frt,iage,slta,sltb,dbh,fwt,switch.mat,
           n1 = n1 + 1
         }
       }
+
       #reinitialize original dbh and age arrays - including new trees
-      iage[1:ntot] = itemp[1:ntot]
-      dbh[1:ntot] = dtemp[1:ntot]
-      nogro[1:ntot] = ntemp[1:ntot]
+      iage = itemp
+      dbh = dtemp
+      nogro = ntemp
 
     }
   }
