@@ -52,7 +52,9 @@ output <- function(availn,tyln,nspec,frt,iage,slta,sltb,dbh,fwt,tyl,max.ind,ntre
 
       #calculate species biomass (kg/plot)
       bar[i] = bar[i] + .1193 * dbh[j]^2.393 + folw
-      abvgrnwood[i] = abvgrnwood[i] + .1193 * dbh[j]^2.393
+      if(dbh[j]>10) {
+        abvgrnwood[i] = abvgrnwood[i] + .1193 * dbh[j]^2.393
+      }
       if(is.na(bar[i])) bar[i] <- 0
 
       #calculate leaf area index
@@ -64,7 +66,7 @@ output <- function(availn,tyln,nspec,frt,iage,slta,sltb,dbh,fwt,tyl,max.ind,ntre
     #calculate total aboveground biomass (kg/plot)
     tbar = tbar + bar[i]
     twbar = twbar + abvgrnwood[i]
-    nl = nu+1
+    nl = nu + 1
     #calculate total number of trees per plot
     ntot = ntot + ntrees[i]
     if(ntot > max.ind) print("too many trees -- output")
