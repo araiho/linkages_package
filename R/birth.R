@@ -175,7 +175,8 @@ birth <- function(nspec,ntrees,frt,iage,slta,sltb,dbh,fwt,switch.mat,
           ntemp[nsum] = 0
         }
         if(nl <= nup){
-          n1 = nsum + 1
+
+           n1 = nsum + 1
           for(l in nl:nup){
             dtemp[n1] = dbh[l]
             itemp[n1] = iage[l]
