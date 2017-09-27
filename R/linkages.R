@@ -54,12 +54,13 @@ linkages <- function(linkages.input, outdir, restart = NULL, linkages.restart = 
   if(is.null(restart)) linkages.restart = NA
 
   load(linkages.input)
+
   if(restart == TRUE){
+    load(linkages.restart)
     max.ind <- length(dbh)
   }else{
     max.ind <- 100000
   }
-
 
   #temp.mat <- matrix(temp.mat,nyear,12)
   #precip.mat <- matrix(precip.mat,nyear,12)
