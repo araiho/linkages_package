@@ -24,7 +24,6 @@ load("~/linkages_package/Example R Run/linkages.out.Rdata")
 
 plot(ag.biomass,xlab='Time',ylab='Biomass (kgC/m2)')
 
-
 #### Tradeoff Plots
 par(mfrow=c(4,2))
 mat.use <- gf.vec.save[1,,,1]

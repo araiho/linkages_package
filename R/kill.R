@@ -115,6 +115,7 @@ kill <- function(nspec, ntrees,slta,sltb,dbh,agemx,ksprt,sprtmn,sprtmx,iage,
   #rewrite diameters and ages to eliminate dead trees
   k = 0
   ntot = 0
+
   for(i in 1:max.ind){
     if(dbh[i]==0) {
       ntot = k
