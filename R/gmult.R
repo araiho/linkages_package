@@ -28,8 +28,8 @@
 ##'
 gmult <- function(egs,bgs,availn,degd,dmin,dmax,d3,fj,cm1,cm3,cm2,cm4,cm5,nspec){
 
-  egs <- round(runif(1,min = (-15) + egs, max = 15 + egs))
-  bgs <- round(runif(1,min = (-15) + bgs, max = 15 + bgs))
+  #egs <- round(runif(1,min = (-15) + egs, max = 15 + egs))
+  #bgs <- round(runif(1,min = (-15) + bgs, max = 15 + bgs))
   tgs = egs - bgs + 1
 
   availn = availn + .005
