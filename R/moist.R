@@ -15,6 +15,7 @@
 ##'
 ##' @return aet             actual evapotranspiration (units:mm)
 ##' @return fj              total number of dry days
+##' @export
 ##'
 moist <- function(kyr,temp.vec,precip.vec,fc,dry,bgs,egs,plat,clat){
   # adjust latitude pointer

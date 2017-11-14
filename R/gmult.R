@@ -25,6 +25,7 @@
 ##' @return sngf soil nitrogen growth factor
 ##' @return degdgf growing degree day growth factor
 ##' @return availn available nitrogen
+##' @export
 ##'
 gmult <- function(egs,bgs,availn,degd,dmin,dmax,d3,fj,cm1,cm3,cm2,cm4,cm5,nspec){
 

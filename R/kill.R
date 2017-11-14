@@ -18,6 +18,7 @@
 ##' @param iage age of each individual
 ##' @param dbh diameter of each individual
 ##' @param ksprt flags if stump can sprout
+##' @export
 ##'
 ##' @description    KILL KILLS TREES BY AGE DEPENDENT MORTALITY (ONLY 1%
 ##'   REACH MAXIMUM AGE) AND AGE INDEPENDENT MORTALITY (PROBABILITY OF
@@ -58,8 +59,8 @@ kill <- function(nspec, ntrees,slta,sltb,dbh,agemx,ksprt,sprtmn,sprtmx,iage,
       ba = ba + .0314 * (dbh[k]*.5) ^ 2
 
       #kill trees based on probability that only 1% reach max age
-      yfl = .5 #runif(1,0,1) # pexp(agemx[i],1/(agemx[i]/2)) 4.605/agemx[i] iage[k] > runif(1,(agemx[i]-100),agemx[i])
-      if(yfl <= 4.605/agemx[i] | ntrees[i] > 1000) {
+      yfl = 1 - (iage[k]/agemx[i]) #runif(1,0,1) # pexp(iage[k],1/(agemx[i]/2))# pexp(agemx[i],1/(agemx[i]/2)) 4.605/agemx[i] iage[k] > runif(1,(agemx[i]-100),agemx[i])
+      if(yfl <  4.605/agemx[i]) {
         ntrees[i] = ntrees[i] - 1
 
         #check to see if dead tree can stump sprout increment skprt if tree can sprout
@@ -75,8 +76,8 @@ kill <- function(nspec, ntrees,slta,sltb,dbh,agemx,ksprt,sprtmn,sprtmx,iage,
        } else {
 
           if(nogro[k]<=-2){
-            yfl = .5 #runif(1,0,1)
-            if(yfl <= .368){
+            yfl = .1#runif(1,0,1)
+            if(yfl <= .2){
             ntrees[i] = ntrees[i] - 1
 
             #check to see if dead tree can sump sprout increment skprt if tree can sprout
@@ -95,7 +96,7 @@ kill <- function(nspec, ntrees,slta,sltb,dbh,agemx,ksprt,sprtmn,sprtmx,iage,
       #calculate leaf litter by quality class in t/ha if the tree is slow growing but didn't di, leaf litter is halved
       #if the tree died, total leaf biomass is returned to the soil
       L = tl[i]
-      if(nogro[k] == -2 & dbh[k] > -1) folw = folw*.5
+      if(nogro[k] == -2 & dbh[k] == -1) folw = folw*.5
       if(dbh[k] < 0) folw = folw * frt[i]
       tyl[L] = tyl[L] + folw
       #calculate root litter (t/ha)

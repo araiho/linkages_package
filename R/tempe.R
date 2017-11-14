@@ -6,6 +6,7 @@
 ##' @description Calculates total growing degree days for each year, i
 ##'
 ##' @return degd total growing degree days for each year
+##' @export
 ##'
 
 tempe <- function(temp.vec){

@@ -28,6 +28,7 @@
 ##' @return dbh diameter of each individual
 ##' @return ntrees number of trees of each species
 ##' @return awp aboveground woody production
+##' @export
 ##'
 grow <- function(max.ind,nspec,ntrees,frt,slta,sltb,dbh,fwt, b2,b3, itol,g,
                  degdgf,smgf,sngf,frost,rt,iage,nogro){
@@ -38,6 +39,8 @@ grow <- function(max.ind,nspec,ntrees,frt,slta,sltb,dbh,fwt, b2,b3, itol,g,
   ntot = 0
   ntot = sum(ntrees[1:nspec])
   gf.vec <- array(NA,dim=c(ntot,nspec,4))
+  gf.vec.means <- matrix(NA, nrow=nspec, ncol = 4)
+  algf.save <- matrix(NA,max.ind,nspec)
   if(ntot != 0){
   if(ntot > max.ind) print("too many trees -- grow")
 
@@ -82,6 +85,7 @@ grow <- function(max.ind,nspec,ntrees,frt,slta,sltb,dbh,fwt, b2,b3, itol,g,
       iht = ht/10 + 2
       if(iht < 1) iht = 1 #added to avoid error with sumla
       slar = sumla[iht]
+      if(is.na(slar)) slar <- sumla[which.max(!is.na(sumla))]
 
       #calculate available light to this tree (% full sunlight)
       al = 1 * exp(-slar/93750)
@@ -98,7 +102,13 @@ grow <- function(max.ind,nspec,ntrees,frt,slta,sltb,dbh,fwt, b2,b3, itol,g,
         algf = algf[1]
       }
 
+      if(is.na(algf)){
+        browser()
+        algf <- 1
+      }
+
       if(algf < 0) algf = 0
+      algf.save[j,i] <- algf
 
       #calculate maximum tree volume
       gr = (137 + .25 *(( b2[i]^2 )/ b3[i])) * (.5 * b2[i] / b3[i])
@@ -136,10 +146,11 @@ grow <- function(max.ind,nspec,ntrees,frt,slta,sltb,dbh,fwt, b2,b3, itol,g,
       #calculate net increase in woody biomass (aboveground woody production in kg)
       awp[j] = ab2 - ab1
     }
+    gf.vec.means[i,1:4] = colMeans(gf.vec[,i,1:4]) #matrix(NA, nrow=nspec, ncol = 4)
     nl = nl + ntrees[i]
   }
   }
-  return(list(ntrees = ntrees, dbh = dbh, awp = awp, nogro = nogro, gf.vec = gf.vec))
+  return(list(ntrees = ntrees, dbh = dbh, awp = awp, nogro = nogro, gf.vec = gf.vec.means, algf.save = algf.save))
 }
 
 #
@@ -163,7 +174,7 @@ grow.opt <- function(max.ind,nspec,ntrees,frt,slta,sltb,dbh,fwt, b2,b3, itol,g,
     if(ntot > max.ind) print("too many trees -- grow")
 
     #initialize canopy leaf biomass profile
-    sumla = matrix(0,1,max.ind)
+    sumla = matrix(0,1,700)
 
 
     #loop for calculating canopy profile
@@ -186,8 +197,9 @@ grow.opt <- function(max.ind,nspec,ntrees,frt,slta,sltb,dbh,fwt, b2,b3, itol,g,
     }
 
     #calculate cumulative leaf biomass down through the canopy
-    j1 = 700-1:699
-    sumla[j1] = sumla[j1] + sumla[j1 + 1]
+    #j1 = 700-1:699
+    #sumla[j1] = sumla[j1] + sumla[j1 + 1]
+    sumla <- rev(cumsum(rev(sumla)))
 
     #main loop for calculating diameter increment
     nl = 1
@@ -199,6 +211,7 @@ grow.opt <- function(max.ind,nspec,ntrees,frt,slta,sltb,dbh,fwt, b2,b3, itol,g,
         iht = ht/10 + 2
         iht[iht < 1] = 1 #added to avoid error with sumla
         slar = sumla[iht]
+
 
         #calculate available light to this tree (% full sunlight)
         al = 1 * exp(-slar/93750)

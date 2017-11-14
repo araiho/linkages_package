@@ -17,6 +17,7 @@
 ##' @return C.mat              matrix for data on litter cohorts
 ##' @return ncohrt             number of cohorts
 ##' @return tyl                total yearly litter
+##' @export
 ##'
 plotin <- function(iplot,basesc,basesn,max.ind,nspec){
 

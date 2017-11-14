@@ -26,6 +26,7 @@
 ##' @return sco2 total soil co2-c
 ##' @return ncohrt number of cohorts
 ##' @return C.mat matrix for data on litter cohorts
+##' @export
 ##'
 decomp <- function(fdat,aet,ncohrt,fc,dry,tyl,C.mat){
   #Initialization
