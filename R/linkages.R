@@ -59,7 +59,7 @@ linkages <- function(linkages.input, outdir, restart = NULL, linkages.restart = 
     load(linkages.restart)
     max.ind <- length(dbh)
   }else{
-    max.ind <- 150
+    max.ind <- 300
   }
 
   #temp.mat <- matrix(temp.mat,nyear,12)
@@ -141,6 +141,9 @@ linkages <- function(linkages.input, outdir, restart = NULL, linkages.restart = 
       #calculates degree days for the year
       degd <- tempe(temp.vec = temp.mat[i,1:12])
       #degd = unlist(tempe.out$degd, use.names = FALSE)
+
+      #bgs <- runif(1,100,150)
+      #egs <- runif(1,250,290)
 
       #calculates aet
       moist.out <- moist(kyr = i, temp.vec = temp.mat[i,1:12], precip.vec = precip.mat[i,1:12],
