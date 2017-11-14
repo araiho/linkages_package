@@ -48,7 +48,7 @@ birth <- function(nspec,ntrees,frt,iage,slta,sltb,dbh,fwt,switch.mat,
                   degd,dmin,dmax,frost,rt,itol,mplant,nogro,ksprt,sprtnd,
                   max.ind,smgf,degdgf){
 
-  max.seeds <- 20
+  max.seeds <- 2
 if(sum(ntrees) < max.ind - (max.seeds*nspec)){
 
   switch.mat1 = matrix(as.logical(switch.mat),nspec,5)

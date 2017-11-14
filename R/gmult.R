@@ -55,7 +55,7 @@ gmult <- function(egs,bgs,availn,degd,dmin,dmax,d3,fj,cm1,cm3,cm2,cm4,cm5,nspec)
         conn = cm1[i] * (1 - 10 ^ ((-1 * cm3[i]) * (avlmc + cm2[i])))
         sngf[i] = cm4[i] + cm5[i] * conn
         #browser()
-        if(sngf[i] < .1) sngf[i] = .1
+        if(sngf[i] < .15) sngf[i] = .15
         #if(sngf[i] > 10) sngf[i] = 10
 
       }

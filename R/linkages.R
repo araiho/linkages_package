@@ -59,7 +59,7 @@ linkages <- function(linkages.input, outdir, restart = NULL, linkages.restart = 
     load(linkages.restart)
     max.ind <- length(dbh)
   }else{
-    max.ind <- 300
+    max.ind <- 50
   }
 
   #temp.mat <- matrix(temp.mat,nyear,12)

@@ -76,7 +76,7 @@ kill <- function(nspec, ntrees,slta,sltb,dbh,agemx,ksprt,sprtmn,sprtmx,iage,
        } else {
 
           if(nogro[k]<=-1){
-            yfl = .1#runif(1,0,1)
+            yfl = runif(1,0,1)
             if(yfl <= .2){
             ntrees[i] = ntrees[i] - 1
 
