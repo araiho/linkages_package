@@ -121,13 +121,16 @@ if(sum(ntrees) < max.ind - (max.seeds*nspec)){
      if(al<.30 & i == 42) next
 
     if(switch.mat1[i,3] & swtch[3]) next
-    if(switch.mat1[i,4] & swtch[4]) next
+    #if(switch.mat1[i,4] & swtch[4]) next #the deer are eating too much. Who decided this should always be true??
     if(switch.mat1[i,5] & swtch[5]) next
 
     #allow only those spp whose degree day tolerances span the simulated degree days this year to be eligible for seeding
     if(degd <= dmin[i] | degd >= dmax[i]) next
     #allow only those species whose frost tolerance is less than the January mean temperature to be eligible for seeding
-    if(frost[i] > rt[1]) next
+    if(frost[i] > rt[1]) {
+      print(paste('skipping',i))
+        next
+    }
     #place eligible species numbers in array newtr
     nw = nw + 1
     newtr[nw] = i
