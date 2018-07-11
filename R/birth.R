@@ -48,7 +48,7 @@ birth <- function(nspec,ntrees,frt,iage,slta,sltb,dbh,fwt,switch.mat,
                   degd,dmin,dmax,frost,rt,itol,mplant,nogro,ksprt,sprtnd,
                   max.ind,smgf,degdgf){
 
-  max.seeds <- 2
+  max.seeds <- 10 #needs to be less than max.ind
 if(sum(ntrees) < max.ind - (max.seeds*nspec)){
 
   switch.mat1 = matrix(as.logical(switch.mat),nspec,5)
@@ -149,6 +149,7 @@ if(sum(ntrees) < max.ind - (max.seeds*nspec)){
       if(slite <= 0) slite = 0
       #reduce max number of seedlings to the extent that light, soil moisture, and degree days are less than optimum for growth of each species
       #yfl = runif(1,0,1)
+
       nplant = mplant[nsp] * slite * smgf[nsp] * degdgf[nsp] #* yfl
       if(nplant>max.seeds) nplant=max.seeds #HACK
       #see if any stumps of this spp are available for sprouting

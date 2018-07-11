@@ -74,10 +74,15 @@ kill <- function(nspec, ntrees,slta,sltb,dbh,agemx,ksprt,sprtmn,sprtmx,iage,
         #flag dead trees
         dbh[k] = -1
        } else {
-
           if(nogro[k]<=-1){
-            yfl = runif(1,0,1)
-            if(yfl <= .2){
+
+            #age.tab <- as.matrix(table(iage))
+            #rm.p <- pexp(iage[k],1/(agemx[i]/2))
+            #yfl <- rm.p*as.numeric(age.tab[iage[k]+1,])
+
+            yfl <- runif(1,0,1)
+
+            if(yfl > .1){
             ntrees[i] = ntrees[i] - 1
 
             #check to see if dead tree can sump sprout increment skprt if tree can sprout
