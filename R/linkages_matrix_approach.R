@@ -49,17 +49,20 @@ decomp_matrix <- function(I,X,fdat,fc,dry){
 }
 
 #### Original Subroutine
-source('decomp.R')
-orig <- decomp(fdat, aet, ncohrt, fc, dry, tyl, C.mat)
+decomp_matrix_original <- function() {
+  source('decomp.R')
+  orig <- decomp(fdat, aet, ncohrt, fc, dry, tyl, C.mat)
 
-#### Initial State
-X <- ff[1:17,2]
-#### Input
-I <- c(tyl[1:16],0)
+  #### Initial State
+  X <- ff[1:17,2]
+  #### Input
+  I <- c(tyl[1:16],0)
 
-#### Matrix Math
-mat_out <- decomp_matrix(I=I, X=X, fdat=fdat, fc=fc, dry=dry)
+  #### Matrix Math
+  mat_out <- decomp_matrix(I=I, X=X, fdat=fdat, fc=fc, dry=dry)
 
-#### Plot Check
-plot(orig$ff[1:17,2], ff[1:17,2] + mat_out, pch=19)
-abline(a=0,b=1)
+  #### Plot Check
+  plot(orig$ff[1:17,2], ff[1:17,2] + mat_out, pch=19)
+  abline(a=0,b=1)
+}
+
