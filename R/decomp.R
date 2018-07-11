@@ -28,7 +28,7 @@
 ##' @return C.mat matrix for data on litter cohorts
 ##' @export
 ##'
-decomp <- function(fdat,aet,ncohrt,fc,dry,tyl,C.mat){
+decomp <- function(fdat, aet, ncohrt,fc,dry, tyl = rep(0,17), C.mat){
   #Initialization
 
   fco2 = 0 #co2-c from litter immobilizing N
@@ -115,7 +115,7 @@ decomp <- function(fdat,aet,ncohrt,fc,dry,tyl,C.mat){
       if(pomr<=C.mat[i,12]){
         #if cohrt is to be transferred to humus, recalculate wtloss and N concentration
         #so that the transfer occurs at the fraction specified by the initial lignin concentration
-        wtloss = C.mat[i,1] - C.mat[i,12]*C.mat[i,10]
+        wtloss = C.mat[i,1] - C.mat[i,12] * C.mat[i,10]
         if(wtloss<0) wtloss = 0
         C.mat[i,11] = C.mat[i,3] - C.mat[i,4]*C.mat[i,12]
         #calculate absolute change in N content
@@ -125,7 +125,7 @@ decomp <- function(fdat,aet,ncohrt,fc,dry,tyl,C.mat){
         #transfer cohorts
         if(C.mat[i,6]==1){
           C.mat[1,1] = C.mat[1,1] + C.mat[i,1] - wtloss
-          C.mat[1,2] = C.mat[1,2] + C.mat[i,11] * (C.mat[i,1]-wtloss)
+          C.mat[1,2] = C.mat[1,2] + C.mat[i,11] * (C.mat[i,1] - wtloss)
           C.mat[i,1] = 0
         }else{
         #FFW - temporary variable assigned to well decayed wood cohort
