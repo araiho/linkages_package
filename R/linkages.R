@@ -59,7 +59,7 @@ linkages <- function(linkages.input, outdir, restart = NULL, linkages.restart = 
     load(linkages.restart)
     max.ind <- length(dbh)
   }else{
-    max.ind <- 50
+    max.ind <- 200
   }
 
   #temp.mat <- matrix(temp.mat,nyear,12)
@@ -328,5 +328,7 @@ linkages <- function(linkages.input, outdir, restart = NULL, linkages.restart = 
       ff=ff, gf.vec.save = gf.vec.save, algf.save.keep = algf.save.keep, file = output.file)
 
   file.exists(output.file)
+
+  output.check(linkages.input,outdir)
 
 }

@@ -49,6 +49,11 @@ birth <- function(nspec,ntrees,frt,iage,slta,sltb,dbh,fwt,switch.mat,
                   max.ind,smgf,degdgf){
 
   max.seeds <- 10 #needs to be less than max.ind
+  if((max.ind - (max.seeds*nspec))<0) {
+   print('Imbalance between max.ind and max.seeds and nspec. See birth subroutine.')
+   stop()
+  }
+
 if(sum(ntrees) < max.ind - (max.seeds*nspec)){
 
   switch.mat1 = matrix(as.logical(switch.mat),nspec,5)
