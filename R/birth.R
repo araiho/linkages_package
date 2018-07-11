@@ -201,12 +201,13 @@ if(sum(ntrees) < max.ind - (max.seeds*nspec)){
 
     }
   }
-  #increment ages by one year
-  iage[1:ntot] = iage[1:ntot] + 1
 
   #reinitialize array ksprt
   ksprt[1:nspec] = 0
 }
+  #increment ages by one year
+  ntot <- sum(ntrees)
+  iage[1:ntot] = iage[1:ntot] + 1
   return(list(iage=iage, dbh=dbh, nogro=nogro, ntrees=ntrees, ksprt=ksprt))
 }
 
