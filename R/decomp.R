@@ -157,7 +157,7 @@ decomp <- function(fdat, aet, ncohrt,fc,dry, tyl = rep(0,17), C.mat){
   #hcn - humus C:N ratio
   hcn = (.48*C.mat[1,1])/C.mat[1,2]
   #add humus N mineralization to cohort N mineralization to get total N mineralization
-  tnmin = fnmin - tnimob
+  tnmin = fnmin + hnmin
   #subtract immobilization from total mineralization to get available N to trees
   availn = tnmin - tnimob
   #calculate total soil respiration
