@@ -91,6 +91,7 @@ linkages <- function(linkages.input, outdir, restart = NULL, linkages.restart = 
   nogro.save <- array(0,dim=c(max.ind,nyear,iplot))
   dbh.save <- array(0,dim=c(max.ind,nyear,iplot))
   iage.save <- array(0,dim=c(max.ind,nyear,iplot))
+  awp.save <- array(0,dim=c(max.ind,nyear,iplot))
 
   for(k in 1:iplot){ #loop over plots
 
@@ -107,6 +108,7 @@ linkages <- function(linkages.input, outdir, restart = NULL, linkages.restart = 
     nogro <- unlist(plotin.out$nogro, use.names = FALSE)
     ksprt <- unlist(plotin.out$ksprt, use.names = FALSE)
     iage <- unlist(plotin.out$iage, use.names = FALSE)
+
 
     } else {
       #load last stopping point
@@ -131,6 +133,7 @@ linkages <- function(linkages.input, outdir, restart = NULL, linkages.restart = 
       nogro.save <- array(0,dim=c(max.ind,nyear,iplot))
       dbh.save <- array(0,dim=c(max.ind,nyear,iplot))
       iage.save <- array(0,dim=c(max.ind,nyear,iplot))
+      awp.save <- array(0,dim=c(max.ind,nyear,iplot))
 
       temp.mat <- matrix(temp.mat,nyear,12)
       precip.mat <- matrix(precip.mat,nyear,12)
@@ -252,6 +255,7 @@ linkages <- function(linkages.input, outdir, restart = NULL, linkages.restart = 
                          ntrees=ntrees,awp=awp)
 
       #save variables
+      awp.save[1:length(grow.out$awp),i,k] = unlist(grow.out$awp, use.names = FALSE)
       tstem[i,k] = unlist(output.out$atot, use.names = FALSE) #number of stems
       tab[i,k] = unlist(output.out$tbar, use.names = FALSE) #total aboveground biomass
       abvgrnwood[i,k] = unlist(output.out$twbar, use.names = FALSE) #total aboveground biomass
@@ -325,7 +329,7 @@ linkages <- function(linkages.input, outdir, restart = NULL, linkages.restart = 
        som = som,bar = bar,aet.save = aet.save,nogro.save = nogro.save,
        dbh.save = dbh.save, iage.save = iage.save, C.mat = C.mat, tyl = tyl,
        ncohrt = ncohrt, area = area, water = water, ksprt = ksprt, tyl.save = tyl.save,
-      ff=ff, gf.vec.save = gf.vec.save, algf.save.keep = algf.save.keep, file = output.file)
+      ff=ff, gf.vec.save = gf.vec.save, algf.save.keep = algf.save.keep, awp.save=awp.save, file = output.file)
 
   file.exists(output.file)
 
