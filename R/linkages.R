@@ -59,7 +59,7 @@ linkages <- function(linkages.input, outdir, restart = NULL, linkages.restart = 
     load(linkages.restart)
     max.ind <- length(dbh)
   }else{
-    max.ind <- 50
+    max.ind <- 200
   }
 
   #temp.mat <- matrix(temp.mat,nyear,12)
@@ -145,8 +145,8 @@ linkages <- function(linkages.input, outdir, restart = NULL, linkages.restart = 
       degd <- tempe(temp.vec = temp.mat[i,1:12])
       #degd = unlist(tempe.out$degd, use.names = FALSE)
 
-      #bgs <- runif(1,100,150)
-      #egs <- runif(1,250,290)
+      bgs <- (which(temp.mat[i,]>10)[1]-1)*30
+      egs <- bgs + length(which(temp.mat[i,]>10))*30
 
       #calculates aet
       moist.out <- moist(kyr = i, temp.vec = temp.mat[i,1:12], precip.vec = precip.mat[i,1:12],
@@ -332,5 +332,7 @@ linkages <- function(linkages.input, outdir, restart = NULL, linkages.restart = 
       ff=ff, gf.vec.save = gf.vec.save, algf.save.keep = algf.save.keep, awp.save=awp.save, file = output.file)
 
   file.exists(output.file)
+
+  output.check(linkages.input,outdir)
 
 }
