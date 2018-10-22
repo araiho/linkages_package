@@ -254,6 +254,14 @@ linkages <- function(linkages.input, outdir, restart = NULL, linkages.restart = 
                          sltb = spp.params$SLTB,dbh = dbh,fwt = spp.params$FWT,tyl = tyl,
                          ntrees=ntrees,awp=awp)
 
+      #conversion factors
+      DEFAULT.C <- 0.48  ## mass percent C of biomass
+      PLOT.AREA <- 833 ## m^2
+      toKG <- 100 ## g in Kg
+      yearSecs <- (3.15569 * 10^7)
+      Tconst <- .012
+
+
       #save variables
       awp.save[1:length(grow.out$awp),i,k] = unlist(grow.out$awp, use.names = FALSE)
       tstem[i,k] = unlist(output.out$atot, use.names = FALSE) #number of stems
@@ -284,13 +292,6 @@ linkages <- function(linkages.input, outdir, restart = NULL, linkages.restart = 
 
   print(paste("PLOT = ",k))
   }
-
-  #conversion factors
-  DEFAULT.C <- 0.48  ## mass percent C of biomass
-  PLOT.AREA <- 833 ## m^2
-  toKG <- 100 ## g in Kg
-  yearSecs <- (3.15569 * 10^7)
-  Tconst <- .012
 
   #unit conversions for variables of interest #need to recheck more carefully later
   year <- seq(1,nyear,1)
