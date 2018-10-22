@@ -92,6 +92,7 @@ linkages <- function(linkages.input, outdir, restart = NULL, linkages.restart = 
   dbh.save <- array(0,dim=c(max.ind,nyear,iplot))
   iage.save <- array(0,dim=c(max.ind,nyear,iplot))
   awp.save <- array(0,dim=c(max.ind,nyear,iplot))
+  npp.spp.save <- array(0,dim=c(nspec,nyear,iplot))
 
   for(k in 1:iplot){ #loop over plots
 
