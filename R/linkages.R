@@ -127,7 +127,7 @@ linkages <- function(linkages.input, outdir, restart = NULL, linkages.restart = 
       ntrees.birth <- array(0,dim=c(nspec,nyear,iplot))
       ntrees.grow <- array(0,dim=c(nspec,nyear,iplot))
       ntrees.kill <- array(0,dim=c(nspec,nyear,iplot))
-      bar <- array(0,dim=c(nspec,nyear,iplot))
+      bar <- npp.spp.save <- array(0,dim=c(nspec,nyear,iplot))
       nogro.save <- array(0,dim=c(max.ind,nyear,iplot))
       dbh.save <- array(0,dim=c(max.ind,nyear,iplot))
       iage.save <- array(0,dim=c(max.ind,nyear,iplot))
@@ -270,6 +270,7 @@ linkages <- function(linkages.input, outdir, restart = NULL, linkages.restart = 
       dbh.save[,i,k] = unlist(kill.out$dbh, use.names = FALSE)
       iage.save[,i,k] = unlist(kill.out$iage, use.names = FALSE)
       ncohrt.save[i,k] = ncohrt
+      npp.spp.save[,i,k] = (unlist(grow.out$npp.spp,use.names=FALSE) * (1 / PLOT.AREA) * (1 / yearSecs) * DEFAULT.C)
 
     print(paste("year = ",i))
     }
@@ -325,7 +326,7 @@ linkages <- function(linkages.input, outdir, restart = NULL, linkages.restart = 
        som = som,bar = bar,aet.save = aet.save,nogro.save = nogro.save,
        dbh.save = dbh.save, iage.save = iage.save, C.mat = C.mat, tyl = tyl,
        ncohrt = ncohrt, area = area, water = water, ksprt = ksprt, tyl.save = tyl.save,
-      ff=ff, gf.vec.save = gf.vec.save, algf.save.keep = algf.save.keep, file = output.file)
+      ff=ff, gf.vec.save = gf.vec.save, algf.save.keep = algf.save.keep, npp.spp.save=npp.spp.save, file = output.file)
 
   file.exists(output.file)
 

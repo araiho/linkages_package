@@ -203,6 +203,7 @@ grow.opt <- function(max.ind,nspec,ntrees,frt,slta,sltb,dbh,fwt, b2,b3, itol,g,
 
     #main loop for calculating diameter increment
     nl = 1
+    npp.spp <- numeric(nspec)
     for(i in 1:nspec){
       if(ntrees[i] == 0) next
       nu = nl + ntrees[i] - 1
@@ -267,10 +268,14 @@ grow.opt <- function(max.ind,nspec,ntrees,frt,slta,sltb,dbh,fwt, b2,b3, itol,g,
 
         #calculate net increase in woody biomass (aboveground woody production in kg)
         awp[nl:nu] = ab2 - ab1
+        npp.spp[i] <- sum(awp[nl:nu])
+
       nl = nl + ntrees[i]
+
     }
+
   }
   #browser()
-  return(list(ntrees = ntrees, dbh = dbh, awp = awp, nogro = nogro, gf.vec = gf.vec, algf.save = algf.save))
+  return(list(ntrees = ntrees,npp.spp=npp.spp, dbh = dbh, awp = awp, nogro = nogro, gf.vec = gf.vec, algf.save = algf.save))
 }
 
