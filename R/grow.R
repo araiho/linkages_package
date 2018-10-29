@@ -276,6 +276,7 @@ grow.opt <- function(max.ind,nspec,ntrees,frt,slta,sltb,dbh,fwt, b2,b3, itol,g,
 
   }
   #browser()
-  return(list(ntrees = ntrees,npp.spp=npp.spp, dbh = dbh, awp = awp, nogro = nogro, gf.vec = gf.vec, algf.save = algf.save))
+  return(list(ntrees = ntrees,npp.spp=npp.spp, dbh = dbh,
+              awp = awp, nogro = nogro, gf.vec = gf.vec, algf.save = algf.save))
 }
 
