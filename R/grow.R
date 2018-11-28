@@ -165,6 +165,7 @@ grow.opt <- function(max.ind,nspec,ntrees,frt,slta,sltb,dbh,fwt, b2,b3, itol,g,
   #initialize wood production
   awp = matrix(0,1,max.ind)
   algf.save <- matrix(NA,max.ind,nspec)
+  npp.spp <- numeric(nspec)
 
   #calculate total number of trees
   ntot = 0
