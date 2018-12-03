@@ -48,10 +48,10 @@ birth <- function(nspec,ntrees,frt,iage,slta,sltb,dbh,fwt,switch.mat,
                   degd,dmin,dmax,frost,rt,itol,mplant,nogro,ksprt,sprtnd,
                   max.ind,smgf,degdgf){
 
-  max.seeds <- 10 #needs to be less than max.ind
+  max.seeds <- round(max.ind/nspec) #needs to be less than max.ind
   if((max.ind - (max.seeds*nspec))<0) {
    print('Imbalance between max.ind and max.seeds and nspec. See birth subroutine.')
-   stop()
+   max.seeds <- round(max.ind/nspec) + 1
   }
 
 if(sum(ntrees) < max.ind - (max.seeds*nspec)){
