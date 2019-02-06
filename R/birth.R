@@ -130,10 +130,13 @@ if(sum(ntrees) < max.ind - (max.seeds*nspec)){
     if(switch.mat1[i,5] & swtch[5]) next
 
     #allow only those spp whose degree day tolerances span the simulated degree days this year to be eligible for seeding
-    if(degd <= dmin[i] | degd >= dmax[i]) next
+    if(degd <= dmin[i] | degd >= dmax[i]) {
+       print(paste('spp',i,'did not make it past degd dmin dmax step in birth.R'))
+       next
+    }
     #allow only those species whose frost tolerance is less than the January mean temperature to be eligible for seeding
     if(frost[i] > rt[1]) {
-      print(paste('skipping',i))
+      print(paste('skipping',i,'in birth.R because of frost param'))
         next
     }
     #place eligible species numbers in array newtr
@@ -204,6 +207,8 @@ if(sum(ntrees) < max.ind - (max.seeds*nspec)){
 
   #reinitialize array ksprt
   ksprt[1:nspec] = 0
+}else{
+  print('No births this year. There are enougth trees in the stand. See birth.R')
 }
   #increment ages by one year
   ntot <- sum(ntrees)
@@ -211,158 +216,158 @@ if(sum(ntrees) < max.ind - (max.seeds*nspec)){
   return(list(iage=iage, dbh=dbh, nogro=nogro, ntrees=ntrees, ksprt=ksprt))
 }
 
-birth.opt <- function(nspec,ntrees,frt,iage,slta,sltb,dbh,fwt,switch.mat,
-                  degd,dmin,dmax,frost,rt,itol,mplant,nogro,ksprt,sprtnd,
-                  max.ind,smgf,degdgf){
-
-  switch.mat1 = matrix(as.logical(switch.mat),nspec,5)
-
-  #initialize foliage biomass (folw) and foliage area (fola)
-  folw = 0
-  fola = 0
-  nl = 1
-
-  #calculate leaf weight in G/plot and leaf area index
-  for(i in 1:nspec){
-    if(ntrees[i] == 0) next
-    nu = nl + ntrees[i] - 1
-    ret = frt[i]
-    for(k in nl:nu){
-      age = iage[k]
-      dbh.vec <- dbh[nl:nu]
-      age.vec <- iage[nl:nu]
-
-      folw = sum((slta[i]+sltb[i]*dbh.vec[age<ret])/2)^2*(3.14*fwt[i]*age.vec[age<ret])
-      fola = sum((1.9283295) * 10^-4)*((dbh.vec[age<ret])^2.129)
-
-    }
-    nl = nl + ntrees[i]
-  }
-
-  fola[is.na(fola)] <- 0
-  #calculate amount of light at forest floor
-  al = 1 * exp(-folw/93750)
-  #calculate number of trees in stand
-  ntot = nl - 1
-  #determine which species are eligible for planting this year
-  swtch = rep(NA,5) #added this AMR
-  #switch 1 is true if the spp requires leaf litter for successful recruitment
-  #switch 2 is true if the spp requires minerl soil
-  #switch 3 is true if the spp recruitment is reduced by hot year
-  #switch 4 is true if the species is a preferred food of deer or small mammals
-  #switch 5 reduces seedling rate of desirable mast
-  swtch[1:5] = TRUE
-  swtch[3] = FALSE
-
-  #set switches based on value of leaf area, degree day, and random number
-  if(fola>=1) swtch[1] = FALSE
-  if(fola<=2) swtch[2] = FALSE
-
-  #browse - a random number simulating the occurence of browsing
-  yfl = runif(1,0,1)
-  browse = yfl
-  if(browse > .5) swtch[4] = FALSE
-  if(fola <= .05) swtch[5] = FALSE
-  nw = 0
-
-  newtr = matrix(0,1,100) #added this AMR
-
-  # end recruitment of aspen, pin cherry, and most pine if available light is < 60% of full sunlight and recruitment of paper birch and white pine if available light is <30% of full sunlight
-  for(i in 1:nspec){
-    if(al<.60 & i == 29) next
-
-    if(al<.30 & i == 34) next
-
-    if(al<.60 & i == 60) next
-    if(al<.60 & i == 61) next
-    if(al<.60 & i == 13) next
-
-    if(al<.60 & i == 38) next
-    if(al<.60 & i == 39) next
-    if(al<.60 & i == 40) next
-    if(al<.30 & i == 41) next
-    if(al<.60 & i == 7) next
-    if(al<.60 & i == 42) next
-    if(al<.30 & i == 42) next
-
-    if(switch.mat1[i,3] & swtch[3]) next
-    if(switch.mat1[i,4] & swtch[4]) next
-    if(switch.mat1[i,5] & swtch[5]) next
-
-    #allow only those spp whose degree day tolerances span the simulated degree days this year to be eligible for seeding
-    if(degd <= dmin[i] | degd >= dmax[i]) next
-    #allow only those species whose frost tolerance is less than the January mean temperature to be eligible for seeding
-    if(frost[i] > rt[1]) next
-    #place eligible species numbers in array newtr
-    nw = nw + 1
-    newtr[nw] = i
-  }
-
-  #check to see if there are any new trees
-  if(nw != 0){
-    #place iage, dbh, and nogro into temporary arrays
-    itemp = iage; dtemp = dbh; ntemp = nogro
-    #begin main loop for planting
-    for(k in 1:nw){
-      nsp = newtr[k]
-      #calculate seedling light multipliers
-      slite = 1.5 * (1 - exp(-1.136*(al-.08)))
-      if(itol[nsp] < 2) slite = 1 - exp(-4.64*(al-.05))
-      if(slite <= 0) slite = 0
-      #reduce max number of seedlings to the extent that light, soil moisture, and degree days are less than optimum for growth of each species
-      yfl = runif(1,0,1)
-      nplant = mplant[nsp] * slite * smgf[nsp] * degdgf[nsp] * yfl
-      if(nplant>100) nplant=100 #HACK
-      #see if any stumps of this spp are available for sprouting
-      if(ksprt[nsp] > 0 & sprtnd[nsp] > 0){
-        yfl = runif(1,0,1)
-        #if available light is greater than 50% of full sunlight determine number of stump sprouts and add to nplant
-        if(al >= .5) nplant = nplant + (sprtnd[nsp]*slite*smgf[nsp]*degdgf[nsp]*ksprt[nsp]*yfl)
-        if(nplant>100) nplant=100 #HACK
-      }
-
-      nsum = sum(ntrees[1:nsp])
-
-      #print(paste(nplant,nsp))
-      #plant seedlings and sprouts
-      nl = nsum + 1
-      nup = ntot
-      if(nplant == 0) next
-      for(j in 1:nplant){
-        ntot = ntot + 1
-        if(ntot > max.ind) print(paste("too many trees -- birth -- species", i))
-        nsum = nsum + 1
-        ntrees[nsp] = ntrees[nsp] + 1
-        itemp[nsum] = 0
-        #calculate dbh for new trees
-        size = 1.27
-        yfl = runif(1,0,1)
-        dtemp[nsum] = size + .3 * (1 - yfl)^3
-        ntemp[nsum] = 0
-      }
-
-      if(nl <= nup){
-        n1 = nsum + 1
-        for(l in nl:nup){
-          dtemp[n1] = dbh[l]
-          itemp[n1] = iage[l]
-          ntemp[n1] = nogro[l]
-          n1 = n1 + 1
-        }
-      }
-
-      #reinitialize original dbh and age arrays - including new trees
-      iage = itemp
-      dbh = dtemp
-      nogro = ntemp
-
-    }
-  }
-  #increment ages by one year
-  iage[1:ntot] = iage[1:ntot] + 1
-
-  #reinitialize array ksprt
-  ksprt[1:nspec] = 0
-
-  return(list(iage=iage, dbh=dbh, nogro=nogro, ntrees=ntrees, newtr = newtr,ksprt=ksprt))
-}
+# birth.opt <- function(nspec,ntrees,frt,iage,slta,sltb,dbh,fwt,switch.mat,
+#                   degd,dmin,dmax,frost,rt,itol,mplant,nogro,ksprt,sprtnd,
+#                   max.ind,smgf,degdgf){
+#
+#   switch.mat1 = matrix(as.logical(switch.mat),nspec,5)
+#
+#   #initialize foliage biomass (folw) and foliage area (fola)
+#   folw = 0
+#   fola = 0
+#   nl = 1
+#
+#   #calculate leaf weight in G/plot and leaf area index
+#   for(i in 1:nspec){
+#     if(ntrees[i] == 0) next
+#     nu = nl + ntrees[i] - 1
+#     ret = frt[i]
+#     for(k in nl:nu){
+#       age = iage[k]
+#       dbh.vec <- dbh[nl:nu]
+#       age.vec <- iage[nl:nu]
+#
+#       folw = sum((slta[i]+sltb[i]*dbh.vec[age<ret])/2)^2*(3.14*fwt[i]*age.vec[age<ret])
+#       fola = sum((1.9283295) * 10^-4)*((dbh.vec[age<ret])^2.129)
+#
+#     }
+#     nl = nl + ntrees[i]
+#   }
+#
+#   fola[is.na(fola)] <- 0
+#   #calculate amount of light at forest floor
+#   al = 1 * exp(-folw/93750)
+#   #calculate number of trees in stand
+#   ntot = nl - 1
+#   #determine which species are eligible for planting this year
+#   swtch = rep(NA,5) #added this AMR
+#   #switch 1 is true if the spp requires leaf litter for successful recruitment
+#   #switch 2 is true if the spp requires minerl soil
+#   #switch 3 is true if the spp recruitment is reduced by hot year
+#   #switch 4 is true if the species is a preferred food of deer or small mammals
+#   #switch 5 reduces seedling rate of desirable mast
+#   swtch[1:5] = TRUE
+#   swtch[3] = FALSE
+#
+#   #set switches based on value of leaf area, degree day, and random number
+#   if(fola>=1) swtch[1] = FALSE
+#   if(fola<=2) swtch[2] = FALSE
+#
+#   #browse - a random number simulating the occurence of browsing
+#   yfl = runif(1,0,1)
+#   browse = yfl
+#   if(browse > .5) swtch[4] = FALSE
+#   if(fola <= .05) swtch[5] = FALSE
+#   nw = 0
+#
+#   newtr = matrix(0,1,100) #added this AMR
+#
+#   # end recruitment of aspen, pin cherry, and most pine if available light is < 60% of full sunlight and recruitment of paper birch and white pine if available light is <30% of full sunlight
+#   for(i in 1:nspec){
+#     if(al<.60 & i == 29) next
+#
+#     if(al<.30 & i == 34) next
+#
+#     if(al<.60 & i == 60) next
+#     if(al<.60 & i == 61) next
+#     if(al<.60 & i == 13) next
+#
+#     if(al<.60 & i == 38) next
+#     if(al<.60 & i == 39) next
+#     if(al<.60 & i == 40) next
+#     if(al<.30 & i == 41) next
+#     if(al<.60 & i == 7) next
+#     if(al<.60 & i == 42) next
+#     if(al<.30 & i == 42) next
+#
+#     if(switch.mat1[i,3] & swtch[3]) next
+#     if(switch.mat1[i,4] & swtch[4]) next
+#     if(switch.mat1[i,5] & swtch[5]) next
+#
+#     #allow only those spp whose degree day tolerances span the simulated degree days this year to be eligible for seeding
+#     if(degd <= dmin[i] | degd >= dmax[i]) next
+#     #allow only those species whose frost tolerance is less than the January mean temperature to be eligible for seeding
+#     if(frost[i] > rt[1]) next
+#     #place eligible species numbers in array newtr
+#     nw = nw + 1
+#     newtr[nw] = i
+#   }
+#
+#   #check to see if there are any new trees
+#   if(nw != 0){
+#     #place iage, dbh, and nogro into temporary arrays
+#     itemp = iage; dtemp = dbh; ntemp = nogro
+#     #begin main loop for planting
+#     for(k in 1:nw){
+#       nsp = newtr[k]
+#       #calculate seedling light multipliers
+#       slite = 1.5 * (1 - exp(-1.136*(al-.08)))
+#       if(itol[nsp] < 2) slite = 1 - exp(-4.64*(al-.05))
+#       if(slite <= 0) slite = 0
+#       #reduce max number of seedlings to the extent that light, soil moisture, and degree days are less than optimum for growth of each species
+#       yfl = runif(1,0,1)
+#       nplant = mplant[nsp] * slite * smgf[nsp] * degdgf[nsp] * yfl
+#       if(nplant>100) nplant=100 #HACK
+#       #see if any stumps of this spp are available for sprouting
+#       if(ksprt[nsp] > 0 & sprtnd[nsp] > 0){
+#         yfl = runif(1,0,1)
+#         #if available light is greater than 50% of full sunlight determine number of stump sprouts and add to nplant
+#         if(al >= .5) nplant = nplant + (sprtnd[nsp]*slite*smgf[nsp]*degdgf[nsp]*ksprt[nsp]*yfl)
+#         if(nplant>100) nplant=100 #HACK
+#       }
+#
+#       nsum = sum(ntrees[1:nsp])
+#
+#       #print(paste(nplant,nsp))
+#       #plant seedlings and sprouts
+#       nl = nsum + 1
+#       nup = ntot
+#       if(nplant == 0) next
+#       for(j in 1:nplant){
+#         ntot = ntot + 1
+#         if(ntot > max.ind) print(paste("too many trees -- birth -- species", i))
+#         nsum = nsum + 1
+#         ntrees[nsp] = ntrees[nsp] + 1
+#         itemp[nsum] = 0
+#         #calculate dbh for new trees
+#         size = 1.27
+#         yfl = runif(1,0,1)
+#         dtemp[nsum] = size + .3 * (1 - yfl)^3
+#         ntemp[nsum] = 0
+#       }
+#
+#       if(nl <= nup){
+#         n1 = nsum + 1
+#         for(l in nl:nup){
+#           dtemp[n1] = dbh[l]
+#           itemp[n1] = iage[l]
+#           ntemp[n1] = nogro[l]
+#           n1 = n1 + 1
+#         }
+#       }
+#
+#       #reinitialize original dbh and age arrays - including new trees
+#       iage = itemp
+#       dbh = dtemp
+#       nogro = ntemp
+#
+#     }
+#   }
+#   #increment ages by one year
+#   iage[1:ntot] = iage[1:ntot] + 1
+#
+#   #reinitialize array ksprt
+#   ksprt[1:nspec] = 0
+#
+#   return(list(iage=iage, dbh=dbh, nogro=nogro, ntrees=ntrees, newtr = newtr,ksprt=ksprt))
+# }
