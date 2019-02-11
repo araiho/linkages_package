@@ -190,6 +190,7 @@ grow.opt <- function(max.ind,nspec,ntrees,frt,slta,sltb,dbh,fwt, b2,b3, itol,g,
 
         #calculate height profile
         iht = ((b2[j]*dbh[nl:nu]-b3[j]*dbh[nl:nu]^2)/10)+1
+        iht[iht<1] <- 1
         if(any(which(iht>700))) print("trees too tall")
 
         #calculate and sum leaf biomass for trees of approx. the same height
