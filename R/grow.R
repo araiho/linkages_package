@@ -199,9 +199,10 @@ grow.opt <- function(max.ind,nspec,ntrees,frt,slta,sltb,dbh,fwt, b2,b3, itol,g,
     }
 
     #calculate cumulative leaf biomass down through the canopy
-    j1 = 700-1:699
-    sumla[j1] = sumla[j1] + sumla[j1 + 1]
-    #sumla <- rev(cumsum(rev(sumla)))
+    #consider revisiting
+    #j1 = 700-1:699
+    #sumla[j1] = sumla[j1] + sumla[j1 + 1]
+    sumla <- rev(cumsum(rev(sumla)))
 
     #main loop for calculating diameter increment
     nl = 1
@@ -256,7 +257,8 @@ grow.opt <- function(max.ind,nspec,ntrees,frt,slta,sltb,dbh,fwt, b2,b3, itol,g,
         #check if increment is less than minimum required for growth. if dinc less than 1 mm or 10% of ndcmax or if january temp is less than frost tolerance, flag tree in nogro
         #if(dinc < .1*dncmax | frost[i] > rt[1]) dinc = 0
 
-        nogro[nl:nu] = ifelse(dinc >= .1*dncmax, 0, nogro[nl:nu] - 1)
+        nogro[nl:nu] = ifelse(frost[i] > rt[1], 0, nogro[nl:nu] - 1)
+        nogro[nl:nu] = ifelse(dinc >= .25*dncmax, 0, nogro[nl:nu] - 1)
 
         #calculate woody biomass (kg) before incrementing diameter
         ab1 = .1193 * dbh[nl:nu] ^ 2.393

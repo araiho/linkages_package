@@ -49,12 +49,12 @@ birth <- function(nspec,ntrees,frt,iage,slta,sltb,dbh,fwt,switch.mat,
                   max.ind,smgf,degdgf){
 
   max.seeds <- round(max.ind/nspec)-1 #needs to be less than max.ind
-  if((max.ind - (max.seeds*nspec))<0) {
+  if((max.ind - (max.seeds*nspec)) < 0) {
    print('Imbalance between max.ind and max.seeds and nspec. See birth subroutine.')
    stop()
   }
 
-if(sum(ntrees) < max.ind - (max.seeds*nspec)){
+if(sum(ntrees) < max.ind){
 
   switch.mat1 = matrix(as.logical(switch.mat),nspec,5)
 
@@ -156,16 +156,15 @@ if(sum(ntrees) < max.ind - (max.seeds*nspec)){
       if(itol[nsp] < 2) slite = 1 - exp(-4.64*(al-.05))
       if(slite <= 0) slite = 0
       #reduce max number of seedlings to the extent that light, soil moisture, and degree days are less than optimum for growth of each species
-      #yfl = runif(1,0,1)
+      yfl = runif(1,0,1)
 
-      nplant = mplant[nsp] * slite * smgf[nsp] * degdgf[nsp] #* yfl
-      if(nplant>max.seeds) nplant=max.seeds #HACK
+      nplant = mplant[nsp] * slite * smgf[nsp] * degdgf[nsp] * yfl
       #see if any stumps of this spp are available for sprouting
       if(ksprt[nsp] > 0 & sprtnd[nsp] > 0){
         yfl = .5 #runif(1,0,1)
         #if available light is greater than 50% of full sunlight determine number of stump sprouts and add to nplant
         if(al >= .5) nplant = nplant + (sprtnd[nsp]*slite*smgf[nsp]*degdgf[nsp]*ksprt[nsp]) #*yfl
-        if(nplant>max.seeds) nplant=max.seeds #HACK
+        #if(nplant > max.seeds) nplant = max.seeds #HACK
       }
 
       nsum = sum(ntrees[1:nsp])
@@ -174,10 +173,14 @@ if(sum(ntrees) < max.ind - (max.seeds*nspec)){
       #plant seedlings and sprouts
         nl = nsum + 1
         nup = ntot
+        if(round(nplant + sum(ntrees)) >= max.ind) nplant = 0 #HACK
         if(nplant == 0) next
         for(j in 1:nplant){
           ntot = ntot + 1
-          if(ntot > max.ind) print(paste("too many trees -- birth -- species", i))
+          if(ntot >= max.ind){
+            print(paste("too many trees -- birth -- species", i))
+            browser()
+          }
           nsum = nsum + 1
           ntrees[nsp] = ntrees[nsp] + 1
           itemp[nsum] = 0
