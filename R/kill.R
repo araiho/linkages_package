@@ -59,8 +59,8 @@ kill <- function(nspec, ntrees,slta,sltb,dbh,agemx,ksprt,sprtmn,sprtmx,iage,
       ba = ba + .0314 * (dbh[k]*.5) ^ 2
 
       #kill trees based on probability that only 1% reach max age
-      yfl = 1 - (iage[k]/agemx[i]) #runif(1,0,1) # pexp(iage[k],1/(agemx[i]/2))# pexp(agemx[i],1/(agemx[i]/2)) 4.605/agemx[i] iage[k] > runif(1,(agemx[i]-100),agemx[i])
-      if(yfl <  4.605/agemx[i]) {
+      yfl <- pweibull(iage[k],2,agemx[i])#1 - (iage[k]/agemx[i]) #runif(1,0,1) # pexp(iage[k],1/(agemx[i]/2))# pexp(agemx[i],1/(agemx[i]/2)) 4.605/agemx[i] iage[k] > runif(1,(agemx[i]-100),agemx[i])
+      if(yfl > .99) { #
         ntrees[i] = ntrees[i] - 1
 
         #check to see if dead tree can stump sprout increment skprt if tree can sprout
