@@ -81,7 +81,7 @@ kill <- function(nspec, ntrees,slta,sltb,dbh,agemx,ksprt,sprtmn,sprtmx,iage,
 
             yfl <- runif(1,0,1)
 
-            if(yfl > .5){
+            if(yfl > .75){
             ntrees[i] = ntrees[i] - 1
 
             #check to see if dead tree can sump sprout increment skprt if tree can sprout
