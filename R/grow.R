@@ -200,9 +200,9 @@ grow.opt <- function(max.ind,nspec,ntrees,frt,slta,sltb,dbh,fwt, b2,b3, itol,g,
 
     #calculate cumulative leaf biomass down through the canopy
     #consider revisiting
-    #j1 = 700-1:699
-    #sumla[j1] = sumla[j1] + sumla[j1 + 1]
-    sumla <- rev(cumsum(rev(sumla)))
+    j1 = 700-1:699
+    sumla[j1] = sumla[j1] + sumla[j1 + 1]
+    #sumla <- rev(cumsum(rev(sumla)))
 
     #main loop for calculating diameter increment
     nl = 1
