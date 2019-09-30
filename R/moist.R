@@ -21,6 +21,9 @@ moist <- function(kyr,temp.vec,precip.vec,fc,dry,bgs,egs,plat,clat){
   # adjust latitude pointer
   days = c(31.,28.,31.,30.,31.,30.,31.,31.,30.,31.,30.,31.)
   lat = round((plat + .5) - 24)
+  # Adding to account for latitudes that are out of the range of the original linkages conceptualiztion
+  if(lat > 26) lat = 26
+  if(lat <= 0) lat = 1
 
   # initialize water content of soil in january to fc
   xfc = 10*fc
