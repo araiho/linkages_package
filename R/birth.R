@@ -206,7 +206,6 @@ if(sum(ntrees) < max.ind){
 
       #determine number of seeds for this species
       nplant = length(which(seed.sample == nsp))
-      print('newbirch')
       
       #check if there are seeds of this species to plant
       if (nplant < 1) next
