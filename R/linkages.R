@@ -13,7 +13,6 @@
 ##' @param temp.mat     monthly temperature matrix (nyear x 12)
 ##' @param precip.mat   monthly precipitation matrix (nyear x 12)
 ##' @param spp.params   species parameter matrix
-##' @param switch.mat   species switches matrix
 ##' @param fdat         underground parameter matrix
 ##' @param clat         climate correction factor matrix
 ##' @param basesc       initial humus weight
@@ -182,8 +181,8 @@ linkages <- function(linkages.input, outdir, restart = NULL, linkages.restart = 
 
       #birth subroutine
       birth.out <- birth(nspec = nspec, ntrees = ntrees, frt = spp.params$FRT, iage = iage,
-            slta = spp.params$SLTA, sltb = spp.params$SLTB, dbh = dbh,
-            fwt = spp.params$FWT, switch.mat = switch.mat,
+            slta = spp.params$SLTA, sltb = spp.params$SLTB, spp.num = spp.params$Spp_Number,dbh = dbh,
+            fwt = spp.params$FWT,
             degd = degd, dmin = spp.params$DMIN, dmax = spp.params$DMAX,
             frost = spp.params$FROST, rt = temp.mat[i,1:12], itol = spp.params$ITOL,
             mplant = spp.params$MPLANT, nogro = nogro,
@@ -259,9 +258,7 @@ linkages <- function(linkages.input, outdir, restart = NULL, linkages.restart = 
       DEFAULT.C <- 0.48  ## mass percent C of biomass
       PLOT.AREA <- 833 ## m^2
       toKG <- 100 ## g in Kg
-      yearSecs <- (3.15569 * 10^7)
-      Tconst <- .012
-
+      yearSecs <- (3.15569 * 10^7) ## seconds in a year
 
       #save variables
       awp.save[1:length(grow.out$awp),i,k] = unlist(grow.out$awp, use.names = FALSE)
