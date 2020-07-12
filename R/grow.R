@@ -194,15 +194,15 @@ grow.opt <- function(max.ind,nspec,ntrees,frt,slta,sltb,dbh,fwt, b2,b3, itol,g,
         if(any(which(iht>700))) print("trees too tall")
 
         #calculate and sum leaf biomass for trees of approx. the same height
-        sumla[iht] = sumla[iht] + ((((slta[j] + sltb[j] * dbh[nl:nu]) / 2) ^ 2) * 3.14 * fwt[j] * ret)
+        sumla[iht] = sumla[iht] + sum(((((slta[j] + sltb[j] * dbh[nl:nu]) / 2) ^ 2) * 3.14 * fwt[j] * ret))
       nl = nl + ntrees[j]
     }
 
     #calculate cumulative leaf biomass down through the canopy
     #consider revisiting
-    j1 = 700-1:699
-    sumla[j1] = sumla[j1] + sumla[j1 + 1]
-    #sumla <- rev(cumsum(rev(sumla)))
+    #j1 = 700-1:699
+    #sumla[j1] = sumla[j1] + sumla[j1 + 1]
+    sumla <- rev(cumsum(rev(sumla)))
 
     #main loop for calculating diameter increment
     nl = 1
