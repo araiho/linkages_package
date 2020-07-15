@@ -176,30 +176,54 @@ grow.opt <- function(max.ind,nspec,ntrees,frt,slta,sltb,dbh,fwt, b2,b3, itol,g,
 
     #initialize canopy leaf biomass profile
     sumla = matrix(0,1,700)
-
-
-    #loop for calculating canopy profile
-    nl = 1
-    for(j in 1:nspec){
-      if(ntrees[j]==0) next
-      nu = nl + ntrees[j] - 1
-      ret = frt[j]
-        age = iage[nl:nu]
-        ret <- matrix(frt[j],length(age))
-        ret[age < ret] = age[age < ret]
-
-        #calculate height profile
-        iht = ((b2[j]*dbh[nl:nu]-b3[j]*dbh[nl:nu]^2)/10)+1
-        iht[iht<1] <- 1
-        if(any(which(iht>700))) print("trees too tall")
-
-        #calculate and sum leaf biomass for trees of approx. the same height
-        sumla[iht] = sumla[iht] + sum(((((slta[j] + sltb[j] * dbh[nl:nu]) / 2) ^ 2) * 3.14 * fwt[j] * ret))
-      nl = nl + ntrees[j]
+    
+    #get species list 
+    spp.ind = c()
+    for (k in 1:nspec){
+      spp.ind = c(spp.ind, rep(k, ntrees[k]))
     }
 
+    #loop for calculating canopy profile tree-by-tree
+    for (j in 1:ntot){
+      
+      # gather information about this tree
+      sp = spp.ind[j]
+      ret = frt[sp]
+      age = iage[j]
+      if (age < ret) ret = age 
+      
+      # calculate height profile
+      iht = ((b2[sp]*dbh[j]-b3[sp]*dbh[j]^2)/10)+1
+      if (iht < 1) iht = 1
+      if (iht > 700) print("trees too tall")
+      
+      #calculate leaf biomass for tree and add it to the appropriate canopy level 
+      sumla[iht] = sumla[iht] + ((((slta[sp] + sltb[sp] * dbh[j]) / 2) ^ 2) * 3.14 * fwt[sp] * ret)
+    }
+    
+    # MK: removed this because it does not correctly increment foliage weight when there is more than one tree of 
+    # the same height and species (July 2020)
+    #nl = 1
+    #for(j in 1:nspec){
+    #  if(ntrees[j]==0) next
+    #  nu = nl + ntrees[j] - 1
+    #  ret = frt[j]
+    #    age = iage[nl:nu]
+    #    ret <- matrix(frt[j],length(age))
+    #    ret[age < ret] = age[age < ret]
+
+    #    #calculate height profile
+    #    iht = ((b2[j]*dbh[nl:nu]-b3[j]*dbh[nl:nu]^2)/10)+1
+    #    iht[iht<1] <- 1
+    #    if(any(which(iht>700))) print("trees too tall")
+
+    #    #calculate and sum leaf biomass for trees of approx. the same height
+    #    sumla[iht] = sumla[iht] + ((((slta[j] + sltb[j] * dbh[nl:nu]) / 2) ^ 2) * 3.14 * fwt[j] * ret)
+    #  nl = nl + ntrees[j]
+    #}
+
     #calculate cumulative leaf biomass down through the canopy
-    #consider revisiting
+    # MK: the following recursive method does not correctly calcuulate cumulative foliage weight (July 2020)
     #j1 = 700-1:699
     #sumla[j1] = sumla[j1] + sumla[j1 + 1]
     sumla <- rev(cumsum(rev(sumla)))
@@ -260,7 +284,8 @@ grow.opt <- function(max.ind,nspec,ntrees,frt,slta,sltb,dbh,fwt, b2,b3, itol,g,
         # If the trees are too chilly, make them not grow
         if(frost[i] > rt[1]) dinc = 0
         # Flag as NOGRO only because of slow growth
-        nogro[nl:nu] = ifelse(dinc >= .15*dncmax, 0, nogro[nl:nu] - 1)
+        # MK: changed the minimum value considered for NOGRO from 0.15 to 0.1, which was the original model value
+        nogro[nl:nu] = ifelse(dinc >= .1*dncmax, 0, nogro[nl:nu] - 1)
 
         #nogro[nl:nu] = ifelse(frost[i] > rt[1], 0, nogro[nl:nu] - 1)
         #nogro[nl:nu] = ifelse(dinc >= .15*dncmax, 0, nogro[nl:nu] - 1)
