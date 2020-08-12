@@ -257,7 +257,7 @@ linkages <- function(linkages.input, outdir, restart = NULL, linkages.restart = 
       #conversion factors
       DEFAULT.C <- 0.48  ## mass percent C of biomass
       PLOT.AREA <- 833 ## m^2
-      toKG <- 100 ## g in Kg
+      toKG <- 1000 ## g in Kg
       yearSecs <- (3.15569 * 10^7) ## seconds in a year
 
       #save variables
@@ -295,12 +295,12 @@ linkages <- function(linkages.input, outdir, restart = NULL, linkages.restart = 
   year <- seq(1,nyear,1)
   ag.biomass <- (tab  * (1 / PLOT.AREA) * DEFAULT.C) # Above Ground Biomass in kgC/m2 #total aboveground biomass
   abvgroundwood.biomass <- (abvgrnwood  * (1 / PLOT.AREA) * DEFAULT.C) # Above Ground Biomass in kgC/m2 #total aboveground biomass
-  total.soil.carbon <- (som + fl)  * DEFAULT.C # TotSoilCarb in kgC/m2
-  leaf.litter <- fl * DEFAULT.C # leaf litter in kgC/m2
-  ag.npp <- (tnap * (1 / PLOT.AREA) * (1 / yearSecs) * DEFAULT.C) # GWBI = NPP in linkages
-  hetero.resp <- (sco2c *(1 / PLOT.AREA) * (1 / yearSecs) * toKG) # HeteroResp in kgC/m^2/s
+  total.soil.carbon <- (som + fl) * 907.185 * (1/10000) * DEFAULT.C # TotSoilCarb in kgC/m2
+  leaf.litter <- fl * 907.185 * (1/10000) * DEFAULT.C # leaf litter in kgC/m2
+  ag.npp <- (tnap * (1 / 10000) * (1 / yearSecs) * DEFAULT.C * 907.185) # GWBI = NPP in linkages
+  hetero.resp <- (sco2c * (1/10000) * (1 / yearSecs) * 907.185) # HeteroResp in kgC/m^2/s
   nee <- ((ag.npp - hetero.resp))# NEE #possibly questionable
-  et <- aet.save * (1 / yearSecs) # Evap in kg/m^2/s
+  et <- aet.save * (1 / yearSecs) # Evap in mm/s
   agb.pft <- (bar  * (1 / PLOT.AREA) * DEFAULT.C) #biomass by PFT
   if(nspec>1){
     f.comp <- t(t(bar[,,1]  * (1 / PLOT.AREA) * DEFAULT.C) / colSums((as.matrix(bar[,,1]) * (1 / PLOT.AREA) * DEFAULT.C))) #f composition

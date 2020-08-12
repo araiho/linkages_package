@@ -80,7 +80,7 @@ output <- function(availn,tyln,nspec,frt,iage,slta,sltb,dbh,fwt,tyl,max.ind,ntre
 
   #convert total aboveground biomass and woody production to t/ha
   #tbar = tbar * .012
-  #tawp = tawp * .012
+  tawp = tawp * .012
 
   #calculate total aboveground production
   tynap = tawp + tyl[17]
