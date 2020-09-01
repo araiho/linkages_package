@@ -68,8 +68,8 @@ kill <- function(nspec, ntrees,slta,sltb,dbh,agemx,ksprt,sprtmn,sprtmx,iage,
 
         #calculate woody litter in t/ha
         bd = .60
-        if(dbh[k] <= .1) tyl[14] = tyl[14] + bd * (.00143 * dbh[k] ^ 2.393)
-        if(dbh[k] > .1) tyl[15] = tyl[15] + bd * (.00143 * dbh[k] ^ 2.393)
+        if(dbh[k] <= 10) tyl[14] = tyl[14] + bd * (.00143 * dbh[k] ^ 2.393)
+        if(dbh[k] > 10) tyl[15] = tyl[15] + bd * (.00143 * dbh[k] ^ 2.393)
 
         #flag dead trees
         dbh[k] = -1
